@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+@import "fonts";
+@import "normalize";
+
+:root {
+  // Цвета
+  --light-solid: #fff;
+  --light-transparent: rgba(255, 255, 255, 0.75);
+  --light-faf4f0: #faf4f0;
+  --dark-solid: #000;
+  --dark-transparent: #000;
+  --dark-active: #161616;
+  --dark-without-fill: rgba(216, 216, 216, 0);
+  --dark-message: #404040;
+  --gray-solid: #5f646d;
+  --gray-soft: #5f646d;
+  --outline-ae7aff: #d8d8d8;
+  --primary-primary: #ae7aff;
+  --primary-hover: #ae7aff;
+  --primary-soft: #ae7aff;
+  --green-primary: #98e9ab;
+  --green-soft: #98e9ab;
+  --yellow-primary: #fae8a4;
+  --yellow-soft: #fae8a4;
+  --red-primary: #e99898;
+  --red-soft: #e99898;
+  --color: #404040;
+  // Шрифты
+  --font-family: "JetBrains Mono", sans-serif;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--primary-hover);
+  color: var(--light-solid);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 133%;
+}
+
+// Размеры шрифта
+.subtitle {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+}
+.h6 {
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 133%;
+}
+// Тэги
+.skill-tag {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 4px 8px;
+  border: 1px solid var(--light-solid);
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 133%;
+}
+.skill-tag:last-child {
+  margin-right: 0;
+}
+// Кнопки
+.btn {
+  padding: 10px 20px;
+  border: 1px solid var(--dark-solid);
+  border-radius: 2px;
+  background: var(--primary-primary);
+  color: var(--dark-solid);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 171%;
+}
