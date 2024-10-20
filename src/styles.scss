@@ -27,11 +27,6 @@
   // Шрифты
   --font-family: "JetBrains Mono", sans-serif;
 }
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
 
 body {
   font-family: var(--font-family);
