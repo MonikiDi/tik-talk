@@ -1,5 +1,6 @@
 @import "fonts";
 @import "normalize";
+@import "margins";
 
 :root {
   // Цвета
@@ -28,9 +29,18 @@
   --font-family: "JetBrains Mono", sans-serif;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--font-family);
   background: var(--primary-hover);
+  background: url("../public/assets/imgs/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   color: var(--light-solid);
   font-weight: 500;
   font-size: 12px;
@@ -42,6 +52,11 @@ body {
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
+}
+.h1 {
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 117%;
 }
 .h6 {
   font-weight: 800;
@@ -65,6 +80,7 @@ body {
 }
 // Кнопки
 .btn {
+  width: 100%;
   padding: 10px 20px;
   border: 1px solid var(--dark-solid);
   border-radius: 2px;
@@ -74,4 +90,42 @@ body {
   font-weight: 700;
   font-size: 14px;
   line-height: 171%;
+}
+
+.btn-shadow {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+    border-radius: 2px;
+    bottom: -4px;
+    right: -4px;
+    background: var(--gray-solid);
+  }
+}
+// Форма
+.tt-control-label {
+  display: block;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 133%;
+  color: var(--light-solid);
+}
+
+.tt-input {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px 20px;
+  border: 1px solid var(--light-solid);
+  border-radius: 2px;
+  background: var(--dark-solid);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--light-transparent);
 }
