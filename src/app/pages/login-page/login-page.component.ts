@@ -18,14 +18,16 @@ export class LoginPageComponent {
   authService = inject(AuthService);
 
   form = new FormGroup({
-    username: new FormControl(null, Validators.required),
-    password: new FormControl(null, Validators.required),
+    username: new FormControl<string | null>(null, Validators.required),
+    password: new FormControl<string | null>(null, Validators.required),
   });
 
   onSubmit() {
     if (this.form.valid) {
       // @ts-ignore
-      this.authService.login(this.form.value);
+      this.authService.login(this.form.value).subscribe((res) => {
+        console.log(res);
+      });
     }
   }
 }
