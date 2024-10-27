@@ -1,0 +1,36 @@
+:host {
+  padding: 20px 12px;
+  background: var(--dark-solid);
+  height: 100vh;
+}
+.sidebar-menu__list {
+  display: grid;
+  grid-gap: 8px;
+}
+
+.sidebar-menu__btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 2px;
+  background: none;
+  cursor: pointer;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 171%;
+  color: var(--light-solid);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dark-active);
+    color: var(--primary-primary);
+  }
+}
+.sidebar-menu svg {
+  width: 16px;
+  height: 16px;
+}
