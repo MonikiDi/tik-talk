@@ -2,23 +2,22 @@
 
 <nav class="sidebar-menu">
   <ul class="sidebar-menu__list list-reset">
-    <li class="sidebar-menu__item">
-      <button class="sidebar-menu__btn">
-        <svg icon="home"></svg>
-        <span>Моя страница</span>
-      </button>
-    </li>
-    <li class="sidebar-menu__item">
-      <button class="sidebar-menu__btn">
-        <svg icon="chats"></svg>
-        <span>Чаты</span>
-      </button>
-    </li>
-    <li class="sidebar-menu__item">
-      <button class="sidebar-menu__btn">
-        <svg icon="search"></svg>
-        <span>Поиск</span>
-      </button>
+    <li *ngFor="let menuItem of menuItems" class="sidebar-menu__item">
+      <a class="sidebar-menu__btn" [routerLink]="[menuItem.link]">
+        <svg icon="{{ menuItem.icon }}"></svg>
+        <span>{{ menuItem.label }}</span>
+      </a>
     </li>
   </ul>
 </nav>
+
+<p class="medium-text mb20">Подписчики</p>
+
+<app-profile-card></app-profile-card>
+
+<div class="mb20 to-subscribers">
+  <a class="to-subscribers-link medium-text" [routerLink]="['/subscribers']"
+    >Все подписчики</a
+  >
+  <svg class="to-subscribers-icon" icon="arrow"></svg>
+</div>
