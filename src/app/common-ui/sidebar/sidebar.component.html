@@ -3,19 +3,21 @@
 <nav class="sidebar-menu">
   <ul class="sidebar-menu__list list-reset">
     <li *ngFor="let menuItem of menuItems" class="sidebar-menu__item">
-      <a class="sidebar-menu__btn" [routerLink]="[menuItem.link]">
+      <button class="sidebar-menu__btn" [routerLink]="[menuItem.link]">
         <svg icon="{{ menuItem.icon }}"></svg>
         <span>{{ menuItem.label }}</span>
-      </a>
+      </button>
     </li>
   </ul>
 </nav>
 
 <p class="medium-text mb20">Подписчики</p>
 
-<app-profile-card></app-profile-card>
+@for(profile of subscribers$ | async; track profile.id){
+<app-subscriber-card [profile]="profile"></app-subscriber-card>
+}
 
-<div class="mb20 to-subscribers">
+<div class="mt20 to-subscribers">
   <a class="to-subscribers-link medium-text" [routerLink]="['/subscribers']"
     >Все подписчики</a
   >
