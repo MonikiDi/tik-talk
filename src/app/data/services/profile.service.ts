@@ -15,7 +15,7 @@ export class ProfileService {
   me = signal<Profile | null>(null);
   avatarUrl: any;
 
-  getTestAccoounts() {
+  getTestAccounts() {
     return this.http.get<Profile[]>(`${this.baseApiUrl}account/test_accounts`);
   }
 
@@ -29,9 +29,9 @@ export class ProfileService {
     return this.http.get<Profile>(`${this.baseApiUrl}account/${id}`);
   }
 
-  getSubscribersShortList() {
+  getSubscribersShortList(subsAmount: number = 3) {
     return this.http
       .get<Pageble<Profile>>(`${this.baseApiUrl}account/subscribers/`)
-      .pipe(map((res) => res.items.slice(0, 3)));
+      .pipe(map((res) => res.items.slice(0, subsAmount)));
   }
 }
