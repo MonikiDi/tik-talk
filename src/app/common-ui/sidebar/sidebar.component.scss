@@ -71,7 +71,9 @@
     border-radius: 100%;
   }
 }
-
+.profile__link {
+  text-decoration: none;
+}
 .settings-btn {
   display: flex;
   align-items: center;
