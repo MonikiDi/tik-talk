@@ -1,4 +1,4 @@
-@if (profile(); as profile) { @if(profile.avatarUrl) {
+<link rel="stylesheet" href="../../pages/profile-page/profile-page.component.scss">@if (profile(); as profile) { @if(profile.avatarUrl) {
 <img [src]="profile.avatarUrl | imgUrl" alt="" />
 } @else {
 <img src="/assets/imgs/avatar-placeholder.png" alt="" />
