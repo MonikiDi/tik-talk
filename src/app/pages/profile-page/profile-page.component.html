@@ -25,11 +25,13 @@
         </a>
       </div>
         <h3 class="h6 mb16">Навыки</h3>
-      <div class="skills">
+      <div class="skills mb32">
         @for (skill of profile.stack; track skill) {
           <div class="tag">{{ skill }}</div>
         }
       </div>
+      <h3 class="h6 mb16">О себе</h3>
+      <p class="about">{{profile.description}}</p>
     </div>
   </main>
 
