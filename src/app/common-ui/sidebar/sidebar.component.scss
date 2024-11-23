@@ -1,7 +1,8 @@
 :host {
   padding: 20px 12px;
   background: var(--dark-solid);
-  height: 100vh;
+  height: 100dvh;
+  position: relative;
 }
 .sidebar-menu__list {
   display: grid;
@@ -50,4 +51,42 @@
 .to-subscribers-icon {
   width: 6px;
   height: 10px;
+}
+
+.sidebar__footer {
+  position: absolute;
+  bottom: 20px;
+  width: 90%;
+  display: grid;
+  align-items: center;
+  grid-gap: 12px;
+  grid-template-columns: 32px 1fr 16px;
+  border-radius: 2px;
+  padding: 4px 16px;
+  background: var(--dark-active);
+
+  img {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+  }
+}
+
+.settings-btn {
+  display: flex;
+  align-items: center;
+  background: none;
+  text-decoration: none;
+  color: var(--light-solid);
+
+  cursor: pointer;
+  &:hover,
+  &:focus-visible {
+    background: var(--dark-active);
+    color: var(--primary-primary);
+  }
+  svg {
+    width: 14px;
+    height: 14px;
+  }
 }
