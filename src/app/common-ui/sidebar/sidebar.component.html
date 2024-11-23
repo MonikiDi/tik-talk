@@ -30,7 +30,9 @@
   } @else {
   <img src="/assets/imgs/avatar-placeholder.png" alt="" />
   }
-  <span class="medium-text__bold">{{ me.username }}</span>
+  <a class="profile__link medium-text__bold" [routerLink]="['profile/me']">
+    {{ me.username }}
+  </a>
   <a [routerLink]="['settings']" class="settings-btn">
     <svg icon="settings"></svg>
   </a>
