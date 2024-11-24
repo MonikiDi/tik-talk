@@ -31,5 +31,4 @@ export class ProfilePageComponent {
       return this.profileService.getAccount(id);
     })
   );
-
 }
