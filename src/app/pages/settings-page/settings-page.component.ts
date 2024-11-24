@@ -1,4 +1,4 @@
-import {Component, effect, inject} from '@angular/core';
+import {Component, effect, inject, ViewChild} from '@angular/core';
 import {ProfileHeaderComponent} from '../../common-ui/profile-header/profile-header.component';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {RouterLink} from '@angular/router';
@@ -8,6 +8,7 @@ import {AsyncPipe} from '@angular/common';
 import {ImgUrlPipe} from '../../helpers/pipes/img-url.pipe';
 import {PostFeedComponent} from '../profile-page/post-feed/post-feed.component';
 import {SvgIconComponent} from '../../common-ui/svg-icon/svg-icon.component';
+import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
 
 @Component({
   selector: 'app-settings-page',
@@ -16,7 +17,8 @@ import {SvgIconComponent} from '../../common-ui/svg-icon/svg-icon.component';
     ProfileHeaderComponent,
     ReactiveFormsModule,
     RouterLink,
-    AsyncPipe
+    AsyncPipe,
+    AvatarUploadComponent
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss'
@@ -24,8 +26,9 @@ import {SvgIconComponent} from '../../common-ui/svg-icon/svg-icon.component';
 export class SettingsPageComponent {
   fb = inject(FormBuilder);
   profileService = inject(ProfileService);
-
   profile$ = this.profileService.getMe()
+
+  @ViewChild(AvatarUploadComponent) avatarUploader!: AvatarUploadComponent;
 
   form = this.fb.group({
     firstName: ['', Validators.required],
@@ -47,11 +50,18 @@ export class SettingsPageComponent {
     });
   }
 
+  ngAfterViewInit() {
+  }
+
   onSave() {
     this.form.markAllAsTouched()
     this.form.updateValueAndValidity()
 
     if (this.form.invalid) return;
+
+    if (this.avatarUploader.avatar) {
+      firstValueFrom(this.profileService.uploadAvatar(this.avatarUploader.avatar))
+    }
 
     // @ts-ignore
     firstValueFrom(this.profileService.patchProfile({

@@ -1,17 +1,17 @@
 @if (profile$ | async; as profile) {
   <div class="profile-me">
     <app-profile-header [profile]="profile"></app-profile-header>
-      <div class="profile-me__line"></div>
-      <div class="profile-me__body">
-        <h3 class="h6 mb16">Навыки</h3>
-        <div class="skills mb32">
-          @for (skill of profile.stack; track skill) {
-            <div class="tag">{{ skill }}</div>
-          }
-        </div>
-        <h3 class="h6 mb16">О себе</h3>
-        <p class="about">{{ profile.description }}</p>
+    <div class="profile-me__line"></div>
+    <div class="profile-me__body">
+      <h3 class="h6 mb16">Навыки</h3>
+      <div class="skills mb32">
+        @for (skill of profile.stack; track skill) {
+          <div class="tag">{{ skill }}</div>
+        }
       </div>
+      <h3 class="h6 mb16">О себе</h3>
+      <p class="about">{{ profile.description }}</p>
+    </div>
   </div>
 
   <form class="profile-form__wrapper" [formGroup]="form">
@@ -33,6 +33,10 @@
       <label class="tt-form-label">
         <span class="tt-form-label__text">О себе</span>
         <textarea class="tt-form-input tt-textarea" formControlName="description"></textarea>
+      </label>
+      <label class="tt-form-label">
+        <span class="tt-form-label__text mb8">Аватарка</span>
+        <app-avatar-upload></app-avatar-upload>
       </label>
       <label class="tt-form-label">
         <span class="tt-form-label__text">Навыки  (стэк)</span>
