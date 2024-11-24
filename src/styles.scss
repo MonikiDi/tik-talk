@@ -28,11 +28,13 @@
   // Шрифты
   --font-family: "JetBrains Mono", sans-serif;
 }
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
 body {
   font-family: var(--font-family);
   background: var(--primary-hover);
@@ -44,6 +46,7 @@ body {
   font-size: 12px;
   line-height: 133%;
 }
+
 // Сброс стилий
 .list-reset {
   list-style: none;
@@ -57,38 +60,44 @@ body {
   font-size: 14px;
   line-height: 150%;
 }
+
 .medium-text {
   font-weight: 500;
   font-size: 12px;
   line-height: 133%;
   color: var(--light-transparent);
 }
+
 .medium-text__bold {
   font-weight: 700;
   font-size: 14px;
   line-height: 171%;
-  color: var(--primary-primary);
 }
+
 .regular {
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
 }
+
 .h1 {
   font-weight: 800;
   font-size: 48px;
   line-height: 117%;
 }
+
 .h4 {
   font-weight: 800;
   font-size: 24px;
   line-height: 133%;
 }
+
 .h6 {
   font-weight: 800;
   font-size: 18px;
   line-height: 133%;
 }
+
 // Тэги
 .skill-tag {
   display: inline-block;
@@ -101,9 +110,11 @@ body {
   font-size: 12px;
   line-height: 133%;
 }
+
 .skill-tag:last-child {
   margin-right: 0;
 }
+
 // Кнопки
 .btn {
   width: 100%;
@@ -116,6 +127,20 @@ body {
   font-weight: 700;
   font-size: 14px;
   line-height: 171%;
+
+
+  transition: outline 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    outline: 1px solid var(--primary-hover);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
 .btn-shadow {
@@ -133,6 +158,7 @@ body {
     background: var(--gray-solid);
   }
 }
+
 // Форма
 .tt-control-label {
   display: block;
@@ -155,4 +181,31 @@ body {
   font-size: 14px;
   line-height: 150%;
   color: var(--light-transparent);
+}
+
+.tt-form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+}
+.tt-form-label__text {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 133%;
+  color: var(--light-transparent);
+}
+.tt-form-input {
+  border: none;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--light-solid);
+  background: var(--dark-solid);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--light-transparent);
+}
+.tt-textarea {
+  height: 108px;
+  resize: none;
 }

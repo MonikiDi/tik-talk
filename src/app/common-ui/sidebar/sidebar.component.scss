@@ -73,6 +73,13 @@
 }
 .profile__link {
   text-decoration: none;
+  color: var(--light-solid);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dark-active);
+    color: var(--primary-primary);
+  }
 }
 .settings-btn {
   display: flex;
