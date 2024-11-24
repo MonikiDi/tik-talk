@@ -1,8 +1,7 @@
 @if (profile$ | async; as profile) {
   <header class="profile-page__header mb24">
     <app-profile-header [profile]="profile"></app-profile-header>
-
-    <a class="btn to-setting-btn" [routerLink]="['settings']">
+    <a class="btn to-setting-btn" [routerLink]="['/settings']">
       Редактировать
       <svg class="to-setting-icon" icon="settings"></svg>
     </a>
@@ -26,14 +25,14 @@
         <a class="to-subscriber-search" [routerLink]="['/search']">
         </a>
       </div>
-        <h3 class="h6 mb16">Навыки</h3>
+      <h3 class="h6 mb16">Навыки</h3>
       <div class="skills mb32">
         @for (skill of profile.stack; track skill) {
           <div class="tag">{{ skill }}</div>
         }
       </div>
       <h3 class="h6 mb16">О себе</h3>
-      <p class="about">{{profile.description}}</p>
+      <p class="about">{{ profile.description }}</p>
     </div>
   </main>
 

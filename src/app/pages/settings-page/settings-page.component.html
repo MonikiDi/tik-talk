@@ -1,0 +1,53 @@
+@if (profile$ | async; as profile) {
+  <div class="profile-me">
+    <app-profile-header [profile]="profile"></app-profile-header>
+      <div class="profile-me__line"></div>
+      <div class="profile-me__body">
+        <h3 class="h6 mb16">Навыки</h3>
+        <div class="skills mb32">
+          @for (skill of profile.stack; track skill) {
+            <div class="tag">{{ skill }}</div>
+          }
+        </div>
+        <h3 class="h6 mb16">О себе</h3>
+        <p class="about">{{ profile.description }}</p>
+      </div>
+  </div>
+
+  <form class="profile-form__wrapper" [formGroup]="form">
+    <div class="profile-form">
+      <div class="two-columns">
+        <label class="tt-form-label">
+          <span class="tt-form-label__text">Имя</span>
+          <input type="text" class="tt-form-input" formControlName="firstName">
+        </label>
+        <label class="tt-form-label">
+          <span class="tt-form-label__text">Фамилия</span>
+          <input type="text" class="tt-form-input" formControlName="lastName">
+        </label>
+      </div>
+      <label class="tt-form-label">
+        <span class="tt-form-label__text">Telegram username</span>
+        <input type="text" class="tt-form-input" formControlName="username">
+      </label>
+      <label class="tt-form-label">
+        <span class="tt-form-label__text">О себе</span>
+        <textarea class="tt-form-input tt-textarea" formControlName="description"></textarea>
+      </label>
+      <label class="tt-form-label">
+        <span class="tt-form-label__text">Навыки  (стэк)</span>
+        <input type="text" class="tt-form-input" formControlName="stack">
+      </label>
+    </div>
+    <div class="profile-form__wrapper-btn">
+      <div class="profile-form__wrapper-btn">
+        <button class="btn">Удалить</button>
+        <button class="btn">Выйти</button>
+      </div>
+      <div class="profile-form__wrapper-btn">
+        <button class="btn profile-form__cancellation" [routerLink]="['/profile/me']">Отмена</button>
+        <button class="btn" (click)="onSave()">Сохранить</button>
+      </div>
+    </div>
+  </form>
+}
