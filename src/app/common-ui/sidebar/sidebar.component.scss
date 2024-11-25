@@ -25,6 +25,7 @@
   line-height: 171%;
   color: var(--light-solid);
 
+  &.active,
   &:hover,
   &:focus-visible {
     background: var(--dark-active);
