@@ -4,6 +4,28 @@ import {Profile} from '../interfaces/profile.interface';
 import {Pageble} from '../interfaces/pageble.interface';
 import {map, tap} from 'rxjs';
 
+export interface Pagination {
+  total: number;
+  currentPage: number;
+  perPage: number;
+  totalPages: number;
+}
+
+const DEFAULT_PAGINATION: Pagination = {
+  total: 0,
+  currentPage: 0,
+  perPage: 0,
+  totalPages: 0
+}
+
+interface QueryParamsProfile {
+  stack: string;
+  firstName: string;
+  lastName: string;
+  city: string;
+  orderBy: 'desc' | 'asc'
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +35,8 @@ export class ProfileService {
   baseApiUrl = 'https://icherniakov.ru/yt-course/';
 
   me = signal<Profile | null>(null);
-  filteredProfiles = signal<Profile[]>([]);
+  profiles = signal<Profile[]>([]);
+  pagination = signal<Pagination>(DEFAULT_PAGINATION);
 
   getTestAccounts() {
     return this.http.get<Profile[]>(`${this.baseApiUrl}account/test_accounts`);
@@ -45,13 +68,28 @@ export class ProfileService {
     return this.http.post<Profile>(`${this.baseApiUrl}account/upload_image`, fd);
   }
 
-  filterProfiles(params: Record<string, any>) {
+  query(params?: Partial<QueryParamsProfile>, pagination?: {
+    perPage: number;
+    page: number;
+  }) {
     return this.http.get<Pageble<Profile>>(`${this.baseApiUrl}account/accounts`,
       {
-        params
+        params: {
+          ...params,
+          page: pagination?.page || 1,
+          size: pagination?.perPage || 50,
+        }
       }
     ).pipe(
-      tap((res) => this.filteredProfiles.set(res.items)),
+      tap((res) => {
+        this.pagination.set({
+          total: res.total,
+          currentPage: res.page,
+          perPage: res.size,
+          totalPages: res.pages,
+        })
+        this.profiles.set(res.items)
+      }),
     )
   }
 }

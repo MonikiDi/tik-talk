@@ -1,6 +1,13 @@
 <app-profile-filters></app-profile-filters>
 <div class="profile-card__wrapper">
-  @for (profile of profiles().slice(0,10); track profile.id) {
-  <app-profile-card [profile]="profile"></app-profile-card>
-  }
+    <app-pagination-page
+      [current]="current()"
+      [total]="totalPages()"
+      (goTo)="onGoTo($event)"
+      (next)="onNext($event)"
+      (previous)="onPrevious($event)"
+    ></app-pagination-page>
+    @for (profile of items(); track profile.id) {
+      <app-profile-card [profile]="profile"></app-profile-card>
+    }
 </div>
