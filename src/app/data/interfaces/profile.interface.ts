@@ -10,3 +10,10 @@ export interface Profile {
   city: string;
   description: string;
 }
+export interface QueryParamsProfile {
+  stack: string;
+  firstName: string;
+  lastName: string;
+  city: string;
+  orderBy: 'desc' | 'asc'
+}

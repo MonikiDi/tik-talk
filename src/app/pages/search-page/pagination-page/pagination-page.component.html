@@ -1,0 +1,36 @@
+<nav class="pagination">
+  <ul class="pagination__list list-reset">
+    <li class="pagination__item">
+      <button
+        class="pagination__btn"
+        [disabled]="current === 1 || disabled"
+        (click)="onPrevious()"
+      >
+        <svg class="pagination__arrow" icon="arrow-pagination"></svg>
+      </button>
+    </li>
+    <li class="pagination__item" *ngFor="let page of pages; index as i">
+      <button
+        class="pagination__btn"
+        [disabled]="disabled"
+        *ngIf="page !== -1; else more"
+        [class.current]="page === current" tabindex="0"
+        (click)="onGoTo(page)"
+        (keyup.enter)="onGoTo(page)"
+      >{{ page }}</button
+      >
+      <ng-template #more>
+        <a class="more"> ... </a>
+      </ng-template>
+    </li>
+    <li class="pagination__item">
+      <button
+        class="pagination__btn"
+        [disabled]="current === total || disabled"
+        (click)="onNext()"
+      >
+        <svg class="pagination__arrow pagination__arrow--right" icon="arrow-pagination"></svg>
+      </button>
+    </li>
+  </ul>
+</nav>
