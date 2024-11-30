@@ -10,7 +10,9 @@
   ></app-pagination-page>
 } @else {
   <p class="not-found">
-    Пользователь не найден
+    @if (!isPending()) {
+      Не найдено
+    }
   </p>
 }
 
@@ -24,7 +26,9 @@
   <div class="profile-card__wrapper">
     @for (profile of items(); track profile.id) {
       <app-profile-card
-        [profile]="profile">
+        [profile]="profile"
+        [disabled]="isPending()"
+      >
       </app-profile-card>
     }
   </div>

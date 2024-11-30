@@ -43,15 +43,13 @@
       background: var(--primary-primary);
     }
 
-    &[disabled] {
-      cursor: default;
-      background: #878c93;
-    }
+    &[disabled],
     &[disabled]:hover {
       cursor: default;
       background: #878c93;
       border: 1px solid var(--light-solid);
     }
+
     //&.current,
     //&[disabled]:enabled {
     //  background: var(--primary-primary);
