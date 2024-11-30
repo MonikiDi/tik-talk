@@ -6,12 +6,12 @@ import {PaginationPageComponent} from './pagination-page/pagination-page.compone
 import {ProfileCardComponent} from '../../common-ui/profile-card/profile-card.component';
 import {combineLatest, debounceTime, finalize, startWith, switchMap, tap} from 'rxjs';
 import {takeUntilDestroyed, toObservable} from '@angular/core/rxjs-interop';
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-search-page',
   standalone: true,
-  imports: [ProfileFiltersComponent, NgxPaginationModule, PaginationPageComponent, ProfileCardComponent, AsyncPipe],
+  imports: [ProfileFiltersComponent, NgxPaginationModule, PaginationPageComponent, ProfileCardComponent, AsyncPipe, NgIf, NgClass],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.scss',
 })
@@ -47,23 +47,29 @@ export class SearchPageComponent implements OnInit {
       this.formFilter().searchForm.valueChanges
         .pipe(
           startWith(this.formFilter().searchForm.value),
-          debounceTime(500)
+          debounceTime(600),
+          tap(() => {
+            this.isPending.set(true)
+          })
         ),
       this.currentPage$
-        .pipe(tap(() => {
-          this.isPending.set(true)
-        }))
+        .pipe(
+          tap(() => {
+            this.isPending.set(true)
+
+          }))
     ])
       .pipe(
         switchMap(([params, currentPage]) => {
           return this.profileService.query(params, {
             page: currentPage,
             perPage: this.perPage,
-          }).pipe(
-            finalize(() => {
-              this.isPending.set(false)
-            }),
-          )
+          })
+            .pipe(
+              finalize(() => {
+                this.isPending.set(false)
+              }),
+            )
         }),
         takeUntilDestroyed(this.destroyRef)
       ).subscribe()
@@ -82,4 +88,5 @@ export class SearchPageComponent implements OnInit {
   public onPrevious(page: number): void {
     this.currentPage.set(page - 1)
   }
+
 }

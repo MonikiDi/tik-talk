@@ -1,70 +1,71 @@
 import {
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    Output,
-    SimpleChanges,
+  Component,
+  EventEmitter, inject,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
 } from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+import {NgFor, NgForOf, NgIf} from "@angular/common";
 import {SvgIconComponent} from '../../../common-ui/svg-icon/svg-icon.component';
+import {ProfileService} from '../../../data/services/profile.service';
 
 @Component({
-    selector: 'app-pagination-page',
-    standalone: true,
+  selector: 'app-pagination-page',
+  standalone: true,
   imports: [
     NgForOf,
     NgIf,
     SvgIconComponent
   ],
-    templateUrl: './pagination-page.component.html',
-    styleUrl: './pagination-page.component.scss'
+  templateUrl: './pagination-page.component.html',
+  styleUrl: './pagination-page.component.scss'
 })
 export class PaginationPageComponent implements OnChanges {
-    @Input() current: number = 0;
-    @Input() total: number = 0;
-    @Input() disabled: boolean = true;
+  @Input() current: number = 0;
+  @Input() total: number = 0;
+  @Input() disabled: boolean = true;
 
-    @Output() goTo: EventEmitter<number> = new EventEmitter<number>();
-    @Output() next: EventEmitter<number> = new EventEmitter<number>();
-    @Output() previous: EventEmitter<number> = new EventEmitter<number>();
+  @Output() goTo: EventEmitter<number> = new EventEmitter<number>();
+  @Output() next: EventEmitter<number> = new EventEmitter<number>();
+  @Output() previous: EventEmitter<number> = new EventEmitter<number>();
 
-    public pages: number[] = [];
+  public pages: number[] = [];
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (
-            (changes.current && changes.current.currentValue) ||
-            (changes.total && changes.total.currentValue)
-        ) {
-            this.pages = this.getPages(this.current, this.total);
-        }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      (changes.current && changes.current.currentValue) ||
+      (changes.total && changes.total.currentValue)
+    ) {
+      this.pages = this.getPages(this.current, this.total);
+    }
+  }
+
+  public onGoTo(page: number): void {
+    this.goTo.emit(page);
+  }
+
+  public onNext(): void {
+    this.next.emit(this.current);
+  }
+
+  public onPrevious(): void {
+    this.previous.next(this.current);
+  }
+
+  private getPages(current: number, total: number): number[] {
+    if (total <= 7) {
+      return [...Array(total).keys()].map((x) => ++x);
     }
 
-    public onGoTo(page: number): void {
-        this.goTo.emit(page);
+    if (current >= 5) {
+      if (current >= total - 3) {
+        return [1, -1, total - 4, total - 3, total - 2, total - 1, total];
+      } else {
+        return [1, -1, current - 1, current, current + 1, -1, total];
+      }
     }
 
-    public onNext(): void {
-        this.next.emit(this.current);
-    }
-
-    public onPrevious(): void {
-        this.previous.next(this.current);
-    }
-
-    private getPages(current: number, total: number): number[] {
-        if (total <= 7) {
-            return [...Array(total).keys()].map((x) => ++x);
-        }
-
-        if (current >= 5) {
-            if (current >= total - 3) {
-                return [1, -1, total - 4, total - 3, total - 2, total - 1, total];
-            } else {
-                return [1, -1, current - 1, current, current + 1, -1, total];
-            }
-        }
-
-        return [1, 2, 3, 4, 5, -1, total];
-    }
+    return [1, 2, 3, 4, 5, -1, total];
+  }
 }
