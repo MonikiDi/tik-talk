@@ -7,14 +7,16 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
+import {SvgIconComponent} from '../../../common-ui/svg-icon/svg-icon.component';
 
 @Component({
     selector: 'app-pagination-page',
     standalone: true,
-    imports: [
-        NgForOf,
-        NgIf
-    ],
+  imports: [
+    NgForOf,
+    NgIf,
+    SvgIconComponent
+  ],
     templateUrl: './pagination-page.component.html',
     styleUrl: './pagination-page.component.scss'
 })
