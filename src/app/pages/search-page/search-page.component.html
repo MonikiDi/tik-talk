@@ -1,8 +1,9 @@
 <app-profile-filters></app-profile-filters>
 <div class="profile-card__wrapper">
     <app-pagination-page
-      [current]="current()"
+      [current]="currentPage()"
       [total]="totalPages()"
+      [disabled]="isPending()"
       (goTo)="onGoTo($event)"
       (next)="onNext($event)"
       (previous)="onPrevious($event)"

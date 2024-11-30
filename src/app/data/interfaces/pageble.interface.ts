@@ -8,3 +8,10 @@ export interface PaginationResponce {
   size: number;
   pages: number;
 }
+
+export interface Pagination {
+  total: number;
+  currentPage: number;
+  perPage: number;
+  totalPages: number;
+}

@@ -17,18 +17,24 @@
     margin: 0 4px;
   }
 
-  &__link {
+  &__btn {
     width: 32px;
     height: 32px;
-    display: grid;
-    justify-items: center;
+    padding: 8px;
+    display: flex;
     align-items: center;
-    cursor: pointer;
+    justify-content: center;
+
 
     font-weight: 700;
     font-size: 12px;
     text-align: center;
     color: var(--light-solid);
+
+    cursor: pointer;
+    background: var(--dark-solid);
+    border: 1px solid var(--light-solid);
+    border-radius: 2px;
 
     &.current,
     &:not(.more):hover {
@@ -37,29 +43,19 @@
       background: var(--primary-primary);
     }
 
-    &__link.more:hover,
-    &__link.current {
-      cursor: default;
-      text-decoration: none;
-    }
-  }
-
-  &__btn {
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-    background: var(--dark-solid);
-    border: 1px solid var(--light-solid);
-    border-radius: 2px;
-
     &[disabled] {
       cursor: default;
-      background: #212529;
+      background: #878c93;
     }
-
+    &[disabled]:hover {
+      cursor: default;
+      background: #878c93;
+      border: 1px solid var(--light-solid);
+    }
+    //&.current,
+    //&[disabled]:enabled {
+    //  background: var(--primary-primary);
+    //}
     &:not([disabled]):hover {
       border: 1px solid var(--dark-solid);
       border-radius: 2px;

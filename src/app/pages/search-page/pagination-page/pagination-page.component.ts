@@ -23,6 +23,7 @@ import {SvgIconComponent} from '../../../common-ui/svg-icon/svg-icon.component';
 export class PaginationPageComponent implements OnChanges {
     @Input() current: number = 0;
     @Input() total: number = 0;
+    @Input() disabled: boolean = true;
 
     @Output() goTo: EventEmitter<number> = new EventEmitter<number>();
     @Output() next: EventEmitter<number> = new EventEmitter<number>();
@@ -56,8 +57,8 @@ export class PaginationPageComponent implements OnChanges {
             return [...Array(total).keys()].map((x) => ++x);
         }
 
-        if (current > 5) {
-            if (current >= total - 4) {
+        if (current >= 5) {
+            if (current >= total - 3) {
                 return [1, -1, total - 4, total - 3, total - 2, total - 1, total];
             } else {
                 return [1, -1, current - 1, current, current + 1, -1, total];

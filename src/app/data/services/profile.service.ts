@@ -1,29 +1,15 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable, inject, signal} from '@angular/core';
-import {Profile} from '../interfaces/profile.interface';
-import {Pageble} from '../interfaces/pageble.interface';
+import {Profile, QueryParamsProfile} from '../interfaces/profile.interface';
+import {Pageble, Pagination} from '../interfaces/pageble.interface';
 import {map, tap} from 'rxjs';
 
-export interface Pagination {
-  total: number;
-  currentPage: number;
-  perPage: number;
-  totalPages: number;
-}
 
 const DEFAULT_PAGINATION: Pagination = {
   total: 0,
   currentPage: 0,
   perPage: 0,
-  totalPages: 0
-}
-
-interface QueryParamsProfile {
-  stack: string;
-  firstName: string;
-  lastName: string;
-  city: string;
-  orderBy: 'desc' | 'asc'
+  totalPages: 0,
 }
 
 @Injectable({
@@ -69,8 +55,8 @@ export class ProfileService {
   }
 
   query(params?: Partial<QueryParamsProfile>, pagination?: {
-    perPage: number;
     page: number;
+    perPage: number;
   }) {
     return this.http.get<Pageble<Profile>>(`${this.baseApiUrl}account/accounts`,
       {
