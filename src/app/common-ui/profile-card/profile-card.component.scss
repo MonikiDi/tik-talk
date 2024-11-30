@@ -33,4 +33,14 @@
   justify-content: end;
   align-content: start;
   flex-wrap: wrap;
+
+
+}
+
+.btn {
+  &[disabled] {
+    outline: none;
+    cursor: default;
+    background: #878c93;
+  }
 }

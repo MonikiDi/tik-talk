@@ -5,11 +5,13 @@
   padding-bottom: 16px;
   border-bottom: 1px solid var(--light-solid);
 }
+
 .avatar {
   height: 140px;
   width: 140px;
   border-radius: 100%;
 }
+
 .dropzone {
   display: grid;
   place-items: center;
@@ -19,11 +21,18 @@
   cursor: pointer;
   transition: outline 0.3s ease-in-out;
 
+  &:hover,
+  &:focus-visible{
+    border: none;
+    outline: 1px dashed var(--primary-hover);
+  }
+
   &.fileover {
     outline: 1px solid var(--primary-hover);
     outline-offset: 2px;
   }
 }
+
 .dropzone-context {
   display: flex;
   flex-direction: column;
@@ -35,6 +44,7 @@
     height: 18px;
   }
 }
+
 .avatar-input {
   display: none;
 }

@@ -173,7 +173,6 @@ body {
   width: 100%;
   margin-top: 8px;
   padding: 12px 20px;
-  padding-right: 50px;
   border: 1px solid var(--light-solid);
   border-radius: 2px;
   background: var(--dark-solid);
@@ -184,6 +183,7 @@ body {
 }
 
 .tt-form-label {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -197,13 +197,29 @@ body {
 }
 .tt-form-input {
   border: none;
-  padding: 12px 0;
+  padding: 12px 10px;
+  padding-right: 30px;
   border-bottom: 1px solid var(--light-solid);
   background: var(--dark-solid);
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
   color: var(--light-transparent);
+
+  transition: outline 0.3s ease-in-out;
+
+  &:focus-visible {
+    border-radius: 2px;
+    border: none;
+    outline: 1px solid var(--primary-hover);
+  }
+}
+.tt-form-input__search-icon {
+  position: absolute;
+  bottom: 12px;
+  right: 0;
+  width: 18px;
+  height: 18px;
 }
 .tt-textarea {
   height: 108px;
