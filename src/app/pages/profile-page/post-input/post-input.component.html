@@ -1,0 +1,19 @@
+<app-avatar-circle
+  *ngIf="profile() as profile"
+  [avatarUrl]="profile.avatarUrl"
+  class="size32"
+>
+</app-avatar-circle>
+
+
+<textarea
+  (input)="onTextAreaInput($event)"
+  class="hidden-textarea"
+  placeholder="Напишите что-нибудь"
+  rows="1"
+>
+</textarea>
+
+<button class="btn btn-icon">
+  <svg class="svg16" icon="send-message"></svg>
+</button>
