@@ -1,18 +1,14 @@
 @if (profile$ | async; as profile) {
   <div class="profile-me">
-    <app-profile-header [profile]="profile"></app-profile-header>
+    <app-profile-header [profile]="profile">
+    </app-profile-header>
     <div class="profile-me__line"></div>
     <div class="profile-me__body">
-      <h3 class="h6 mb16">Навыки</h3>
-      <div class="skills mb32">
-        @for (skill of profile.stack; track skill) {
-          <div class="tag">{{ skill }}</div>
-        }
-      </div>
-      <h3 class="h6 mb16">О себе</h3>
-      <p class="about">{{ profile.description }}</p>
+      <app-tasks [profile]="profile"></app-tasks>
+      <app-about-me [profile]="profile"></app-about-me>
     </div>
   </div>
+
 
   <form class="profile-form__wrapper" [formGroup]="form">
     <div class="profile-form">
@@ -54,7 +50,7 @@
       </div>
       <div class="profile-form__wrapper-btn">
         <button class="btn profile-form__cancellation" [routerLink]="['/profile/me']">Отмена</button>
-        <button class="btn" (click)="onSave()">Сохранить</button>
+        <button class="btn__save" [routerLink]="['']" [disabled]="isPending()"  (click)="onSave() ">Сохранить</button>
       </div>
     </div>
   </form>
