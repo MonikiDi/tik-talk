@@ -3,8 +3,35 @@
   grid-template-columns: 32px 1fr 44px;
   grid-gap: 12px;
   padding: 16px;
+  align-items: center;
 
   border: 1px solid var(--light-solid);
   border-radius: 2px;
   background: var(--dark-solid);
+}
+
+.hidden-textarea {
+  margin: 0;
+  padding: 12px;
+  resize: none;
+  background: var(--dark-solid);
+  border: none;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--light-transparent);
+
+  transition: outline 0.3s ease-in-out;
+
+  &:focus-visible {
+    border-radius: 2px;
+    border: none;
+    outline: 1px solid var(--primary-hover);
+  }
+
+  &::placeholder {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--light-transparent);
+  }
+
 }
