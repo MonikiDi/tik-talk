@@ -45,13 +45,21 @@ export class ProfileService {
   }
 
   patchProfile(profile: Partial<Profile>) {
-    return this.http.patch<Profile>(`${this.baseApiUrl}account/me`, profile);
+    return this.http.patch<Profile>(`${this.baseApiUrl}account/me`, profile).pipe(
+      tap((response)=> {
+        this.me.set(response)
+      })
+    )
   }
 
   uploadAvatar(file: File) {
     const fd = new FormData();
     fd.append('image', file);
-    return this.http.post<Profile>(`${this.baseApiUrl}account/upload_image`, fd);
+    return this.http.post<Profile>(`${this.baseApiUrl}account/upload_image`, fd).pipe(
+      tap((response)=> {
+        this.me.set(response)
+      })
+    )
   }
 
   query(params?: Partial<QueryParamsProfile>, pagination?: {

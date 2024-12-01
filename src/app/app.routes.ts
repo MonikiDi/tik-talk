@@ -5,6 +5,7 @@ import {ProfilePageComponent} from './pages/profile-page/profile-page.component'
 import {LayoutComponent} from './common-ui/layout/layout.component';
 import {canActivateAuth} from './auth/access.guard';
 import {SettingsPageComponent} from './pages/settings-page/settings-page.component';
+import {ProfileMePageComponent} from './pages/profile-me-page/profile-me-page.component';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       {path: '', redirectTo: 'profile/me', pathMatch: 'full'},
+      {path: 'profile/me', component: ProfileMePageComponent},
       {path: 'profile/:id', component: ProfilePageComponent},
       {path: 'settings', component: SettingsPageComponent},
       {path: 'search', component: SearchPageComponent}

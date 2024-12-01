@@ -3,12 +3,11 @@ import {ProfileHeaderComponent} from '../../common-ui/profile-header/profile-hea
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {RouterLink} from '@angular/router';
 import {ProfileService} from '../../data/services/profile.service';
-import {firstValueFrom, switchMap} from 'rxjs';
+import {firstValueFrom} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
-import {ImgUrlPipe} from '../../helpers/pipes/img-url.pipe';
-import {PostFeedComponent} from '../profile-page/post-feed/post-feed.component';
-import {SvgIconComponent} from '../../common-ui/svg-icon/svg-icon.component';
 import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
+import {TasksComponent} from '../../shared/componets/tasks/tasks.component';
+import {AboutMeComponent} from '../../shared/componets/about-me/about-me.component';
 
 @Component({
   selector: 'app-settings-page',
@@ -18,7 +17,9 @@ import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
     ReactiveFormsModule,
     RouterLink,
     AsyncPipe,
-    AvatarUploadComponent
+    AvatarUploadComponent,
+    TasksComponent,
+    AboutMeComponent
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss'
@@ -49,9 +50,6 @@ export class SettingsPageComponent {
 
       })
     });
-  }
-
-  ngAfterViewInit() {
   }
 
   onSave() {

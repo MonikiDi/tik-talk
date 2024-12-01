@@ -1,4 +1,4 @@
-import {Component, effect, inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ProfileService} from '../../data/services/profile.service';
 import {RouterLink} from '@angular/router';
 import {ProfileHeaderComponent} from '../../common-ui/profile-header/profile-header.component';

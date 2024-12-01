@@ -1,10 +1,6 @@
 @if (profile$ | async; as profile) {
   <header class="profile-page__header mb24">
     <app-profile-header [profile]="profile"></app-profile-header>
-    <a class="btn to-setting-btn" [routerLink]="['/settings']">
-      Редактировать
-      <svg class="to-setting-icon" icon="settings"></svg>
-    </a>
   </header>
 
   <main class="profile-page__body">
@@ -12,27 +8,9 @@
       <app-post-feed></app-post-feed>
     </div>
     <div class="col2">
-      <div class="subscriber">
-        <h3 class="h6 mb16">Подписчики</h3>
-        <span class="subscriber__number">{{ profile.subscribersAmount }}</span>
-      </div>
-      <div class="subscribers-wrapper mb32">
-        @for (subscriber of subscribers$ | async; track subscriber.id) {
-          <a class="subscriber-avatar-btn" [routerLink]="['/profile', subscriber.id]">
-            <img class="subscriber-avatar-img" alt="" [src]="subscriber.avatarUrl | imgUrl">
-          </a>
-        }
-        <a class="to-subscriber-search" [routerLink]="['/search']">
-        </a>
-      </div>
-      <h3 class="h6 mb16">Навыки</h3>
-      <div class="skills mb32">
-        @for (skill of profile.stack; track skill) {
-          <div class="tag">{{ skill }}</div>
-        }
-      </div>
-      <h3 class="h6 mb16">О себе</h3>
-      <p class="about">{{ profile.description }}</p>
+      <app-subscribers [profile]="profile"></app-subscribers>
+      <app-tasks [profile]="profile"></app-tasks>
+      <app-about-me [profile]="profile"></app-about-me>
     </div>
   </main>
 
