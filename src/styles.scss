@@ -171,7 +171,9 @@ body {
   width: 44px;
   height: 44px;
 }
-.svg16{
+
+//Иконки
+.svg16 {
   width: 16px;
   height: 16px;
 }
@@ -207,12 +209,14 @@ body {
   gap: 4px;
 
 }
+
 .tt-form-label__text {
   font-weight: 500;
   font-size: 12px;
   line-height: 133%;
   color: var(--light-transparent);
 }
+
 .tt-form-input {
   border: none;
   padding: 12px 10px;
@@ -232,6 +236,7 @@ body {
     outline: 1px solid var(--primary-hover);
   }
 }
+
 .tt-form-input__search-icon {
   position: absolute;
   bottom: 12px;
@@ -239,6 +244,7 @@ body {
   width: 18px;
   height: 18px;
 }
+
 .tt-textarea {
   height: 108px;
   resize: none;
