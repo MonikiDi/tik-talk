@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, Renderer2} from '@angular/core';
+import {Component, ElementRef, HostBinding, HostListener, inject, Renderer2} from '@angular/core';
 import {PostInputComponent} from '../post-input/post-input.component';
 import {PostComponent} from '../post/post.component';
 import {PostService} from '../../ service/post.service';
@@ -21,16 +21,23 @@ export class PostFeedComponent {
 
     feed = this.postService.posts
 
+    @HostListener('window: resize')
+    onWindowResize() {
+        this.resizeFeed()
+        console.log(1)
+
+    }
+
     constructor() {
         firstValueFrom(this.postService.fetchPost())
     }
-
     ngAfterViewInit() {
+        this.resizeFeed()
+    }
+    resizeFeed() {
         const {top} = this.hostElement.nativeElement.getBoundingClientRect();
 
         const height = window.innerHeight - top - 48;
         this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`);
-
-      console.log(height);
     }
 }
