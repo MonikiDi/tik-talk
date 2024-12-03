@@ -17,12 +17,12 @@ export class PostService {
     return this.http.post<Post>(`${this.baseApiUrl}post/`, payload)
       .pipe(
         switchMap(() => {
-          return this.fetchPost()
+          return this.fetchPosts()
         })
       )
   }
 
-  fetchPost() {
+  fetchPosts() {
     return this.http.get<Post[]>(`${this.baseApiUrl}post/`)
       .pipe(
         tap((res) => {
@@ -31,15 +31,27 @@ export class PostService {
       )
   }
 
+  deletePost(postId: number) {
+    return this.http.delete<Post>(`${this.baseApiUrl}post/${postId}`).pipe(
+      tap(() => {
+        this.posts.set(
+          this.posts().filter(
+            (item) => item.id !== postId)
+        )
+      })
+    )
+  }
+
   createComment(payload: CommentCreateDto) {
     return this.http.post<PostComment>(`${this.baseApiUrl}comment/`, payload)
   }
 
+
   //  Искуственное получение постов
-  getCommentPostId(postId:number) {
+  getCommentPostId(postId: number) {
     return this.http.get<Post>(`${this.baseApiUrl}post/${postId}`)
       .pipe(
-        map(res =>  res.comments)
+        map(res => res.comments)
       )
   }
 

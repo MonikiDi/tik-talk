@@ -7,20 +7,31 @@
 
   <main class="main-post">
     <div class="post">
-      <div class="post__header">
-        <strong class="post__author">
-          {{ post.author.firstName }} {{ post.author.lastName }}
-          <span
-            class="post__created-at"
-          >
+      <div class="post__row">
+        <div class="post__col">
+          <div class="post__header">
+            <strong class="post__author">
+              {{ post.author.firstName }} {{ post.author.lastName }}
+              <span
+                class="post__created-at"
+              >
           {{ post.createdAt | date: 'HH:mm dd.MM.YYYY' }}
         </span>
-        </strong>
-      </div>
-      <div class="post__content">
-        <p class="medium-text medium-text__post">
-          {{ post.content }}
-        </p>
+            </strong>
+          </div>
+          <div class="post__content">
+            <p class="medium-text medium-text__post">
+              {{ post.content }}
+            </p>
+          </div>
+        </div>
+        <div class="post__col">
+          <button
+            (click)="onDeletePost(post.id)"
+            class="post__btn" >
+            <svg class="post__btn-icon svg16" icon="post-btn"></svg>
+          </button>
+        </div>
       </div>
       <div class="post__footer">
         <div class="post__counters">
@@ -49,7 +60,7 @@
       </div>
     </div>
     <div class="comments">
-      @for (comment of comments(); track comment.id){
+      @for (comment of comments(); track comment.id) {
         <app-comment
           [comment]="comment"
         ></app-comment>

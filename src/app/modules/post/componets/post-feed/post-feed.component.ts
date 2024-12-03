@@ -29,7 +29,7 @@ export class PostFeedComponent {
     }
 
     constructor() {
-        firstValueFrom(this.postService.fetchPost())
+        firstValueFrom(this.postService.fetchPosts())
     }
     ngAfterViewInit() {
         this.resizeFeed()

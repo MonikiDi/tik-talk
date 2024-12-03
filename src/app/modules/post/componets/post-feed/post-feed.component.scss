@@ -1,5 +1,6 @@
 :host {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   grid-gap: 16px;
   overflow-y: scroll;
 }
