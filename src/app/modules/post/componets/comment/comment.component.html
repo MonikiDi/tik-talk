@@ -1,1 +1,14 @@
-<p>comment works!</p>
+@if (comment(); as comment) {
+  <app-avatar-circle
+    class="size32"
+    [avatarUrl]="comment.author.avatarUrl"
+  ></app-avatar-circle>
+
+  <div class="comment">
+    <div class="comment__header">
+      <strong class="comment__author">{{comment.author.username}}</strong>
+      <span class="comment__created-at">{{comment.createdAt  | date: 'HH:mm dd.MM.YYYY' }}</span>
+    </div>
+    <p class="comment__text">{{comment.text}}</p>
+  </div>
+}
