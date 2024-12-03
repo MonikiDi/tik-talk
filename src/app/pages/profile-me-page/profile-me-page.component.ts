@@ -7,13 +7,12 @@ import {PostFeedComponent} from '../../modules/post/componets/post-feed/post-fee
 import {SubscribersComponent} from '../../shared/componets/subscribers/subscribers.component';
 import {TasksComponent} from '../../shared/componets/tasks/tasks.component';
 import {AboutMeComponent} from '../../shared/componets/about-me/about-me.component';
-import {NotificationComponent} from '../../shared/componets/notification/notification.component';
 
 
 @Component({
   selector: 'app-profile-me-page',
   standalone: true,
-  imports: [ProfileHeaderComponent, RouterLink, SvgIconComponent, PostFeedComponent, SubscribersComponent, TasksComponent, AboutMeComponent, NotificationComponent],
+  imports: [ProfileHeaderComponent, RouterLink, SvgIconComponent, PostFeedComponent, SubscribersComponent, TasksComponent, AboutMeComponent],
   templateUrl: './profile-me-page.component.html',
   styleUrl: './profile-me-page.component.scss',
 })
