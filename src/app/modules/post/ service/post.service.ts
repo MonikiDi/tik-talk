@@ -1,7 +1,7 @@
 import {inject, Injectable, signal} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
-import {CommentCreateDto, Post, PostCreateDto} from '../../../data/interfaces/post.interface';
-import {switchMap, tap} from 'rxjs';
+import {CommentCreateDto, Post, PostCreateDto, PostComment} from '../../../data/interfaces/post.interface';
+import {map, switchMap, tap} from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -16,7 +16,7 @@ export class PostService {
   createPost(payload: PostCreateDto) {
     return this.http.post<Post>(`${this.baseApiUrl}post/`, payload)
       .pipe(
-        switchMap(()=>{
+        switchMap(() => {
           return this.fetchPost()
         })
       )
@@ -32,7 +32,15 @@ export class PostService {
   }
 
   createComment(payload: CommentCreateDto) {
-    return this.http.post<Comment>(`${this.baseApiUrl}comment/`, payload)
+    return this.http.post<PostComment>(`${this.baseApiUrl}comment/`, payload)
+  }
+
+  //  Искуственное получение постов
+  getCommentPostId(postId:number) {
+    return this.http.get<Post>(`${this.baseApiUrl}post/${postId}`)
+      .pipe(
+        map(res =>  res.comments)
+      )
   }
 
 }
