@@ -1,23 +1,23 @@
 <app-avatar-circle
-        *ngIf="profile() as profile"
-        [avatarUrl]="profile.avatarUrl"
-        class="size32"
+  *ngIf="profile() as profile"
+  [avatarUrl]="profile.avatarUrl"
+  class="size32"
 >
 </app-avatar-circle>
 
 
 <textarea
-        [(ngModel)]="postText"
-        (input)="onTextAreaInput($event)"
-        class="hidden-textarea"
-        placeholder="Напишите что-нибудь"
-        rows="1"
+  #textAreaTarget
+  [(ngModel)]="postText"
+  class="hidden-textarea"
+  placeholder="Напишите что-нибудь"
+  rows="1"
 >
 </textarea>
 
 <button
-        class="btn btn-icon"
-        (click)="onCreatePost()"
+  class="btn btn-icon"
+  (click)="onCreatePost()"
 >
-    <svg class="svg16" icon="send-message"></svg>
+  <svg class="svg16" icon="send-message"></svg>
 </button>

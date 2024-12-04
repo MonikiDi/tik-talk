@@ -1,4 +1,16 @@
-import {Component, EventEmitter, HostBinding, inject, input, Output, Renderer2} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  effect, ElementRef,
+  EventEmitter,
+  HostBinding,
+  inject,
+  input,
+  Output,
+  Renderer2,
+  signal, TemplateRef,
+  viewChild
+} from '@angular/core';
 import {AvatarCircleComponent} from '../../../../common-ui/avatar-circle/avatar-circle.component';
 import {ProfileService} from '../../../../data/services/profile.service';
 import {NgIf} from '@angular/common';
@@ -9,65 +21,74 @@ import {firstValueFrom} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
-    selector: 'app-post-input',
-    standalone: true,
-    imports: [
-        AvatarCircleComponent,
-        NgIf,
-        SvgIconComponent,
-        FormsModule
-    ],
-    templateUrl: './post-input.component.html',
-    styleUrl: './post-input.component.scss'
+  selector: 'app-post-input',
+  standalone: true,
+  imports: [
+    AvatarCircleComponent,
+    NgIf,
+    SvgIconComponent,
+    FormsModule
+  ],
+  templateUrl: './post-input.component.html',
+  styleUrl: './post-input.component.scss'
 })
 export class PostInputComponent {
-    postService = inject(PostService)
-    r2 = inject(Renderer2)
+  postService = inject(PostService)
+  r2 = inject(Renderer2)
 
-    profile = inject(ProfileService).me
-    isCommentInput = input(false)
-    postId = input<number>(0)
+  private readonly textAreaTarget = viewChild.required<ElementRef<void>>('textAreaTarget');
 
-    postText = ''
+  profile = inject(ProfileService).me
+  isCommentInput = input(false)
+  postId = input<number>(0)
 
-    @Output() created = new EventEmitter()
+  postText = signal('')
 
-    @HostBinding('class.comment')
-    get isComment() {
-        return this.isCommentInput()
+  @Output() created = new EventEmitter()
+
+  @HostBinding('class.comment')
+  get isComment() {
+    return this.isCommentInput()
+  }
+
+  constructor() {
+    effect(() => {
+
+      const textValue = this.postText();
+
+      if(textValue === '') {
+        this.r2.setStyle(this.textAreaTarget().nativeElement, 'height', 'auto');
+      } else {
+        this.r2.setStyle(this.textAreaTarget().nativeElement, 'height', (this.textAreaTarget().nativeElement as any).scrollHeight + 'px');
+      }
+    });
+  }
+
+
+  onCreatePost() {
+    if (!this.postText) return
+
+
+    if (this.isCommentInput()) {
+      firstValueFrom(this.postService.createComment({
+        text: this.postText(),
+        authorId: this.profile()!.id,
+        postId: this.postId(),
+        commentId: 0,
+      })).then(() => {
+        this.postText.set('')
+        this.created.emit()
+      })
+      return;
     }
 
-
-    onTextAreaInput(event: Event) {
-        const textArea = event.target as HTMLTextAreaElement;
-
-        this.r2.setStyle(textArea, 'height', 'auto');
-        this.r2.setStyle(textArea, 'height', textArea.scrollHeight + 'px');
-    }
-
-    onCreatePost() {
-        if (!this.postText) return
-
-        if(this.isCommentInput()){
-            firstValueFrom(this.postService.createComment({
-                text: this.postText,
-                authorId: this.profile()!.id,
-                postId: this.postId(),
-                commentId: 0,
-            })).then(()=>{
-                this.postText = ''
-                this.created.emit()
-            })
-            return;
-        }
-
-            firstValueFrom(this.postService.createPost({
-                title: 'Клевый пост',
-                content: this.postText,
-                authorId: this.profile()!.id,
-                communityId: 0,
-            })).then(()=>{
-                this.postText = ''
-            })
-    }
+    firstValueFrom(this.postService.createPost({
+      title: 'Клевый пост',
+      content: this.postText(),
+      authorId: this.profile()!.id,
+      communityId: 0,
+    })).then(() => {
+      this.postText.set('')
+    })
+  }
 }
