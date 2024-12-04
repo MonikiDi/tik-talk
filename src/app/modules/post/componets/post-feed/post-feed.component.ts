@@ -24,8 +24,6 @@ export class PostFeedComponent {
     @HostListener('window: resize')
     onWindowResize() {
         this.resizeFeed()
-        console.log(1)
-
     }
 
     constructor() {

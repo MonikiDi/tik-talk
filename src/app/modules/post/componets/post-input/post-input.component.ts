@@ -53,10 +53,9 @@ export class PostInputComponent {
 
   constructor() {
     effect(() => {
-
       const textValue = this.postText();
 
-      if(textValue === '') {
+      if (textValue === '') {
         this.r2.setStyle(this.textAreaTarget().nativeElement, 'height', 'auto');
       } else {
         this.r2.setStyle(this.textAreaTarget().nativeElement, 'height', (this.textAreaTarget().nativeElement as any).scrollHeight + 'px');
@@ -66,8 +65,11 @@ export class PostInputComponent {
 
 
   onCreatePost() {
-    if (!this.postText) return
+    const textValue = this.postText();
 
+    if (textValue.replace(/\n+/g, '\n') === '\n') this.postText.set('')
+
+    if (!this.postText()) return
 
     if (this.isCommentInput()) {
       firstValueFrom(this.postService.createComment({
