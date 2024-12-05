@@ -10,7 +10,7 @@
   #textAreaTarget
   [(ngModel)]="postText"
   class="hidden-textarea"
-  placeholder="Напишите что-нибудь"
+  [placeholder]="!isCommentInput() ? 'Напишите что-нибудь' : 'Напишите комментарий'"
   rows="1"
 >
 </textarea>

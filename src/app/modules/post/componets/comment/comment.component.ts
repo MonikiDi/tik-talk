@@ -1,14 +1,14 @@
 import {Component, input} from '@angular/core';
 import {AvatarCircleComponent} from '../../../../common-ui/avatar-circle/avatar-circle.component';
-import {DatePipe} from '@angular/common';
 import {PostComment} from '../../../../data/interfaces/post.interface';
+import {DataCreateAtPipe} from '../../../../helpers/pipes/data-create-at.pipe';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
   imports: [
     AvatarCircleComponent,
-    DatePipe
+    DataCreateAtPipe
   ],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.scss'
