@@ -63,7 +63,6 @@ export class PostInputComponent {
     });
   }
 
-
   onCreatePost() {
     const textValue = this.postText();
 
