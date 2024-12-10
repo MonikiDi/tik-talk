@@ -5,6 +5,8 @@ import {PostInputComponent} from '../post-input/post-input.component';
 import {PostComponent} from '../post/post.component';
 import {Debounce} from '../../../../shared/decorators/debounce.decorator';
 import {ProfileService} from '../../../../data/services/profile.service';
+import {assertNonNullish} from '../../../../shared/utils/assert-non-nullish';
+import {normalizationText} from '../../../../shared/utils/normalization-text';
 
 
 @Component({
@@ -92,7 +94,7 @@ export class PostFeedComponent {
 
   onCreatePost(text: string) {
     const profile = this.profile()
-    const result = this.normalizationText(text);
+    const result = normalizationText(text);
     assertNonNullish(profile, '')
     assertNonNullish(result, '')
 
@@ -101,7 +103,6 @@ export class PostFeedComponent {
       return
     }
 
-    //   TODO  нужно релиозвать функционал позволяющий из вне обновить состояние инпунта
     firstValueFrom(this.postService.createPost({
       title: 'Клевый пост',
       content: result,
@@ -113,18 +114,5 @@ export class PostFeedComponent {
       })
     ))
   }
-
-  normalizationText(text: string) {
-    return text.replace(/\n+/g, '\n') === '\n' ? '' : text
-  }
 }
 
-
-function assertNonNullish<TValue>(
-  value: TValue,
-  message: string
-): asserts value is NonNullable<TValue> {
-  if (value === null || value === undefined) {
-    throw Error(message);
-  }
-}

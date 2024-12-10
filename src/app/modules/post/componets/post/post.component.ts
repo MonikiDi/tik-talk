@@ -8,6 +8,8 @@ import {PostService} from '../../ service/post.service';
 import {firstValueFrom} from 'rxjs';
 import {DataCreateAtPipe} from '../../../../helpers/pipes/data-create-at.pipe';
 import {ProfileService} from '../../../../data/services/profile.service';
+import {assertNonNullish} from '../../../../shared/utils/assert-non-nullish';
+import {normalizationText} from '../../../../shared/utils/normalization-text';
 
 @Component({
   selector: 'app-post',
@@ -43,7 +45,7 @@ export class PostComponent implements OnInit {
 
   onCreateCommit(text: string) {
     const profile = this.profile()
-    const result = this.normalizationText(text);
+    const result = normalizationText(text);
     const post = this.post()
     assertNonNullish(profile, '')
     assertNonNullish(result, '')
@@ -55,8 +57,6 @@ export class PostComponent implements OnInit {
       return
     }
 
-
-    //   TODO  нужно релиозвать функционал позволяющий из вне обновить состояние инпунта
     firstValueFrom(this.postService.createComment({
       text: result,
       authorId: profile.id,
@@ -68,20 +68,5 @@ export class PostComponent implements OnInit {
       this.comments.set(comments)
       this.parentData.set('')
     })
-  }
-
-
-  normalizationText(text: string) {
-    return text.replace(/\n+/g, '\n') === '\n' ? '' : text
-  }
-
-}
-
-function assertNonNullish<TValue>(
-  value: TValue,
-  message: string
-): asserts value is NonNullable<TValue> {
-  if (value === null || value === undefined) {
-    throw Error(message);
   }
 }
