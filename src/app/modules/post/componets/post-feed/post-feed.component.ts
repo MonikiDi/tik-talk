@@ -1,9 +1,10 @@
-import {Component, ElementRef, HostListener, inject, Renderer2} from '@angular/core';
+import {Component, ElementRef, HostListener, inject, input, Renderer2, signal} from '@angular/core';
 import {PostService} from '../../ service/post.service';
-import {debounce, debounceTime, firstValueFrom, Subject, Subscription} from "rxjs";
+import {debounce, debounceTime, firstValueFrom, Subject, Subscription, tap} from "rxjs";
 import {PostInputComponent} from '../post-input/post-input.component';
 import {PostComponent} from '../post/post.component';
 import {Debounce} from '../../../../shared/decorators/debounce.decorator';
+import {ProfileService} from '../../../../data/services/profile.service';
 
 
 @Component({
@@ -19,10 +20,12 @@ import {Debounce} from '../../../../shared/decorators/debounce.decorator';
 
 export class PostFeedComponent {
   public postService = inject(PostService);
+  public profileService = inject(ProfileService);
   public hostElement = inject(ElementRef);
   public r2 = inject(Renderer2);
   feed = this.postService.posts
-
+  profile = this.profileService.me
+  public parentData = signal('')
 
   constructor() {
     firstValueFrom(this.postService.fetchPosts())
@@ -87,15 +90,41 @@ export class PostFeedComponent {
     console.log(height);
   }
 
+  onCreatePost(text: string) {
+    const profile = this.profile()
+    const result = this.normalizationText(text);
+    assertNonNullish(profile, '')
+    assertNonNullish(result, '')
 
+    if (this.parentData() === '' || result === '') {
+      this.parentData.set('')
+      return
+    }
 
+    //   TODO  нужно релиозвать функционал позволяющий из вне обновить состояние инпунта
+    firstValueFrom(this.postService.createPost({
+      title: 'Клевый пост',
+      content: result,
+      authorId: profile.id,
+      communityId: 0,
+    }).pipe(
+      tap(() => {
+        this.parentData.set('')
+      })
+    ))
+  }
 
-
-
-
-
-
-
+  normalizationText(text: string) {
+    return text.replace(/\n+/g, '\n') === '\n' ? '' : text
+  }
 }
 
 
+function assertNonNullish<TValue>(
+  value: TValue,
+  message: string
+): asserts value is NonNullable<TValue> {
+  if (value === null || value === undefined) {
+    throw Error(message);
+  }
+}

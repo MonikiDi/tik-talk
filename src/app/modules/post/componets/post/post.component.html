@@ -68,9 +68,10 @@
     </div>
     <div class="comment">
       <app-post-input
-        (created)="onCreated()"
-        [postId]="post.id"
-        [isCommentInput]="true"
+        [(data)]="parentData"
+        (onSubmit)="onCreateCommit($event)"
+        [border]="'dashed'"
+        [placeholder]="'Напишите комментарий'"
       ></app-post-input>
     </div>
   </main>

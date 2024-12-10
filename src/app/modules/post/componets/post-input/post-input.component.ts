@@ -4,8 +4,8 @@ import {
   effect, ElementRef,
   EventEmitter,
   HostBinding,
-  inject,
-  input,
+  inject, Input,
+  input, model, ModelSignal, output,
   Output,
   Renderer2,
   signal, TemplateRef,
@@ -17,7 +17,7 @@ import {NgIf} from '@angular/common';
 import {SvgIconComponent} from '../../../../common-ui/svg-icon/svg-icon.component';
 import {PostService} from "../../ service/post.service";
 import {FormsModule} from "@angular/forms";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, retry} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -33,22 +33,27 @@ import {HttpClient} from "@angular/common/http";
   styleUrl: './post-input.component.scss'
 })
 export class PostInputComponent {
-  postService = inject(PostService)
   r2 = inject(Renderer2)
-
   private readonly textAreaTarget = viewChild.required<ElementRef<void>>('textAreaTarget');
-
   profile = inject(ProfileService).me
-  isCommentInput = input(false)
-  postId = input<number>(0)
-
+  border = input<'solid' | 'dashed'>('solid')
+  placeholder = input<string>('')
   postText = signal('')
 
-  @Output() created = new EventEmitter()
+  @Input() public set data(value: string) {
+    this.postText.set(value)
+  }
+  @Output() dataChange = new EventEmitter<string>()
+
+  onDataChange(value:string) {
+    this.dataChange.emit(value)
+  }
+
+  @Output() onSubmit = new EventEmitter<string>()
 
   @HostBinding('class.comment')
   get isComment() {
-    return this.isCommentInput()
+    return this.border() === 'dashed'
   }
 
   constructor() {
@@ -63,33 +68,4 @@ export class PostInputComponent {
     });
   }
 
-  onCreatePost() {
-    const textValue = this.postText();
-
-    if (textValue.replace(/\n+/g, '\n') === '\n') this.postText.set('')
-
-    if (!this.postText()) return
-
-    if (this.isCommentInput()) {
-      firstValueFrom(this.postService.createComment({
-        text: this.postText(),
-        authorId: this.profile()!.id,
-        postId: this.postId(),
-        commentId: 0,
-      })).then(() => {
-        this.postText.set('')
-        this.created.emit()
-      })
-      return;
-    }
-
-    firstValueFrom(this.postService.createPost({
-      title: 'Клевый пост',
-      content: this.postText(),
-      authorId: this.profile()!.id,
-      communityId: 0,
-    })).then(() => {
-      this.postText.set('')
-    })
-  }
 }

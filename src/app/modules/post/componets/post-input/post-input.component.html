@@ -9,15 +9,16 @@
 <textarea
   #textAreaTarget
   [(ngModel)]="postText"
+  (ngModelChange)="onDataChange($event)"
+  [placeholder]="placeholder()"
   class="hidden-textarea"
-  [placeholder]="!isCommentInput() ? 'Напишите что-нибудь' : 'Напишите комментарий'"
   rows="1"
 >
 </textarea>
 
 <button
+  (click)="onSubmit.emit(postText())"
   class="btn btn-icon"
-  (click)="onCreatePost()"
 >
   <svg class="svg16" icon="send-message"></svg>
 </button>
