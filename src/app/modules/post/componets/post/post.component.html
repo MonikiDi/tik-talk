@@ -1,1 +1,78 @@
-<p>post works!</p>
+@if (post(); as post) {
+  <app-avatar-circle
+    [avatarUrl]="post.author.avatarUrl"
+    class="size32"
+  >
+  </app-avatar-circle>
+
+  <main class="main-post">
+    <div class="post">
+      <div class="post__row">
+        <div class="post__col">
+          <div class="post__header">
+            <strong class="post__author">
+              {{ post.author.firstName }} {{ post.author.lastName }}
+              <span
+                class="post__created-at"
+              >
+          {{ post.createdAt  | dataCreateAt }}
+        </span>
+            </strong>
+          </div>
+          <div class="post__content">
+            <p class="medium-text medium-text__post">
+              {{ post.content }}
+            </p>
+          </div>
+        </div>
+        <div class="post__col">
+          <button
+            (click)="onDeletePost(post.id)"
+            class="post__btn" >
+            <svg class="post__btn-icon svg16" icon="post-btn"></svg>
+          </button>
+        </div>
+      </div>
+      <div class="post__footer">
+        <div class="post__counters">
+      <span class="comment-amount">
+        <svg
+          class="comment-amount__icon svg16"
+          icon="comment-amount"
+        ></svg>
+        <span
+          class="comment-amount__text">
+          {{ comments().length }}
+        </span>
+      </span>
+        </div>
+        <div class="post__likes">
+        <span class="comment-like">
+          <svg
+            class="comment-like__icon svg16"
+            icon="comment-like"
+          ></svg>
+          <span class="comment-like__text">
+            {{ post.likes }}
+          </span>
+        </span>
+        </div>
+      </div>
+    </div>
+    <div class="comments">
+      @for (comment of comments(); track comment.id) {
+        <app-comment
+          [comment]="comment"
+        ></app-comment>
+      }
+    </div>
+    <div class="comment">
+      <app-post-input
+        [(data)]="parentData"
+        (onSubmit)="onCreateCommit($event)"
+        [border]="'dashed'"
+        [placeholder]="'Напишите комментарий'"
+      ></app-post-input>
+    </div>
+  </main>
+}

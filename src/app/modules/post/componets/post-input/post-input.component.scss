@@ -36,3 +36,7 @@
   }
 
 }
+
+:host.comment {
+  border: 1px dashed var(--light-solid);
+}

@@ -1,2 +1,10 @@
-<app-post-input></app-post-input>
-<app-post></app-post>
+<app-post-input
+  [(data)]="parentData"
+  (onSubmit)="onCreatePost($event)"
+  [placeholder]="'Напишите что-нибудь'"
+></app-post-input>
+@for (post of feed(); track post.id) {
+  <app-post
+    [post]="post"
+  ></app-post>
+}

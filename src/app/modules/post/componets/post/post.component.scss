@@ -1,0 +1,135 @@
+:host {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid var(--light-solid);
+  background: var(--dark-solid);
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  grid-gap: 16px;
+}
+
+.main-post {
+  display: grid;
+  grid-gap: 8px;
+}
+
+.post {
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 44px;
+    grid-gap: 8px;
+  }
+
+  &__header {
+    margin-bottom: 12px;
+  }
+
+  &__author {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--light-solid);
+  }
+
+  &__btn{
+    background: transparent;
+    border: none;
+    padding: 14px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+
+    transition: outline 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+      border-radius: 2px;
+      outline: 1px solid var(--primary-hover);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+  &__btn-icon {
+    color: var(--light-solid);
+  }
+
+  &__created-at {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 133%;
+    color: var(--light-transparent);
+  }
+
+  &__content {
+    margin-bottom: 8px;
+  }
+
+  &__footer {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+
+.medium-text__post {
+  margin: 0;
+  color: var(--light-solid);
+  word-break: break-all;
+  white-space: pre-line;
+}
+
+.comment-amount {
+  display: flex;
+  padding: 8px 0;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+
+  &__text {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 133%;
+    color: var(--primary-primary);
+  }
+
+  &__icon {
+    color: var(--primary-primary);
+  }
+}
+
+.comment-like {
+  display: flex;
+  padding: 8px 0;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+
+  &__icon {
+    color: var(--light-solid);
+  }
+
+  &__text {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 133%;
+    color: var(--light-solid);
+  }
+}
+
+.comments {
+  padding: 8px 0;
+  max-height: 136px;
+  overflow: scroll;
+  display: grid;
+  grid-gap: 8px;
+}
+
+.comments::-webkit-scrollbar {
+  width: 0;
+}
+
