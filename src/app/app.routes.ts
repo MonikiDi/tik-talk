@@ -6,6 +6,8 @@ import {LayoutComponent} from './common-ui/layout/layout.component';
 import {canActivateAuth} from './auth/access.guard';
 import {SettingsPageComponent} from './pages/settings-page/settings-page.component';
 import {ProfileMePageComponent} from './pages/profile-me-page/profile-me-page.component';
+import {ChatsPageComponent} from './pages/chats-page/chats-page.component';
+import {chatsRoutes} from './pages/chats-page/chats-routes';
 
 export const routes: Routes = [
   {
@@ -16,7 +18,11 @@ export const routes: Routes = [
       {path: 'profile/me', component: ProfileMePageComponent},
       {path: 'profile/:id', component: ProfilePageComponent},
       {path: 'settings', component: SettingsPageComponent},
-      {path: 'search', component: SearchPageComponent}
+      {path: 'search', component: SearchPageComponent},
+      {
+        path: 'chats',
+        loadChildren: () => chatsRoutes
+      }
     ],
     canActivate: [canActivateAuth],
   },
