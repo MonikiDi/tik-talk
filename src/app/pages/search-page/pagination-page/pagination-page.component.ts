@@ -60,12 +60,12 @@ export class PaginationPageComponent implements OnChanges {
 
     if (current >= 5) {
       if (current >= total - 3) {
-        return [1, -1, total - 4, total - 3, total - 2, total - 1, total];
+        return [1, -1, total - 6, total - 5, total - 4, total - 3, total - 2, total - 1, total];
       } else {
-        return [1, -1, current - 1, current, current + 1, -1, total];
+        return [1, -1, current - 2, current - 1, current, current + 1, current + 2, -1, total];
       }
     }
 
-    return [1, 2, 3, 4, 5, -1, total];
+    return [1, 2, 3, 4, 5, 6, 7, -1, total];
   }
 }

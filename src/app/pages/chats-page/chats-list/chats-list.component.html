@@ -9,5 +9,7 @@
   <button
     chats
     [chat]="chat"
+    routerLinkActive="active"
+    [routerLink]="[chat.id]"
   ></button>
 }

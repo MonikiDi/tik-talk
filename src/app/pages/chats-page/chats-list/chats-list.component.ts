@@ -4,6 +4,7 @@ import {SvgIconComponent} from '../../../common-ui/svg-icon/svg-icon.component';
 import {ChatsBtnComponent} from './chats-btn/chats-btn.component';
 import {ChatsService} from '../../../data/services/chats.service';
 import {AsyncPipe} from '@angular/common';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-chats-list',
@@ -13,6 +14,8 @@ import {AsyncPipe} from '@angular/common';
     SvgIconComponent,
     AsyncPipe,
     ChatsBtnComponent,
+    RouterLinkActive,
+    RouterLink,
   ],
   templateUrl: './chats-list.component.html',
   styleUrl: './chats-list.component.scss'

@@ -16,10 +16,12 @@
   &:focus-visible {
     border-bottom: 1px solid transparent;
     outline: 1px solid var(--primary-hover);
+    background-color: var(--dark-active);
     outline-offset: 0;
   }
 
-  &:active {
+  &:active,
+  .active {
     border-bottom: 1px solid var(--light-solid);
     outline: none;
     background-color: var(--dark-active);
