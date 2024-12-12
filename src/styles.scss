@@ -235,6 +235,9 @@ body {
     border: none;
     outline: 1px solid var(--primary-hover);
   }
+  &::placeholder {
+    color: var(--light-transparent);
+  }
 }
 
 .tt-form-input__search-icon {
