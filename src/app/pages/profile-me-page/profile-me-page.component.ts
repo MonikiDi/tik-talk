@@ -18,6 +18,6 @@ import {AboutMeComponent} from '../../shared/componets/about-me/about-me.compone
 })
 export class ProfileMePageComponent {
   private readonly profileService = inject(ProfileService);
-
   public me = this.profileService.me
+
 }

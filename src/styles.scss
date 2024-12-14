@@ -33,6 +33,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  //border: 1px solid red;
 }
 
 body {
@@ -233,6 +234,7 @@ body {
   &:focus-visible {
     border-radius: 2px;
     border: none;
+    border-bottom: 1px solid transparent;
     outline: 1px solid var(--primary-hover);
   }
   &::placeholder {

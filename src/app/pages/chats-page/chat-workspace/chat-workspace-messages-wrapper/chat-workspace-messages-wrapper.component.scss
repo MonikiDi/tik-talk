@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 18px 0;
+  padding: 0 20px;
+  overflow-y: scroll;
+}
+:host::-webkit-scrollbar {
+  width: 0;
+}
+.message-data {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+  background: var(--dark-solid);
+  &__text {
+    padding: 6px 32px;
+    font-weight: 700;
+    background: var(--dark-active);
+    color: var(--light-solid);
+  }
+}
+.message-input__wrapper {
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}

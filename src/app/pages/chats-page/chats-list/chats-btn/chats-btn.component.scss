@@ -12,7 +12,7 @@
 
   transition: outline 0.3s ease-in-out, background-color 0.3s ease-in-out;
 
-  &:hover,
+
   &:focus-visible {
     border-bottom: 1px solid transparent;
     outline: 1px solid var(--primary-hover);
@@ -20,11 +20,13 @@
     outline-offset: 0;
   }
 
+  &:hover,
   &:active,
-  .active {
+  &.active {
     border-bottom: 1px solid var(--light-solid);
     outline: none;
     background-color: var(--dark-active);
+
     .last-message-wrapper__title,
     .last-message-wrapper__created-at {
       color: var(--primary-primary);
@@ -63,6 +65,7 @@
 
   &__message {
     color: var(--light-solid);
+    text-align: left;
   }
 
   &__unread-messages {

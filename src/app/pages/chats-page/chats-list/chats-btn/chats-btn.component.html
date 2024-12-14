@@ -10,7 +10,7 @@
       <span class="last-message-wrapper__created-at">{{ chat.createdAt  | dataCreateAt }}</span>
     </div>
     <div class="last-message-wrapper__body">
-      <span class="last-message-wrapper__message medium-text">{{ chat.message ?? '...'}}</span>
+      <span class="last-message-wrapper__message medium-text">{{ chat.message ? chat.message : '...'}}</span>
       @if (chat.unreadMessages > 0) {
         <span class="last-message-wrapper__unread-messages">{{ chat.unreadMessages }}</span>
       }

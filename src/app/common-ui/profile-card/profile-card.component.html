@@ -25,7 +25,9 @@
   <div class="profile-card__action-btns">
     <button
       [disabled]="disabled"
-      class="btn">Подписаться</button>
+      class="btn"
+      (click)="onSubscriber(profile.id)"
+    >Подписаться</button>
   </div>
 </div>
 }
