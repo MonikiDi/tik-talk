@@ -9,6 +9,9 @@
 :host::-webkit-scrollbar {
   width: 0;
 }
+.message-wrapper {
+  padding-bottom: 20px;
+}
 .message-data {
   position: sticky;
   top: 0;
@@ -16,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 32px;
+  padding-bottom:  32px;
   background: var(--dark-solid);
   &__text {
     padding: 6px 32px;

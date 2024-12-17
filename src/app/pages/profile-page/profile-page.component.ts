@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {ProfileHeaderComponent} from '../../common-ui/profile-header/profile-header.component';
 import {ProfileService} from '../../data/services/profile.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {firstValueFrom, switchMap} from 'rxjs';
+import {firstValueFrom, switchMap, tap} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 import {PostFeedComponent} from '../../modules/post/componets/post-feed/post-feed.component';
 import {AboutMeComponent} from '../../shared/componets/about-me/about-me.component';
@@ -23,8 +23,6 @@ export class ProfilePageComponent {
   private readonly chatsService = inject(ChatsService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-
-
   public profile$ = this.route.params
     .pipe(
       switchMap(({id}) => {
@@ -32,9 +30,9 @@ export class ProfilePageComponent {
       }))
 
   async sendMessage(userId: number) {
-    firstValueFrom(this.chatsService.createChat(userId))
+    await firstValueFrom(this.chatsService.createChat(userId))
       .then((res) => {
-          this.router.navigate(['/chat', res.id]);
+          this.router.navigate(['/chats', res.id]);
         }
       )
   }

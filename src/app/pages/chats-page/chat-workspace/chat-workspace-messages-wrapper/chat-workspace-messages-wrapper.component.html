@@ -1,11 +1,13 @@
 <div class="message-wrapper">
-  <div class="message-data">
-    <span class="message-data__text">Сегодня</span>
-  </div>
-  @for (message of messages(); track message.id) {
-    <app-chat-workspace-messages
-      [message]="message"
-    ></app-chat-workspace-messages>
+  @for (filterMessage of filterDayMessages(); track filterMessage.dateMessages) {
+    <div class="message-data">
+      <span class="message-data__text">{{ filterMessage.dateMessages }}</span>
+    </div>
+    @for (message of filterMessage.groupMessages; track message.id) {
+      <app-chat-workspace-messages
+        [message]="message"
+      ></app-chat-workspace-messages>
+    }
   }
 </div>
 <div class="message-input__wrapper">

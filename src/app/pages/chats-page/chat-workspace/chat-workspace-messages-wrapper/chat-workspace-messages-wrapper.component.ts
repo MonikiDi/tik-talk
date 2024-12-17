@@ -1,13 +1,30 @@
-import {Component, effect, ElementRef, HostListener, inject, input, Renderer2, signal, viewChild} from '@angular/core';
+import {
+  Component, computed,
+  DestroyRef,
+  effect,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  Renderer2,
+  signal,
+  viewChild
+} from '@angular/core';
 import {ChatWorkspaceMessagesComponent} from './chat-workspace-messages/chat-workspace-messages.component';
 import {MessageInputComponent} from '../../../../common-ui/message-input/message-input.component';
 import {normalizationText} from '../../../../shared/utils/normalization-text';
 import {assertNonNullish} from '../../../../shared/utils/assert-non-nullish';
-import {ProfileService} from '../../../../data/services/profile.service';
 import {ChatsService} from '../../../../data/services/chats.service';
 import {Chat, Message} from '../../../../data/interfaces/chats.interface';
-import {firstValueFrom} from 'rxjs';
+import {firstValueFrom, Subject, switchMap, takeUntil, tap, timer} from 'rxjs';
 import {Debounce} from '../../../../shared/decorators/debounce.decorator';
+import {chatByDay} from '../../../../shared/utils/chat-by-day';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {FilterMessages} from '../../../../data/interfaces/filterDayMessages.interface';
+
+
+const TIMEOUT = 10000;
+
 
 @Component({
   selector: 'app-chat-workspace-messages-wrapper',
@@ -23,18 +40,27 @@ export class ChatWorkspaceMessagesWrapperComponent {
   public parentData = signal('')
   chatsService = inject(ChatsService)
   chat = input.required<Chat>()
+  destroyRef = inject(DestroyRef);
   messages = this.chatsService.activeChatMessages
   public r2 = inject(Renderer2);
   public hostElement = inject(ElementRef);
+  filterDayMessages = computed(() => {
+    return chatByDay(this.messages())
+  })
 
+  ngOnInit() {
+    timer(0, TIMEOUT)
+      .pipe(
+        switchMap(() => {
+          return   this.chatsService.getChatById(this.chat().id)
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe();
+  }
 
   ngAfterViewInit() {
     this.resizeFeed()
-  }
-
-  constructor() {
-    effect(() => {
-    });
   }
 
   @Debounce(20)
@@ -63,4 +89,5 @@ export class ChatWorkspaceMessagesWrapperComponent {
     await firstValueFrom(this.chatsService.getChatById(this.chat().id))
     this.parentData.set('')
   }
+
 }

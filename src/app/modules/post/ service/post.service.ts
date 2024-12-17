@@ -46,6 +46,10 @@ export class PostService {
     return this.http.post<PostComment>(`${this.baseApiUrl}comment/`, payload)
   }
 
+  addLike(postId:number){
+    return this.http.post<Post>(`${this.baseApiUrl}post/like/${postId}`, {})
+  }
+
 
   //  Искуственное получение постов
   getCommentPostId(postId: number) {

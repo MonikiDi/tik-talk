@@ -28,35 +28,36 @@
         <div class="post__col">
           <button
             (click)="onDeletePost(post.id)"
-            class="post__btn" >
+            class="post__btn">
             <svg class="post__btn-icon svg16" icon="post-btn"></svg>
           </button>
         </div>
       </div>
       <div class="post__footer">
         <div class="post__counters">
-      <span class="comment-amount">
-        <svg
-          class="comment-amount__icon svg16"
-          icon="comment-amount"
-        ></svg>
-        <span
-          class="comment-amount__text">
-          {{ comments().length }}
-        </span>
-      </span>
+          <span class="comment-amount">
+            <svg
+              class="comment-amount__icon svg16"
+              icon="comment-amount"
+            ></svg>
+            <span
+              class="comment-amount__text">
+              {{ comments().length }}
+            </span>
+          </span>
         </div>
-        <div class="post__likes">
-        <span class="comment-like">
+        <button
+          class="post__likes btn"
+          (click)="addLikes(post.id)"
+        >
           <svg
-            class="comment-like__icon svg16"
-            icon="comment-like"
+            class="post__like-icon svg16"
+            icon="post-like"
           ></svg>
-          <span class="comment-like__text">
+          <span class="post__like-text">
             {{ post.likes }}
           </span>
-        </span>
-        </div>
+        </button>
       </div>
     </div>
     <div class="comments">

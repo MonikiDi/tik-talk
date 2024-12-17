@@ -42,7 +42,6 @@ export class PostComponent implements OnInit {
     this.postService.deletePost(postId).subscribe()
   }
 
-
   onCreateCommit(text: string) {
     const profile = this.profile()
     const result = normalizationText(text);
@@ -68,5 +67,9 @@ export class PostComponent implements OnInit {
       this.comments.set(comments)
       this.parentData.set('')
     })
+  }
+
+  addLikes(id: number) {
+    this.postService.addLike(id).subscribe()
   }
 }

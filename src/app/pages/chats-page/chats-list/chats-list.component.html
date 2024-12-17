@@ -9,7 +9,7 @@
     <svg class="tt-form-input__search-icon" icon="search"></svg>
   </label>
 </div>
-@for(chat of chats$ | async; track chat.id) {
+@for(chat of filterChats(); track chat.id) {
   <button
     chats
     [chat]="chat"
