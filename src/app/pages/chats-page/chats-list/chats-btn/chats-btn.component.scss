@@ -9,21 +9,12 @@
   background: none;
   cursor: pointer;
 
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 
-  transition: outline 0.3s ease-in-out, background-color 0.3s ease-in-out;
-
-
-  &:focus-visible {
-    border-bottom: 1px solid transparent;
-    outline: 1px solid var(--primary-hover);
-    background-color: var(--dark-active);
-    outline-offset: 0;
-  }
 
   &:hover,
-  &:active,
+  &:focus-visible,
   &.active {
-    border-bottom: 1px solid var(--light-solid);
     outline: none;
     background-color: var(--dark-active);
 

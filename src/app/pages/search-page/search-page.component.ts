@@ -47,7 +47,7 @@ export class SearchPageComponent implements OnInit {
       this.formFilter().searchForm.valueChanges
         .pipe(
           startWith(this.formFilter().searchForm.value),
-          debounceTime(600),
+          debounceTime(100),
           tap(() => {
             this.isPending.set(true)
           })

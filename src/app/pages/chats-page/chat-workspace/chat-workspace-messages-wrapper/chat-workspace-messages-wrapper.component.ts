@@ -20,7 +20,8 @@ import {firstValueFrom, Subject, switchMap, takeUntil, tap, timer} from 'rxjs';
 import {Debounce} from '../../../../shared/decorators/debounce.decorator';
 import {chatByDay} from '../../../../shared/utils/chat-by-day';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {FilterMessages} from '../../../../data/interfaces/filterDayMessages.interface';
+import {DateUtcPipe} from '../../../../helpers/pipes/date-utc.pipe';
+import {DatePipe} from '@angular/common';
 
 
 const TIMEOUT = 10000;
@@ -32,6 +33,8 @@ const TIMEOUT = 10000;
   imports: [
     ChatWorkspaceMessagesComponent,
     MessageInputComponent,
+    DateUtcPipe,
+    DatePipe,
   ],
   templateUrl: './chat-workspace-messages-wrapper.component.html',
   styleUrl: './chat-workspace-messages-wrapper.component.scss'
@@ -44,6 +47,7 @@ export class ChatWorkspaceMessagesWrapperComponent {
   messages = this.chatsService.activeChatMessages
   public r2 = inject(Renderer2);
   public hostElement = inject(ElementRef);
+
   filterDayMessages = computed(() => {
     return chatByDay(this.messages())
   })
@@ -57,6 +61,7 @@ export class ChatWorkspaceMessagesWrapperComponent {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
+    document.addEventListener('DOMContentLoaded', this.scrollToBottom)
   }
 
   ngAfterViewInit() {
@@ -89,5 +94,10 @@ export class ChatWorkspaceMessagesWrapperComponent {
     await firstValueFrom(this.chatsService.getChatById(this.chat().id))
     this.parentData.set('')
   }
-
+  // Функция для автоматического скролла вниз
+  scrollToBottom() {
+    const chatContainer = document.getElementById('message-wrapper');
+    // @ts-ignore
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
 }

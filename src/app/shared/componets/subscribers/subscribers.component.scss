@@ -30,9 +30,8 @@
   border-radius: 100%;
   transition: outline 0.3s ease-in-out, transform 0.3s ease-in-out;
 
-  &:hover,
   &:focus-visible,
-  &:active {
+  &:hover{
     outline: 1px solid var(--primary-hover);
     outline-offset: 2px;
   }

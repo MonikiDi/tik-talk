@@ -1,13 +1,15 @@
 import {Message} from '../../data/interfaces/chats.interface';
 import {FilterMessages, GroupsMessages} from '../../data/interfaces/filterDayMessages.interface';
+import {dateUtc} from './date-utc';
 
 
 export function chatByDay(messages: Message[]) {
   const groupsMessages: GroupsMessages = {}
   let filterMessages: FilterMessages[]
 
+
   messages.forEach(message => {
-    const date = new Date(message.createdAt).toDateString();
+    const date = dateUtc(message.createdAt).toDateString();
     if (!groupsMessages[date]) {
       groupsMessages[date] = [];
     }
