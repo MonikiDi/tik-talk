@@ -1,0 +1,12 @@
+img {
+  width: 112px;
+  height: 112px;
+  border-radius: 100%;
+}
+:host.size32 img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}

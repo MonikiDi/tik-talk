@@ -1,0 +1,20 @@
+<div class="message-wrapper">
+  @for (filterMessage of filterDayMessages(); track filterMessage.dateMessages)
+  {
+  <div class="message-data">
+    <span class="message-data__text">{{
+      filterMessage.dateMessages | dateUtc | date : 'dd.MM.YYYY'
+    }}</span>
+  </div>
+  @for (message of filterMessage.groupMessages; track message.id) {
+  <app-chat-workspace-messages
+    [message]="message"
+  ></app-chat-workspace-messages>
+  } }
+</div>
+<div class="message-input__wrapper">
+  <app-message-input
+    [(data)]="parentData"
+    (onSubmit)="onSendMessage($event)"
+  ></app-message-input>
+</div>

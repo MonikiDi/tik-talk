@@ -1,0 +1,16 @@
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag {
+  border: 1px solid var(--light-solid);
+  border-radius: 2px;
+  padding: 4px 8px;
+
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 133%;
+  color: var(--light-solid);
+}

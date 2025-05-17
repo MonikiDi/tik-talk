@@ -1,0 +1,16 @@
+<div class="subscriber mb16">
+  <h3 class="h6">Подписчики</h3>
+  <span class="subscriber__number">{{ profile().subscribersAmount }}</span>
+</div>
+<div class="subscribers-wrapper">
+  @for (subscriber of subscribers$ | async; track subscriber.id) {
+  <a class="subscriber-avatar-btn" [routerLink]="['/profile', subscriber.id]">
+    <img
+      class="subscriber-avatar-img"
+      alt=""
+      [src]="subscriber.avatarUrl | imgUrl"
+    />
+  </a>
+  }
+  <a class="to-subscriber-search" [routerLink]="['/search']"> </a>
+</div>
