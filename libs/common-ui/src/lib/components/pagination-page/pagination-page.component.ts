@@ -1,5 +1,5 @@
 import {
-  Component, effect,
+  Component,
   EventEmitter,
   Input,
   OnChanges,

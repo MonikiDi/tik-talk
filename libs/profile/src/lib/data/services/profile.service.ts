@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { map, tap } from 'rxjs';
+import {  tap } from 'rxjs';
 import { GlobalStoreService, Pageble, Pagination } from '@tt/shared';
 import { Profile, QueryParamsProfile } from '@tt/interfaces/profile';
 
@@ -23,10 +23,6 @@ export class ProfileService {
   profiles = signal<Profile[]>([]);
   pagination = signal<Pagination>(DEFAULT_PAGINATION);
 
-  getTestAccounts() {
-    return this.http.get<Profile[]>(`${this.baseApiUrl}account/test_accounts`);
-  }
-
   getMe() {
     return this.http.get<Profile>(`${this.baseApiUrl}account/me`).pipe(
       tap((res) => {
@@ -39,12 +35,6 @@ export class ProfileService {
   getAccount(id: string) {
     return this.http.get<Profile>(`${this.baseApiUrl}account/${id}`);
   }
-
-  // getSubscribersShortList(subsAmount: number = 3) {
-  //   return this.http
-  //     .get<Pageble<Profile>>(`${this.baseApiUrl}account/subscribers/`)
-  //     .pipe(map((res) => res.items.slice(0, subsAmount)));
-  // }
 
   patchProfile(profile: Partial<Profile>) {
     return this.http

@@ -5,8 +5,8 @@ import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AvatarUploadComponent } from '../../ui/avatar-upload/avatar-upload.component';
-import { TasksComponent } from '../../../../../common-ui/src/lib/components/tasks/tasks.component';
-import { AboutMeComponent } from '../../../../../common-ui/src/lib/components/about-me/about-me.component';
+import { TasksComponent } from '@tt/common-ui';
+import { AboutMeComponent } from '@tt/common-ui';
 import { ProfileService } from '../../data/services/profile.service';
 
 @Component({

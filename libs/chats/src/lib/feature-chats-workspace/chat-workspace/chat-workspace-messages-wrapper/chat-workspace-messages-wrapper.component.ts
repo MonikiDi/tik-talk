@@ -21,7 +21,7 @@ import {
   timer,
 } from 'rxjs';
 import { Debounce } from '@tt/shared';
-import { chatByDay } from '../../../../../../shared/src/lib/utils/chat-by-day';
+import { chatByDay } from '@tt/shared';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DateUtcPipe } from '@tt/shared';
 import { DatePipe } from '@angular/common';

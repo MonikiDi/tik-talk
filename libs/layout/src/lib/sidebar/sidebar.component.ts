@@ -3,7 +3,7 @@ import { SvgIconComponent } from '@tt/common-ui';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ProfileService } from '@tt/profile';
-import { SubscriberCardComponent } from '../../../../subscribers/src/lib/components/subscriber-card/subscriber-card.component';
+import { SubscriberCardComponent } from '@tt/subscribers';
 import { firstValueFrom } from 'rxjs';
 import { ImgUrlPipe } from '@tt/common-ui';
 import {SubscriberService} from '@tt/subscribers';

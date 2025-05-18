@@ -1,4 +1,4 @@
-import { Component, effect, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { AvatarCircleComponent } from '@tt/common-ui';
 import {
   LastMessageRes,
