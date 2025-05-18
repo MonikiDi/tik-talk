@@ -1,4 +1,6 @@
 import { assertNonNullish } from './assert-non-nullish';
+import { chatByDay } from './chat-by-day';
+import { dateUtc } from './date-utc';
 import { Debounce } from './decorators/debounce.decorator';
 import { normalizationText } from './normalization-text';
 import { DataCreateAtPipe } from './pipes/data-create-at.pipe';
@@ -10,5 +12,7 @@ export  {
   assertNonNullish,
   normalizationText,
   DataCreateAtPipe,
-  DateUtcPipe
+  DateUtcPipe,
+  chatByDay,
+  dateUtc
 }

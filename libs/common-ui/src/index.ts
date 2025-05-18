@@ -1,2 +1,2 @@
-export * from './lib/common-ui/components'
-export * from './lib/common-ui/pipes'
+export * from './lib/components'
+export * from './lib/pipes'

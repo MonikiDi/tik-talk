@@ -1,12 +1,13 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { DataCreateAtPipe } from '@tt/shared';
-import { ProfileService } from '@tt/profile';
+import {DataCreateAtPipe, GlobalStoreService} from '@tt/shared';
+// import { ProfileService } from '@tt/profile';
 import { assertNonNullish } from '@tt/shared';
 import { normalizationText } from '@tt/shared';
 import {CommentComponent, PostInputComponent} from '../../ui';
-import {Post, PostComment, PostService} from '../../data';
 import {AvatarCircleComponent, SvgIconComponent} from '@tt/common-ui';
+import {PostService} from '@tt/posts';
+import {Post, PostComment} from '@tt/interfaces/post';
 
 
 @Component({
@@ -24,10 +25,11 @@ import {AvatarCircleComponent, SvgIconComponent} from '@tt/common-ui';
 })
 export class PostComponent implements OnInit {
   private postService = inject(PostService);
-  private profileService = inject(ProfileService);
+  // private profileService = inject(ProfileService);
+  #globalStoreService = inject(GlobalStoreService);
   post = input<Post>();
   comments = signal<PostComment[]>([]);
-  profile = this.profileService.me;
+  profile = this.#globalStoreService.me;
   public parentData = signal('');
 
   ngOnInit() {

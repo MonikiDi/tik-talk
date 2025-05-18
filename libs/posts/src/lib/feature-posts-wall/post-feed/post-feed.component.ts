@@ -16,12 +16,12 @@ import {
   tap,
 } from 'rxjs';
 
-import { ProfileService } from '@tt/profile';
+// import { ProfileService } from '@tt/profile';
 import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
 import { PostService } from '../../data/services/post.service';
 
-import {normalizationText} from '@tt/shared';
+import {GlobalStoreService, normalizationText} from '@tt/shared';
 import { Debounce } from '@tt/shared';
 import {assertNonNullish} from '@tt/shared';
 
@@ -34,11 +34,12 @@ import {assertNonNullish} from '@tt/shared';
 })
 export class PostFeedComponent {
   public postService = inject(PostService);
-  public profileService = inject(ProfileService);
+  // public profileService = inject(ProfileService);
   public hostElement = inject(ElementRef);
   public r2 = inject(Renderer2);
+  #globalStoreService = inject(GlobalStoreService);
   feed = this.postService.posts;
-  profile = this.profileService.me;
+  profile = this.#globalStoreService.me
   public parentData = signal('');
 
   constructor() {

@@ -1,3 +1,8 @@
+import { GlobalStoreService } from './services/global-store.service';
+import {
+  FilterMessages,
+  GroupsMessages,
+} from './interfaces/filterDayMessages.interface';
 import {
   Pageble,
   Pagination,
@@ -10,5 +15,10 @@ export type {
   PaginationResponce,
   Pagination,
   KeyTimeWorld,
-  TimeWorld
+  TimeWorld,
+  GroupsMessages,
+  FilterMessages,
+}
+export {
+  GlobalStoreService
 }

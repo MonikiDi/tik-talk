@@ -5,7 +5,7 @@ import {
   Post,
   PostCreateDto,
   PostComment,
-} from '../interfaces/post.interface';
+} from '@tt/interfaces/post/post.interface';
 import { map, switchMap, tap } from 'rxjs';
 
 @Injectable({

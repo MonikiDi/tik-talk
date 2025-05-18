@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   effect,
   ElementRef,
@@ -8,22 +7,15 @@ import {
   inject,
   Input,
   input,
-  model,
-  ModelSignal,
-  output,
   Output,
   Renderer2,
   signal,
-  TemplateRef,
   viewChild,
 } from '@angular/core';
-import { ProfileService } from '@tt/profile';
 import { NgIf } from '@angular/common';
-import { PostService } from '../../data/services/post.service';
 import { FormsModule } from '@angular/forms';
-import { firstValueFrom, retry } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import {AvatarCircleComponent, SvgIconComponent} from '@tt/common-ui';
+import {GlobalStoreService} from '@tt/shared';
 
 @Component({
   selector: 'app-post-input',
@@ -36,10 +28,11 @@ export class PostInputComponent {
   r2 = inject(Renderer2);
   private readonly textAreaTarget =
     viewChild.required<ElementRef<void>>('textAreaTarget');
-  profile = inject(ProfileService).me;
+  profile = inject(GlobalStoreService).me;
   border = input<'solid' | 'dashed'>('solid');
   placeholder = input<string>('');
   postText = signal('');
+
 
   @Input() public set data(value: string) {
     this.postText.set(value);

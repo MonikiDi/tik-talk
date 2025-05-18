@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { map, tap } from 'rxjs';
-import { Pageble, Pagination } from '@tt/shared';
-import { Profile, QueryParamsProfile } from '../interfaces/profile.interface';
+import { GlobalStoreService, Pageble, Pagination } from '@tt/shared';
+import { Profile, QueryParamsProfile } from '@tt/interfaces/profile';
 
 const DEFAULT_PAGINATION: Pagination = {
   total: 0,
@@ -16,7 +16,7 @@ const DEFAULT_PAGINATION: Pagination = {
 })
 export class ProfileService {
   http = inject(HttpClient);
-
+  #globalStoreService = inject(GlobalStoreService);
   baseApiUrl = 'https://icherniakov.ru/yt-course/';
 
   me = signal<Profile | null>(null);
@@ -28,20 +28,23 @@ export class ProfileService {
   }
 
   getMe() {
-    return this.http
-      .get<Profile>(`${this.baseApiUrl}account/me`)
-      .pipe(tap((res) => this.me.set(res)));
+    return this.http.get<Profile>(`${this.baseApiUrl}account/me`).pipe(
+      tap((res) => {
+        this.me.set(res)
+        this.#globalStoreService.me.set(res)
+      })
+    );
   }
 
   getAccount(id: string) {
     return this.http.get<Profile>(`${this.baseApiUrl}account/${id}`);
   }
 
-  getSubscribersShortList(subsAmount: number = 3) {
-    return this.http
-      .get<Pageble<Profile>>(`${this.baseApiUrl}account/subscribers/`)
-      .pipe(map((res) => res.items.slice(0, subsAmount)));
-  }
+  // getSubscribersShortList(subsAmount: number = 3) {
+  //   return this.http
+  //     .get<Pageble<Profile>>(`${this.baseApiUrl}account/subscribers/`)
+  //     .pipe(map((res) => res.items.slice(0, subsAmount)));
+  // }
 
   patchProfile(profile: Partial<Profile>) {
     return this.http
