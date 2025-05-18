@@ -15,15 +15,15 @@ import {
   Subscription,
   tap,
 } from 'rxjs';
-import { Debounce } from '../../../../../../apps/tik-talk/src/app/shared/decorators/debounce.decorator';
+
 import { ProfileService } from '@tt/profile';
-import { assertNonNullish } from '../../../../../../apps/tik-talk/src/app/shared/utils/assert-non-nullish';
-
-
-import {normalizationText} from '../../../../../../apps/tik-talk/src/app/shared/utils/normalization-text';
 import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
 import { PostService } from '../../data/services/post.service';
+
+import {normalizationText} from '@tt/shared';
+import { Debounce } from '@tt/shared';
+import {assertNonNullish} from '@tt/shared';
 
 @Component({
   selector: 'app-post-feed',

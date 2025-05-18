@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { AvatarCircleComponent } from '@tt/common-ui';
-import { DataCreateAtPipe } from '../../../../../../apps/tik-talk/src/app/helpers/pipes/data-create-at.pipe';
+import { DataCreateAtPipe } from '@tt/shared';
 import { PostComment } from '../../data';
 
 @Component({

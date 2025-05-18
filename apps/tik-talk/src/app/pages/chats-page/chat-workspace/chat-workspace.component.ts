@@ -6,8 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ChatsService } from '../../../data/services/chats.service';
 import { firstValueFrom, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { normalizationText } from '../../../shared/utils/normalization-text';
-import { assertNonNullish } from '../../../shared/utils/assert-non-nullish';
+import { normalizationText } from '../../../../../../../libs/shared/src/lib/utils/normalization-text';
+import { assertNonNullish } from '../../../../../../../libs/shared/src/lib/utils/assert-non-nullish';
 import { PostInputComponent } from '../../../../../../../libs/posts/src/lib/ui/post-input/post-input.component';
 import { ProfileService } from '../../../../../../../libs/profile/src/lib/data/services/profile.service';
 

@@ -13,8 +13,8 @@ import {
 } from '@angular/core';
 import { ChatWorkspaceMessagesComponent } from './chat-workspace-messages/chat-workspace-messages.component';
 import { MessageInputComponent } from '../../../../common-ui/message-input/message-input.component';
-import { normalizationText } from '../../../../shared/utils/normalization-text';
-import { assertNonNullish } from '../../../../shared/utils/assert-non-nullish';
+import { normalizationText } from '../../../../../../../../libs/shared/src/lib/utils/normalization-text';
+import { assertNonNullish } from '../../../../../../../../libs/shared/src/lib/utils/assert-non-nullish';
 import { ChatsService } from '../../../../data/services/chats.service';
 import { Chat, Message } from '../../../../data/interfaces/chats.interface';
 import {
@@ -25,10 +25,10 @@ import {
   tap,
   timer,
 } from 'rxjs';
-import { Debounce } from '../../../../shared/decorators/debounce.decorator';
+import { Debounce } from '../../../../../../../../libs/shared/src/lib/utils/decorators/debounce.decorator';
 import { chatByDay } from '../../../../shared/utils/chat-by-day';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DateUtcPipe } from '../../../../helpers/pipes/date-utc.pipe';
+import { DateUtcPipe } from '../../../../../../../../libs/shared/src/lib/utils/pipes/date-utc.pipe';
 import { DatePipe } from '@angular/common';
 
 const TIMEOUT = 10000;

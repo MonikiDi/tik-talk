@@ -1,9 +1,9 @@
 import { Component, HostBinding, input, signal } from '@angular/core';
 import { Message } from '../../../../../data/interfaces/chats.interface';
 import { AvatarCircleComponent } from '../../../../../../../../../libs/common-ui/src/lib/common-ui/components/avatar-circle/avatar-circle.component';
-import { DataCreateAtPipe } from '../../../../../helpers/pipes/data-create-at.pipe';
+import { DataCreateAtPipe } from '../../../../../../../../../libs/shared/src/lib/utils/pipes/data-create-at.pipe';
 import { DatePipe } from '@angular/common';
-import { DateUtcPipe } from '../../../../../helpers/pipes/date-utc.pipe';
+import { DateUtcPipe } from '../../../../../../../../../libs/shared/src/lib/utils/pipes/date-utc.pipe';
 
 @Component({
   selector: 'app-chat-workspace-messages',

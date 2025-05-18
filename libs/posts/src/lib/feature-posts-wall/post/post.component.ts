@@ -1,13 +1,12 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { DataCreateAtPipe } from '../../../../../../apps/tik-talk/src/app/helpers/pipes/data-create-at.pipe';
+import { DataCreateAtPipe } from '@tt/shared';
 import { ProfileService } from '@tt/profile';
-import { assertNonNullish } from '../../../../../../apps/tik-talk/src/app/shared/utils/assert-non-nullish';
-import { normalizationText } from '../../../../../../apps/tik-talk/src/app/shared/utils/normalization-text';
-import { AvatarCircleComponent } from 'libs/common-ui/src/lib/common-ui/components/avatar-circle/avatar-circle.component';
-import { SvgIconComponent } from 'libs/common-ui/src/lib/common-ui/components/svg-icon/svg-icon.component';
+import { assertNonNullish } from '@tt/shared';
+import { normalizationText } from '@tt/shared';
 import {CommentComponent, PostInputComponent} from '../../ui';
 import {Post, PostComment, PostService} from '../../data';
+import {AvatarCircleComponent, SvgIconComponent} from '@tt/common-ui';
 
 
 @Component({

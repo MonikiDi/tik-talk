@@ -4,7 +4,7 @@ import {
   Chat,
   LastMessageRes,
 } from '../../../../data/interfaces/chats.interface';
-import { DataCreateAtPipe } from '../../../../helpers/pipes/data-create-at.pipe';
+import { DataCreateAtPipe } from '../../../../../../../../libs/shared/src/lib/utils/pipes/data-create-at.pipe';
 
 @Component({
   selector: 'button[chats]',
