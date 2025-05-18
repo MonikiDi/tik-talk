@@ -1,9 +1,9 @@
 import { Component, inject, input, Input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { ImgUrlPipe } from '../../../helpers/pipes/img-url.pipe';
+import { ImgUrlPipe } from '@tt/common-ui';
 import { RouterLink } from '@angular/router';
-import { ProfileService } from '../../../data/services/profile.service';
-import { Profile } from '../../../data/interfaces/profile.interface';
+import { ProfileService } from '@tt/profile';
+import { Profile } from '@tt/profile';
 
 const SUBSCRIBER_COUNTER = 5;
 

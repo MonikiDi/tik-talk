@@ -8,7 +8,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ProfileService } from '../../data/services/profile.service';
+import { ProfileService } from '@tt/profile';
 import { ProfileFiltersComponent } from './profile-filters/profile-filters.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationPageComponent } from './pagination-page/pagination-page.component';

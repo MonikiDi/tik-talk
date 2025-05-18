@@ -1,6 +1,6 @@
 import { Component, HostBinding, input, signal } from '@angular/core';
 import { Message } from '../../../../../data/interfaces/chats.interface';
-import { AvatarCircleComponent } from '../../../../../common-ui/avatar-circle/avatar-circle.component';
+import { AvatarCircleComponent } from '../../../../../../../../../libs/common-ui/src/lib/common-ui/components/avatar-circle/avatar-circle.component';
 import { DataCreateAtPipe } from '../../../../../helpers/pipes/data-create-at.pipe';
 import { DatePipe } from '@angular/common';
 import { DateUtcPipe } from '../../../../../helpers/pipes/date-utc.pipe';

@@ -1,5 +1,5 @@
 import { Component, effect, input } from '@angular/core';
-import { AvatarCircleComponent } from '../../../../common-ui/avatar-circle/avatar-circle.component';
+import { AvatarCircleComponent } from '../../../../../../../../libs/common-ui/src/lib/common-ui/components/avatar-circle/avatar-circle.component';
 import {
   Chat,
   LastMessageRes,

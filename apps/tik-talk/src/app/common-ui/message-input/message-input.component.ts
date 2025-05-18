@@ -10,11 +10,11 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { AvatarCircleComponent } from '../avatar-circle/avatar-circle.component';
+import { AvatarCircleComponent } from '@tt/common-ui';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { SvgIconComponent } from '../svg-icon/svg-icon.component';
-import { ProfileService } from '../../data/services/profile.service';
+import { SvgIconComponent } from '@tt/common-ui';
+import { ProfileService } from '@tt/profile';
 
 @Component({
   selector: 'app-message-input',

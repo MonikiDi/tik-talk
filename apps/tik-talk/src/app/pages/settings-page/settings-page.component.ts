@@ -2,7 +2,7 @@ import { Component, effect, inject, ViewChild } from '@angular/core';
 import { ProfileHeaderComponent } from '../../common-ui/profile-header/profile-header.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ProfileService } from '../../data/services/profile.service';
+import { ProfileService } from '@tt/profile';
 import { firstValueFrom } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';

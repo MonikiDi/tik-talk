@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
-import { Profile } from '../../data/interfaces/profile.interface';
-import { ImgUrlPipe } from '../../helpers/pipes/img-url.pipe';
+import { Profile } from '@tt/profile';
+import { ImgUrlPipe } from '@tt/common-ui';
 import { SubscriberService } from '../../data/services/subscriber.service';
 
 @Component({

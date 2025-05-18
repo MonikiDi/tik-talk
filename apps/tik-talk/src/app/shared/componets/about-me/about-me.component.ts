@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Profile } from '../../../data/interfaces/profile.interface';
+import { Profile } from '@tt/profile';
 
 @Component({
   selector: 'app-about-me',

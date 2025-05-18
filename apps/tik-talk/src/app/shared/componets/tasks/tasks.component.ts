@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
-import { ProfileService } from '../../../data/services/profile.service';
-import { Profile } from '../../../data/interfaces/profile.interface';
+import { ProfileService } from '../../../../../../../libs/profile/src/lib/data/services/profile.service';
+import { Profile } from '@tt/profile';
 
 @Component({
   selector: 'app-tasks',

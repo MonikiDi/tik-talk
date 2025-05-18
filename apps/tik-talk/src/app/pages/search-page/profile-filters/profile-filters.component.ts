@@ -13,10 +13,10 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ProfileService } from '../../../data/services/profile.service';
+import { ProfileService } from '../../../../../../../libs/profile/src/lib/data/services/profile.service';
 import { debounceTime, startWith, Subject, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { SvgIconComponent } from '../../../common-ui/svg-icon/svg-icon.component';
+import { SvgIconComponent } from '@tt/common-ui';
 
 @Component({
   selector: 'app-profile-filters',

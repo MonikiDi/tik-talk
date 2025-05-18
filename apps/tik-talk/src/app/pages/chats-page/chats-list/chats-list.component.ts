@@ -1,6 +1,6 @@
 import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SvgIconComponent } from '../../../common-ui/svg-icon/svg-icon.component';
+import { SvgIconComponent } from '@tt/common-ui';
 import { ChatsBtnComponent } from './chats-btn/chats-btn.component';
 import { ChatsService } from '../../../data/services/chats.service';
 import { AsyncPipe } from '@angular/common';

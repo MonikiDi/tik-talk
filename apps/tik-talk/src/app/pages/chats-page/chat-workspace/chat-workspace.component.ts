@@ -8,8 +8,8 @@ import { firstValueFrom, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { normalizationText } from '../../../shared/utils/normalization-text';
 import { assertNonNullish } from '../../../shared/utils/assert-non-nullish';
-import { PostInputComponent } from '../../../modules/post/componets/post-input/post-input.component';
-import { ProfileService } from '../../../data/services/profile.service';
+import { PostInputComponent } from '../../../../../../../libs/posts/src/lib/ui/post-input/post-input.component';
+import { ProfileService } from '../../../../../../../libs/profile/src/lib/data/services/profile.service';
 
 @Component({
   selector: 'app-chat-workspace',

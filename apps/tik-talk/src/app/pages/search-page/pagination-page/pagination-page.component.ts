@@ -8,8 +8,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { NgFor, NgForOf, NgIf } from '@angular/common';
-import { SvgIconComponent } from '../../../common-ui/svg-icon/svg-icon.component';
-import { ProfileService } from '../../../data/services/profile.service';
+import { SvgIconComponent } from '@tt/common-ui';
+import { ProfileService } from '../../../../../../../libs/profile/src/lib/data/services/profile.service';
 
 @Component({
   selector: 'app-pagination-page',
