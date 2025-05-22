@@ -18,8 +18,14 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import { ProfileService } from '../../data/services/profile.service';
+import { Store } from '@ngrx/store';
+import { profileActions, selectProfiles } from '@tt/profile';
 
 @Component({
   selector: 'app-search-page',
@@ -35,6 +41,7 @@ import { ProfileService } from '../../data/services/profile.service';
 export class SearchPageComponent implements OnInit {
   public readonly destroyRef = inject(DestroyRef);
   public readonly profileService = inject(ProfileService);
+  private readonly store = inject(Store);
 
   public formFilter = viewChild.required(ProfileFiltersComponent);
 
@@ -42,7 +49,9 @@ export class SearchPageComponent implements OnInit {
   public currentPage$ = toObservable(this.currentPage);
 
   public perPage = 5;
-  public items = this.profileService.profiles;
+  public readonly items = toSignal(this.store.select(selectProfiles), {
+    initialValue: [],
+  });
   public pagination = this.profileService.pagination;
 
   public totalPages = computed(() => {
@@ -51,42 +60,46 @@ export class SearchPageComponent implements OnInit {
   public readonly isPending = signal(false);
 
   public ngOnInit() {
-    this.formFilter().searchForm.valueChanges.subscribe({
-      next: () => {
-        this.currentPage.set(1);
-      },
+    this.formFilter().searchForm.valueChanges.subscribe((data) => {
+      this.store.dispatch(profileActions.filterEvents(data));
     });
 
-    combineLatest([
-      this.formFilter().searchForm.valueChanges.pipe(
-        startWith(this.formFilter().searchForm.value),
-        debounceTime(100),
-        tap(() => {
-          this.isPending.set(true);
-        })
-      ),
-      this.currentPage$.pipe(
-        tap(() => {
-          this.isPending.set(true);
-        })
-      ),
-    ])
-      .pipe(
-        switchMap(([params, currentPage]) => {
-          return this.profileService
-            .query(params, {
-              page: currentPage,
-              perPage: this.perPage,
-            })
-            .pipe(
-              finalize(() => {
-                this.isPending.set(false);
-              })
-            );
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe();
+    this.currentPage$.subscribe((page) => {
+      this.store.dispatch(
+        profileActions.paginationProfiles({ currentPage: page })
+      );
+    });
+
+    // combineLatest([
+    //   this.formFilter().searchForm.valueChanges.pipe(
+    //     startWith(this.formFilter().searchForm.value),
+    //     debounceTime(100),
+    //     tap(() => {
+    //       this.isPending.set(true);
+    //     })
+    //   ),
+    //   this.currentPage$.pipe(
+    //     tap(() => {
+    //       this.isPending.set(true);
+    //     })
+    //   ),
+    // ])
+    //   .pipe(
+    //     switchMap(([params, currentPage]) => {
+    //       return this.profileService
+    //         .query(params, {
+    //           page: currentPage,
+    //           perPage: this.perPage,
+    //         })
+    //         .pipe(
+    //           finalize(() => {
+    //             this.isPending.set(false);
+    //           })
+    //         );
+    //     }),
+    //     takeUntilDestroyed(this.destroyRef)
+    //   )
+    //   .subscribe();
   }
 
   public onGoTo(page: number): void {

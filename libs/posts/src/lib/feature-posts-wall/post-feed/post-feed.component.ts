@@ -21,9 +21,10 @@ import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
 import { PostService } from '../../data/services/post.service';
 
-import {GlobalStoreService, normalizationText} from '@tt/shared';
+import { GlobalStoreService, normalizationText } from '@tt/shared';
 import { Debounce } from '@tt/shared';
-import {assertNonNullish} from '@tt/shared';
+import { assertNonNullish } from '@tt/shared';
+import { Profile } from '@tt/interfaces/profile';
 
 @Component({
   selector: 'app-post-feed',
@@ -39,7 +40,7 @@ export class PostFeedComponent {
   public r2 = inject(Renderer2);
   #globalStoreService = inject(GlobalStoreService);
   feed = this.postService.posts;
-  profile = this.#globalStoreService.me
+  profile = this.#globalStoreService.me;
   public parentData = signal('');
 
   constructor() {

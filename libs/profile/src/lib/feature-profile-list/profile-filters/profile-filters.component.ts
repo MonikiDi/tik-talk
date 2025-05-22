@@ -1,11 +1,5 @@
-import {
-  Component,
-} from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SvgIconComponent } from '@tt/common-ui';
 
 @Component({

@@ -1,11 +1,11 @@
 import { Component, inject, input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import {Profile} from '@tt/interfaces/profile';
+import { Profile } from '@tt/interfaces/profile';
 import { ImgUrlPipe } from '@tt/common-ui';
 import { SubscriberService } from '../../data/services/subscriber.service';
 
-const SUBSCRIBER_COUNTER = 5;
+const SUBSCRIBER_COUNTER = 6;
 
 @Component({
   selector: 'app-subscribers',
@@ -16,7 +16,6 @@ const SUBSCRIBER_COUNTER = 5;
 })
 export class SubscribersComponent {
   subcriberService = inject(SubscriberService);
-
 
   subscribers$ =
     this.subcriberService.getSubscribersShortList(SUBSCRIBER_COUNTER);
