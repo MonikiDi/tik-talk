@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 
 @Component({
@@ -19,7 +19,7 @@ import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 export class PaginationPageComponent implements OnChanges {
   @Input() current: number = 0;
   @Input() total: number = 0;
-  @Input() disabled: boolean =
+  @Input() disabled: boolean = true;
 
   @Output() goTo: EventEmitter<number> = new EventEmitter<number>();
   @Output() next: EventEmitter<number> = new EventEmitter<number>();
@@ -27,13 +27,12 @@ export class PaginationPageComponent implements OnChanges {
 
   public pages: number[] = [];
 
-
   ngOnChanges(changes: SimpleChanges): void {
     // if (
     //   (changes.current && changes.current.currentValue) ||
     //   (changes.total && changes.total.currentValue)
     // ) {
-      this.pages = this.getPages(this.current, this.total);
+    this.pages = this.getPages(this.current, this.total);
     // }
   }
 
