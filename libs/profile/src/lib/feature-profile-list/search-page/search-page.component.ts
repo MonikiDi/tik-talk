@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
   OnInit,
   signal,
@@ -25,7 +26,11 @@ import {
 } from '@angular/core/rxjs-interop';
 import { ProfileService } from '../../data/services/profile.service';
 import { Store } from '@ngrx/store';
-import { profileActions, selectProfiles } from '@tt/profile';
+import {
+  selectLoadingProfiles,
+  selectProfiles,
+} from '../../data/store/selectors';
+import { profileActions } from '../../data/store/actions';
 
 @Component({
   selector: 'app-search-page',
@@ -57,19 +62,28 @@ export class SearchPageComponent implements OnInit {
   public totalPages = computed(() => {
     return this.pagination().totalPages;
   });
-  public readonly isPending = signal(false);
+  public readonly isPending = toSignal(
+    this.store.select(selectLoadingProfiles)
+  );
+
+  constructor() {
+    effect(() => {
+      console.log(this.isPending());
+    });
+  }
 
   public ngOnInit() {
-    this.formFilter().searchForm.valueChanges.subscribe((data) => {
-      this.store.dispatch(profileActions.filterEvents(data));
-    });
+    this.formFilter()
+      .searchForm.valueChanges.pipe(debounceTime(100))
+      .subscribe((data) => {
+        this.store.dispatch(profileActions.filterEvents(data));
+      });
 
     this.currentPage$.subscribe((page) => {
       this.store.dispatch(
         profileActions.paginationProfiles({ currentPage: page })
       );
     });
-
     // combineLatest([
     //   this.formFilter().searchForm.valueChanges.pipe(
     //     startWith(this.formFilter().searchForm.value),

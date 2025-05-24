@@ -3,7 +3,6 @@
 <app-pagination-page
   [current]="currentPage()"
   [total]="totalPages()"
-  [disabled]="isPending()"
   (goTo)="onGoTo($event)"
   (next)="onNext($event)"
   (previous)="onPrevious($event)"
@@ -16,8 +15,7 @@
   <div [class.loading__spinner]="isPending()"></div>
   <div class="profile-card__wrapper">
     @for (profile of items(); track profile.id) {
-    <app-profile-card [profile]="profile" [disabled]="isPending()">
-    </app-profile-card>
+    <app-profile-card [profile]="profile"> </app-profile-card>
     }
   </div>
 </div>

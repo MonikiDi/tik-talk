@@ -11,12 +11,14 @@ export interface ProfileState {
     totalPages: number;
     total: number;
   };
+  isLoading: boolean;
 }
 
 export const initialState: ProfileState = {
   profiles: [],
   profileFilters: {},
   pagination: { currentPage: 1, perPage: 5, totalPages: 0, total: 0 },
+  isLoading: false,
 };
 
 export const profileFeature = createFeature({
@@ -51,6 +53,30 @@ export const profileFeature = createFeature({
       return {
         ...state,
         pagination: { ...payload },
+      };
+    }),
+    on(profileActions.loadingStartProfiles, (state) => {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }),
+    on(profileActions.loadingEndProfiles, (state) => {
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }),
+    on(profileActions.loadedProfiles, (state, payload) => {
+      return {
+        ...state,
+        pagination: {
+          total: payload.total,
+          currentPage: payload.page,
+          perPage: payload.size,
+          totalPages: payload.pages,
+        },
+        profiles: payload.items,
       };
     })
   ),

@@ -1,6 +1,6 @@
-import { createActionGroup, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Profile, QueryParamsProfile } from '@tt/interfaces/profile';
-import { Pagination } from '@tt/shared';
+import { Pageble, Pagination } from '@tt/shared';
 
 export const profileActions = createActionGroup({
   source: 'profile',
@@ -12,5 +12,15 @@ export const profileActions = createActionGroup({
     }>(),
     'pagination set': props<Pagination>(),
     'profiles loaded': props<{ profiles: Profile[] }>(),
+    'Loading start profiles': emptyProps(),
+    'Loading end profiles': emptyProps(),
+    'Load Profiles': props<{
+      filters: Partial<QueryParamsProfile>;
+      pagination: {
+        currentPage: number;
+        perPage?: number;
+      };
+    }>(),
+    'Loaded Profiles': props<Pageble<Profile>>(),
   },
 });

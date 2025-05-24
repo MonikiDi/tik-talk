@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { profileFeature } from './reducers';
+import { profileFeature, ProfileState } from './reducers';
 
 export const selectProfiles = createSelector(
   profileFeature.selectProfiles,
@@ -14,4 +14,11 @@ export const selectFilteredProfiles = createSelector(
 export const selectPaginationProfiles = createSelector(
   profileFeature.selectPagination,
   (pagination) => pagination
+);
+
+export const selectLoadingProfiles = createSelector(
+  profileFeature.selectIsLoading,
+  (state) => {
+    return state;
+  }
 );

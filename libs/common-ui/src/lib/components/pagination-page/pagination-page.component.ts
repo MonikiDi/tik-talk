@@ -19,7 +19,7 @@ import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 export class PaginationPageComponent implements OnChanges {
   @Input() current: number = 0;
   @Input() total: number = 0;
-  @Input() disabled: boolean = true;
+  @Input() disabled: boolean =
 
   @Output() goTo: EventEmitter<number> = new EventEmitter<number>();
   @Output() next: EventEmitter<number> = new EventEmitter<number>();
