@@ -5,22 +5,11 @@ import {
   selectFilteredProfiles,
   selectPaginationProfiles,
 } from './';
-import {
-  catchError,
-  EMPTY,
-  exhaustMap,
-  finalize,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { catchError, EMPTY, exhaustMap, map } from 'rxjs';
 import { ProfileService } from '../services/profile.service';
 import { Store } from '@ngrx/store';
 import { concatLatestFrom } from '@ngrx/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class ProfileEffects {
   profileService = inject(ProfileService);
   actions$ = inject(Actions);

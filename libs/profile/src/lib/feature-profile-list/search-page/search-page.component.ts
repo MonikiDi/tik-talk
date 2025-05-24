@@ -1,32 +1,16 @@
 import {
   Component,
   computed,
-  DestroyRef,
-  effect,
   inject,
-  InputSignal,
   OnInit,
   Signal,
-  signal,
   viewChild,
 } from '@angular/core';
 import { ProfileFiltersComponent } from '../profile-filters/profile-filters.component';
 import { PaginationPageComponent } from '@tt/common-ui';
 import { ProfileCardComponent } from '../../ui/profile-card/profile-card.component';
-import {
-  combineLatest,
-  debounceTime,
-  finalize,
-  startWith,
-  switchMap,
-  tap,
-} from 'rxjs';
-import {
-  takeUntilDestroyed,
-  toObservable,
-  toSignal,
-} from '@angular/core/rxjs-interop';
-import { ProfileService } from '../../data/services/profile.service';
+import { debounceTime } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import {
   selectLoadingProfiles,
@@ -47,8 +31,6 @@ import { profileActions } from '../../data/store/actions';
   styleUrl: './search-page.component.scss',
 })
 export class SearchPageComponent implements OnInit {
-  public readonly destroyRef = inject(DestroyRef);
-  public readonly profileService = inject(ProfileService);
   private readonly store = inject(Store);
   public readonly isPending: Signal<boolean> = this.store.selectSignal(
     selectLoadingProfiles
@@ -65,6 +47,7 @@ export class SearchPageComponent implements OnInit {
   public totalPages = computed(() => {
     return this.pagination().totalPages;
   });
+
   public ngOnInit() {
     this.formFilter()
       .searchForm.valueChanges.pipe(debounceTime(300))

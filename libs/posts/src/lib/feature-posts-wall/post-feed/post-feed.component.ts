@@ -4,6 +4,7 @@ import {
   HostListener,
   inject,
   input,
+  OnInit,
   Renderer2,
   signal,
 } from '@angular/core';
@@ -25,6 +26,8 @@ import { GlobalStoreService, normalizationText } from '@tt/shared';
 import { Debounce } from '@tt/shared';
 import { assertNonNullish } from '@tt/shared';
 import { Profile } from '@tt/interfaces/profile';
+import { Store } from '@ngrx/store';
+import { postsActions, selectPosts } from '../../data/store';
 
 @Component({
   selector: 'app-post-feed',
@@ -33,18 +36,21 @@ import { Profile } from '@tt/interfaces/profile';
   templateUrl: './post-feed.component.html',
   styleUrl: './post-feed.component.scss',
 })
-export class PostFeedComponent {
+export class PostFeedComponent implements OnInit {
   public postService = inject(PostService);
-  // public profileService = inject(ProfileService);
   public hostElement = inject(ElementRef);
   public r2 = inject(Renderer2);
   #globalStoreService = inject(GlobalStoreService);
-  feed = this.postService.posts;
+  public readonly store = inject(Store);
+  feed = this.store.selectSignal(selectPosts);
   profile = this.#globalStoreService.me;
   public parentData = signal('');
 
+  ngOnInit() {
+    this.store.dispatch(postsActions.loadPosts());
+  }
   constructor() {
-    firstValueFrom(this.postService.fetchPosts());
+    // firstValueFrom(this.postService.fetchPosts());
   }
 
   ngAfterViewInit() {
@@ -116,19 +122,19 @@ export class PostFeedComponent {
       return;
     }
 
-    firstValueFrom(
-      this.postService
-        .createPost({
-          title: 'Клевый пост',
-          content: result,
-          authorId: profile.id,
-          communityId: 0,
-        })
-        .pipe(
-          tap(() => {
-            this.parentData.set('');
-          })
-        )
-    );
+    // firstValueFrom(
+    //   this.postService
+    //     .createPost({
+    //       title: 'Клевый пост',
+    //       content: result,
+    //       authorId: profile.id,
+    //       communityId: 0,
+    //     })
+    //     .pipe(
+    //       tap(() => {
+    //         this.parentData.set('');
+    //       })
+    //     )
+    // );
   }
 }

@@ -11,6 +11,10 @@ import { authTokenInterceptor } from '@tt/auth';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { postProviders } from '@tt/posts';
+import { profileProviders } from '@tt/profile';
+
+const effectProviders = [postProviders, profileProviders];
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authTokenInterceptor])),
     provideStore(),
     provideEffects(),
+    ...effectProviders,
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };

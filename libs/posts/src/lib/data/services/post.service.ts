@@ -26,11 +26,7 @@ export class PostService {
   }
 
   fetchPosts() {
-    return this.http.get<Post[]>(`${this.baseApiUrl}post/`).pipe(
-      tap((res) => {
-        this.posts.set(res);
-      })
-    );
+    return this.http.get<Post[]>(`${this.baseApiUrl}post/`);
   }
 
   deletePost(postId: number) {

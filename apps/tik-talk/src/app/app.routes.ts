@@ -1,18 +1,11 @@
 import { Routes } from '@angular/router';
 import { LoginPageComponent } from '@tt/auth';
-import {
-  ProfileEffects,
-  profileFeature,
-  ProfileMePageComponent,
-  SearchPageComponent,
-} from '@tt/profile';
+import { ProfileMePageComponent, SearchPageComponent } from '@tt/profile';
 import { ProfilePageComponent } from '@tt/profile';
 import { canActivateAuth } from '@tt/auth';
 import { SettingsPageComponent } from '@tt/profile';
 import { chatsRoutes } from '@tt/chats';
 import { LayoutComponent } from '@tt/layout';
-import { provideState } from '@ngrx/store';
-import { provideEffects } from '@ngrx/effects';
 
 export const routes: Routes = [
   {
@@ -26,10 +19,6 @@ export const routes: Routes = [
       {
         path: 'search',
         component: SearchPageComponent,
-        providers: [
-          provideState(profileFeature),
-          provideEffects(ProfileEffects),
-        ],
       },
       {
         path: 'chats',
