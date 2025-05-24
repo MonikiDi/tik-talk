@@ -22,3 +22,8 @@ export const selectLoadingProfiles = createSelector(
     return state;
   }
 );
+
+export const selectPagination = createSelector(
+  profileFeature.selectPagination,
+  (state) => state
+);

@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  input,
   Input,
   OnChanges,
   Output,
@@ -17,9 +18,10 @@ import { SvgIconComponent } from '../svg-icon/svg-icon.component';
   styleUrl: './pagination-page.component.scss',
 })
 export class PaginationPageComponent implements OnChanges {
-  @Input() current: number = 0;
-  @Input() total: number = 0;
-  @Input() disabled: boolean = true;
+  @Input() current = 0;
+  @Input() total = 0;
+  @Input() disabled = true;
+  // public readonly disabled = input<boolean>(true);
 
   @Output() goTo: EventEmitter<number> = new EventEmitter<number>();
   @Output() next: EventEmitter<number> = new EventEmitter<number>();
@@ -33,8 +35,8 @@ export class PaginationPageComponent implements OnChanges {
     //   (changes.total && changes.total.currentValue)
     // ) {
     this.pages = this.getPages(this.current, this.total);
-    // }
   }
+  // }
 
   public onGoTo(page: number): void {
     this.goTo.emit(page);

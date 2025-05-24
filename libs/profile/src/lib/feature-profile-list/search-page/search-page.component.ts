@@ -4,7 +4,9 @@ import {
   DestroyRef,
   effect,
   inject,
+  InputSignal,
   OnInit,
+  Signal,
   signal,
   viewChild,
 } from '@angular/core';
@@ -28,6 +30,7 @@ import { ProfileService } from '../../data/services/profile.service';
 import { Store } from '@ngrx/store';
 import {
   selectLoadingProfiles,
+  selectPagination,
   selectProfiles,
 } from '../../data/store/selectors';
 import { profileActions } from '../../data/store/actions';
@@ -47,84 +50,50 @@ export class SearchPageComponent implements OnInit {
   public readonly destroyRef = inject(DestroyRef);
   public readonly profileService = inject(ProfileService);
   private readonly store = inject(Store);
-
+  public readonly isPending: Signal<boolean> = this.store.selectSignal(
+    selectLoadingProfiles
+  );
   public formFilter = viewChild.required(ProfileFiltersComponent);
-
-  public currentPage = signal<number>(1);
-  public currentPage$ = toObservable(this.currentPage);
-
+  public pagination = this.store.selectSignal(selectPagination);
+  public currentPage = computed(() => {
+    return this.pagination().currentPage;
+  });
   public perPage = 5;
   public readonly items = toSignal(this.store.select(selectProfiles), {
     initialValue: [],
   });
-  public pagination = this.profileService.pagination;
-
   public totalPages = computed(() => {
     return this.pagination().totalPages;
   });
-  public readonly isPending = toSignal(
-    this.store.select(selectLoadingProfiles)
-  );
-
-  constructor() {
-    effect(() => {
-      console.log(this.isPending());
-    });
-  }
-
   public ngOnInit() {
     this.formFilter()
-      .searchForm.valueChanges.pipe(debounceTime(100))
+      .searchForm.valueChanges.pipe(debounceTime(300))
       .subscribe((data) => {
         this.store.dispatch(profileActions.filterEvents(data));
       });
+    this.store.dispatch(
+      profileActions.loadProfiles({
+        filters: {},
+        pagination: { currentPage: 1, perPage: 5 },
+      })
+    );
+  }
 
-    this.currentPage$.subscribe((page) => {
-      this.store.dispatch(
-        profileActions.paginationProfiles({ currentPage: page })
-      );
-    });
-    // combineLatest([
-    //   this.formFilter().searchForm.valueChanges.pipe(
-    //     startWith(this.formFilter().searchForm.value),
-    //     debounceTime(100),
-    //     tap(() => {
-    //       this.isPending.set(true);
-    //     })
-    //   ),
-    //   this.currentPage$.pipe(
-    //     tap(() => {
-    //       this.isPending.set(true);
-    //     })
-    //   ),
-    // ])
-    //   .pipe(
-    //     switchMap(([params, currentPage]) => {
-    //       return this.profileService
-    //         .query(params, {
-    //           page: currentPage,
-    //           perPage: this.perPage,
-    //         })
-    //         .pipe(
-    //           finalize(() => {
-    //             this.isPending.set(false);
-    //           })
-    //         );
-    //     }),
-    //     takeUntilDestroyed(this.destroyRef)
-    //   )
-    //   .subscribe();
+  public onChangeCurrentPate(page: number) {
+    this.store.dispatch(
+      profileActions.paginationProfiles({ currentPage: page })
+    );
   }
 
   public onGoTo(page: number): void {
-    this.currentPage.set(page);
+    this.onChangeCurrentPate(page);
   }
 
   public onNext(page: number): void {
-    this.currentPage.set(page + 1);
+    this.onChangeCurrentPate(page + 1);
   }
 
   public onPrevious(page: number): void {
-    this.currentPage.set(page - 1);
+    this.onChangeCurrentPate(page - 1);
   }
 }

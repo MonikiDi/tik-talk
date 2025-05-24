@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import {  tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { GlobalStoreService, Pageble, Pagination } from '@tt/shared';
 import { Profile, QueryParamsProfile } from '@tt/interfaces/profile';
 
@@ -26,8 +26,8 @@ export class ProfileService {
   getMe() {
     return this.http.get<Profile>(`${this.baseApiUrl}account/me`).pipe(
       tap((res) => {
-        this.me.set(res)
-        this.#globalStoreService.me.set(res)
+        this.me.set(res);
+        this.#globalStoreService.me.set(res);
       })
     );
   }
@@ -65,6 +65,7 @@ export class ProfileService {
       perPage: number;
     }
   ) {
+    console.log(params);
     return this.http
       .get<Pageble<Profile>>(`${this.baseApiUrl}account/accounts`, {
         params: {

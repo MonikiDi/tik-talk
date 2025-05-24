@@ -47,7 +47,7 @@ export class ProfileEffects {
       exhaustMap(({ filters, pagination }) => {
         return this.profileService
           .query(filters, {
-            page: 1,
+            page: pagination.currentPage,
             perPage: pagination.perPage || 5,
           })
           .pipe(
@@ -63,7 +63,13 @@ export class ProfileEffects {
       ofType(profileActions.filterEvents),
       concatLatestFrom(() => this.store.select(selectPaginationProfiles)),
       map(([filters, pagination]) => {
-        return profileActions.loadProfiles({ filters, pagination });
+        return profileActions.loadProfiles({
+          filters,
+          pagination: {
+            ...pagination,
+            currentPage: 1,
+          },
+        });
       })
     );
   });
