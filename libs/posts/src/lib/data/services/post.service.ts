@@ -32,7 +32,7 @@ export class PostService {
   deletePost(postId: number) {
     return this.http.delete<Post>(`${this.baseApiUrl}post/${postId}`).pipe(
       tap(() => {
-        this.posts.set(this.posts().filter((item) => item.id !== postId));
+        return this.fetchPosts();
       })
     );
   }

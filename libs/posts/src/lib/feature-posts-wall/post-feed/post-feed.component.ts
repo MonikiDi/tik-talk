@@ -3,29 +3,17 @@ import {
   ElementRef,
   HostListener,
   inject,
-  input,
   OnInit,
   Renderer2,
   signal,
 } from '@angular/core';
-import {
-  debounce,
-  debounceTime,
-  firstValueFrom,
-  Subject,
-  Subscription,
-  tap,
-} from 'rxjs';
 
-// import { ProfileService } from '@tt/profile';
 import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
 import { PostService } from '../../data/services/post.service';
-
 import { GlobalStoreService, normalizationText } from '@tt/shared';
 import { Debounce } from '@tt/shared';
 import { assertNonNullish } from '@tt/shared';
-import { Profile } from '@tt/interfaces/profile';
 import { Store } from '@ngrx/store';
 import { postsActions, selectPosts } from '../../data/store';
 
@@ -37,7 +25,6 @@ import { postsActions, selectPosts } from '../../data/store';
   styleUrl: './post-feed.component.scss',
 })
 export class PostFeedComponent implements OnInit {
-  public postService = inject(PostService);
   public hostElement = inject(ElementRef);
   public r2 = inject(Renderer2);
   #globalStoreService = inject(GlobalStoreService);
@@ -48,9 +35,6 @@ export class PostFeedComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(postsActions.loadPosts());
-  }
-  constructor() {
-    // firstValueFrom(this.postService.fetchPosts());
   }
 
   ngAfterViewInit() {
@@ -116,25 +100,18 @@ export class PostFeedComponent implements OnInit {
     const result = normalizationText(text);
     assertNonNullish(profile, '');
     assertNonNullish(result, '');
-
     if (this.parentData() === '' || result === '') {
       this.parentData.set('');
       return;
     }
-
-    // firstValueFrom(
-    //   this.postService
-    //     .createPost({
-    //       title: 'Клевый пост',
-    //       content: result,
-    //       authorId: profile.id,
-    //       communityId: 0,
-    //     })
-    //     .pipe(
-    //       tap(() => {
-    //         this.parentData.set('');
-    //       })
-    //     )
-    // );
+    this.store.dispatch(
+      postsActions.createPost({
+        title: 'Клевый пост',
+        content: result,
+        authorId: profile.id,
+        communityId: 0,
+      })
+    );
+    this.parentData.set('');
   }
 }

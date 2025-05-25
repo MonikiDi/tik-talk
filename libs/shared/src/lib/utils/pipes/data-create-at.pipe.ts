@@ -17,7 +17,7 @@ export class DataCreateAtPipe implements PipeTransform {
   };
 
   endingsTimeWords(number: number, type: KeyTimeWorld): string {
-    let result: string = '';
+    let result = '';
     switch (number >= 20 ? number % 10 : number) {
       case 1:
         result = this.timeWorld[type][0];
@@ -41,17 +41,17 @@ export class DataCreateAtPipe implements PipeTransform {
     const createAtIsoDate = new Date(createAtDate + iso * 60 * -1000);
     const nowDate = new Date();
 
-    let hour = createAtIsoDate.getHours();
-    let minutes = createAtIsoDate.getMinutes();
-    let dayOfMonth = createAtIsoDate.getDate();
-    let month = createAtIsoDate.getMonth();
-    let year = createAtIsoDate.getFullYear();
+    let hour: number = createAtIsoDate.getHours();
+    let minutes: number = createAtIsoDate.getMinutes();
+    let dayOfMonth: number = createAtIsoDate.getDate();
+    let month: number = createAtIsoDate.getMonth();
+    let year: number = createAtIsoDate.getFullYear();
 
-    let diffMs = nowDate.getTime() - createAtIsoDate.getTime();
-    let diffSec = Math.round(diffMs / 1000);
-    let diffMin = Math.round(diffSec / 60);
-    let diffHour = Math.round(diffMin / 60);
-    let diffDayOfMonth = Math.round(diffHour / 24);
+    let diffMs: number = nowDate.getTime() - createAtIsoDate.getTime();
+    let diffSec: number = Math.round(diffMs / 1000);
+    let diffMin: number = Math.round(diffSec / 60);
+    let diffHour: number = Math.round(diffMin / 60);
+    let diffDayOfMonth: number = Math.round(diffHour / 24);
 
     if (diffSec < 1) {
       return 'прямо сейчас';

@@ -20,4 +20,24 @@ export class PostEffects {
       })
     );
   });
+  addPost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postsActions.createPost),
+      switchMap((data) => {
+        return this.postService
+          .createPost(data)
+          .pipe(map(() => postsActions.loadPosts()));
+      })
+    );
+  });
+  deletePost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postsActions.deletePost),
+      switchMap((data) => {
+        return this.postService
+          .deletePost(data.postId)
+          .pipe(map(() => postsActions.loadPosts()));
+      })
+    );
+  });
 }

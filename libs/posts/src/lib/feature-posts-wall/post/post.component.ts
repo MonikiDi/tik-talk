@@ -1,13 +1,14 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import {DataCreateAtPipe, GlobalStoreService} from '@tt/shared';
+import { DataCreateAtPipe, GlobalStoreService } from '@tt/shared';
 import { assertNonNullish } from '@tt/shared';
 import { normalizationText } from '@tt/shared';
-import {CommentComponent, PostInputComponent} from '../../ui';
-import {AvatarCircleComponent, SvgIconComponent} from '@tt/common-ui';
-import {Post, PostComment} from '@tt/interfaces/post';
+import { CommentComponent, PostInputComponent } from '../../ui';
+import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
+import { Post, PostComment } from '@tt/interfaces/post';
 import { PostService } from '../../data/services/post.service';
-
+import { Store } from '@ngrx/store';
+import { postsActions } from '@tt/posts';
 
 @Component({
   selector: 'app-post',
@@ -29,13 +30,13 @@ export class PostComponent implements OnInit {
   comments = signal<PostComment[]>([]);
   profile = this.#globalStoreService.me;
   public parentData = signal('');
-
+  store = inject(Store);
   ngOnInit() {
     this.comments.set(this.post()!.comments);
   }
 
   onDeletePost(postId: number) {
-    this.postService.deletePost(postId).subscribe();
+    this.store.dispatch(postsActions.deletePost({ postId }));
   }
 
   onCreateCommit(text: string) {
