@@ -3,6 +3,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { tap } from 'rxjs';
 import { GlobalStoreService, Pageble, Pagination } from '@tt/shared';
 import { Profile, QueryParamsProfile } from '@tt/interfaces/profile';
+import { Store } from '@ngrx/store';
 
 const DEFAULT_PAGINATION: Pagination = {
   total: 0,
@@ -18,7 +19,7 @@ export class ProfileService {
   http = inject(HttpClient);
   #globalStoreService = inject(GlobalStoreService);
   baseApiUrl = 'https://icherniakov.ru/yt-course/';
-
+  store = inject(Store);
   me = signal<Profile | null>(null);
   profiles = signal<Profile[]>([]);
   pagination = signal<Pagination>(DEFAULT_PAGINATION);
@@ -65,7 +66,6 @@ export class ProfileService {
       perPage: number;
     }
   ) {
-    console.log(params);
     return this.http
       .get<Pageble<Profile>>(`${this.baseApiUrl}account/accounts`, {
         params: {

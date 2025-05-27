@@ -3,6 +3,9 @@ import { createFeature, createReducer, on } from '@ngrx/store';
 import { profileActions } from './actions';
 
 export interface ProfileState {
+  profileMe: Profile | undefined;
+  userId: string;
+  user: Profile | undefined;
   profiles: Profile[];
   profileFilters: Partial<QueryParamsProfile>;
   pagination: {
@@ -15,6 +18,9 @@ export interface ProfileState {
 }
 
 export const initialState: ProfileState = {
+  profileMe: undefined,
+  userId: '',
+  user: undefined,
   profiles: [],
   profileFilters: {},
   pagination: { currentPage: 1, perPage: 5, totalPages: 0, total: 0 },
@@ -25,6 +31,24 @@ export const profileFeature = createFeature({
   name: 'profileFeature',
   reducer: createReducer(
     initialState,
+    on(profileActions.loadedGetMe, (state, payload) => {
+      return {
+        ...state,
+        profileMe: payload.profileMe,
+      };
+    }),
+    on(profileActions.loadUserId, (state, payload) => {
+      return {
+        ...state,
+        userId: payload.userId,
+      };
+    }),
+    on(profileActions.loadedUser, (state, payload) => {
+      return {
+        ...state,
+        user: payload.user,
+      };
+    }),
     on(profileActions.profilesLoaded, (state, payload) => {
       return {
         ...state,

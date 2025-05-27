@@ -5,7 +5,7 @@ import {
   selectFilteredProfiles,
   selectPaginationProfiles,
 } from './';
-import { catchError, EMPTY, exhaustMap, map } from 'rxjs';
+import { catchError, EMPTY, exhaustMap, map, switchMap } from 'rxjs';
 import { ProfileService } from '../services/profile.service';
 import { Store } from '@ngrx/store';
 import { concatLatestFrom } from '@ngrx/operators';
@@ -15,6 +15,28 @@ export class ProfileEffects {
   actions$ = inject(Actions);
 
   private readonly store = inject(Store);
+
+  loadProfileMe = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(profileActions.loadGetMe),
+      switchMap(() => {
+        return this.profileService
+          .getMe()
+          .pipe(map((data) => profileActions.loadedGetMe({ profileMe: data })));
+      })
+    );
+  });
+
+  loadUserId = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(profileActions.loadUserId),
+      switchMap(({ userId }) => {
+        return this.profileService
+          .getAccount(userId)
+          .pipe(map((data) => profileActions.loadedUser({ user: data })));
+      })
+    );
+  });
 
   loadingStartProfiles = createEffect(() => {
     return this.actions$.pipe(

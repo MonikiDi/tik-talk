@@ -5,6 +5,10 @@ import { Pageble, Pagination } from '@tt/shared';
 export const profileActions = createActionGroup({
   source: 'profile',
   events: {
+    'Load get me': emptyProps(),
+    'Loaded get me': props<{ profileMe: Profile }>(),
+    'Load user id': props<{ userId: string }>(),
+    'Loaded user': props<{ user: Profile }>(),
     'filter events': props<Partial<QueryParamsProfile>>(),
     'pagination profiles': props<{
       currentPage: number;

@@ -6,6 +6,7 @@ import {
   HostListener,
   inject,
   input,
+  OnInit,
   Renderer2,
   signal,
 } from '@angular/core';
@@ -15,11 +16,7 @@ import { normalizationText } from '@tt/shared';
 import { assertNonNullish } from '@tt/shared';
 import { ChatsService } from '../../../data/services/chats.service';
 import { Chat } from '@tt/interfaces/chats/chats.interface';
-import {
-  firstValueFrom,
-  switchMap,
-  timer,
-} from 'rxjs';
+import { firstValueFrom, switchMap, timer } from 'rxjs';
 import { Debounce } from '@tt/shared';
 import { chatByDay } from '@tt/shared';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -40,7 +37,7 @@ const TIMEOUT = 10000;
   templateUrl: './chat-workspace-messages-wrapper.component.html',
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
 })
-export class ChatWorkspaceMessagesWrapperComponent {
+export class ChatWorkspaceMessagesWrapperComponent implements OnInit {
   public parentData = signal('');
   chatsService = inject(ChatsService);
   chat = input.required<Chat>();

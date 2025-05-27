@@ -13,6 +13,7 @@ import { debounceTime } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import {
+  selectFilteredProfiles,
   selectLoadingProfiles,
   selectPagination,
   selectProfiles,
@@ -56,7 +57,7 @@ export class SearchPageComponent implements OnInit {
       });
     this.store.dispatch(
       profileActions.loadProfiles({
-        filters: {},
+        filters: this.store.selectSignal(selectFilteredProfiles)(),
         pagination: { currentPage: 1, perPage: 5 },
       })
     );

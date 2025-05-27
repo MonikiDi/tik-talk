@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   CommentCreateDto,
@@ -15,8 +15,7 @@ export class PostService {
   private readonly http = inject(HttpClient);
   baseApiUrl = 'https://icherniakov.ru/yt-course/';
 
-  posts = signal<Post[]>([]);
-
+  // Создать пост
   createPost(payload: PostCreateDto) {
     return this.http.post<Post>(`${this.baseApiUrl}post/`, payload).pipe(
       switchMap(() => {
@@ -25,10 +24,18 @@ export class PostService {
     );
   }
 
+  // Получить посты
   fetchPosts() {
     return this.http.get<Post[]>(`${this.baseApiUrl}post/`);
   }
+  // Получить посты пользователя по userId
+  // fetchPostsUserId(userId: number) {
+  //   return this.http.get<Post[]>(`${this.baseApiUrl}post/`, {
+  //     user_id: userId,
+  //   });
+  // }
 
+  // Удалить пост
   deletePost(postId: number) {
     return this.http.delete<Post>(`${this.baseApiUrl}post/${postId}`).pipe(
       tap(() => {
@@ -37,10 +44,12 @@ export class PostService {
     );
   }
 
+  // Создать комментарий
   createComment(payload: CommentCreateDto) {
     return this.http.post<PostComment>(`${this.baseApiUrl}comment/`, payload);
   }
 
+  // Поставить лайк
   addLike(postId: number) {
     return this.http.post<Post>(`${this.baseApiUrl}post/like/${postId}`, {});
   }

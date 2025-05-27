@@ -10,7 +10,6 @@ import {
 
 import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
-import { PostService } from '../../data/services/post.service';
 import { GlobalStoreService, normalizationText } from '@tt/shared';
 import { Debounce } from '@tt/shared';
 import { assertNonNullish } from '@tt/shared';

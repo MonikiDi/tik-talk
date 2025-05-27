@@ -2,11 +2,17 @@ import { Component, inject } from '@angular/core';
 import { SvgIconComponent } from '@tt/common-ui';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ProfileService } from '@tt/profile';
+import {
+  profileActions,
+  ProfileService,
+  selectPagination,
+  selectProfileMe,
+} from '@tt/profile';
 import { SubscriberCardComponent } from '@tt/subscribers';
 import { firstValueFrom } from 'rxjs';
 import { ImgUrlPipe } from '@tt/common-ui';
-import {SubscriberService} from '@tt/subscribers';
+import { SubscriberService } from '@tt/subscribers';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,12 +30,15 @@ import {SubscriberService} from '@tt/subscribers';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  profileService = inject(ProfileService);
   subcriberService = inject(SubscriberService);
-
+  store = inject(Store);
   subscribers$ = this.subcriberService.getSubscribersShortList();
 
-  me = this.profileService.me;
+  ngOnInit() {
+    this.store.dispatch(profileActions.loadGetMe());
+  }
+
+  me = this.store.selectSignal(selectProfileMe);
 
   menuItems = [
     {
@@ -48,8 +57,4 @@ export class SidebarComponent {
       link: 'search',
     },
   ];
-
-  ngOnInit() {
-    firstValueFrom(this.profileService.getMe());
-  }
 }

@@ -8,6 +8,8 @@ import { AvatarUploadComponent } from '../../ui/avatar-upload/avatar-upload.comp
 import { TasksComponent } from '@tt/common-ui';
 import { AboutMeComponent } from '@tt/common-ui';
 import { ProfileService } from '../../data/services/profile.service';
+import { Store } from '@ngrx/store';
+import { selectProfileMe } from '../../data';
 
 @Component({
   selector: 'app-settings-page',
@@ -27,7 +29,8 @@ import { ProfileService } from '../../data/services/profile.service';
 export class SettingsPageComponent {
   fb = inject(FormBuilder);
   profileService = inject(ProfileService);
-  profile$ = this.profileService.getMe();
+  store = inject(Store);
+  profile$ = this.store.select(selectProfileMe)
 
   @ViewChild(AvatarUploadComponent) avatarUploader!: AvatarUploadComponent;
 
