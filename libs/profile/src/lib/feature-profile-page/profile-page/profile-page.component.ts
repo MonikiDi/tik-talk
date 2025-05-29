@@ -1,17 +1,17 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { AboutMeComponent } from '@tt/common-ui';
-import { TasksComponent } from '@tt/common-ui';
-
-import { PostFeedComponent } from '@tt/posts';
-import { SvgIconComponent } from '@tt/common-ui';
+import {
+  AboutMeComponent,
+  SvgIconComponent,
+  TasksComponent,
+} from '@tt/common-ui';
 import { SubscribersComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
 import { profileActions, selectUser } from '../../data';
-import { Profile } from '@tt/interfaces/profile';
+import { PostFeedComponent } from '@tt/posts';
 
 @Component({
   selector: 'app-profile-page',
@@ -19,8 +19,8 @@ import { Profile } from '@tt/interfaces/profile';
   imports: [
     ProfileHeaderComponent,
     AsyncPipe,
-    PostFeedComponent,
     AboutMeComponent,
+    PostFeedComponent,
     SubscribersComponent,
     TasksComponent,
     SvgIconComponent,

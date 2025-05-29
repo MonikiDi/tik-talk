@@ -3,41 +3,31 @@ import { HttpClient } from '@angular/common/http';
 import {
   CommentCreateDto,
   Post,
-  PostCreateDto,
   PostComment,
+  PostCreateDto,
 } from '@tt/interfaces/post/post.interface';
-import { map, switchMap, tap } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
   private readonly http = inject(HttpClient);
-  baseApiUrl = 'https://icherniakov.ru/yt-course/';
+  private readonly baseApiUrl = 'https://icherniakov.ru/yt-course/';
 
   // Создать пост
   createPost(payload: PostCreateDto) {
-    return this.http.post<Post>(`${this.baseApiUrl}post/`, payload).pipe(
-      switchMap(() => {
-        return this.fetchPosts();
-      })
-    );
+    return this.http.post<Post>(`${this.baseApiUrl}post/`, payload);
   }
 
   // Получить посты
   fetchPosts() {
     return this.http.get<Post[]>(`${this.baseApiUrl}post/`);
   }
-  // Получить посты пользователя по userId
-  // fetchPostsUserId(userId: number) {
-  //   return this.http.get<Post[]>(`${this.baseApiUrl}post/`, {
-  //     user_id: userId,
-  //   });
-  // }
 
   // Удалить пост
   deletePost(postId: number) {
-    return this.http.delete<Post>(`${this.baseApiUrl}post/${postId}`);
+    return this.http.delete<void>(`${this.baseApiUrl}post/${postId}`);
   }
 
   // Создать комментарий

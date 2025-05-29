@@ -3,6 +3,6 @@
   (onSubmit)="onCreatePost($event)"
   [placeholder]="'Напишите что-нибудь'"
 ></app-post-input>
-@for (post of feed(); track post.id) {
+@for (post of feedSort(); track post.id) {
 <app-post [post]="post"></app-post>
 }

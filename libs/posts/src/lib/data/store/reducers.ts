@@ -24,8 +24,14 @@ export const postsFeature = createFeature({
       return {
         ...state,
         posts: state.posts.filter((element) => {
-          return element.id !== payload.id;
+          return element.id !== payload.postId;
         }),
+      };
+    }),
+    on(postsActions.createdPost, (state, payload) => {
+      return {
+        ...state,
+        posts: [...state.posts, payload],
       };
     })
   ),

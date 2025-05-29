@@ -7,7 +7,8 @@ export const postsActions = createActionGroup({
     'load posts': emptyProps(),
     'loaded posts': props<{ posts: Post[] }>(),
     'create post': props<PostCreateDto>(),
+    'created post': props<Post>(),
     'delete post': props<{ postId: number }>(),
-    'deleted post': props<Post>(),
+    'deleted post': props<{ postId: number }>(),
   },
 });

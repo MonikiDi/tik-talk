@@ -1,17 +1,9 @@
-import { Component, inject } from '@angular/core';
-import { SvgIconComponent } from '@tt/common-ui';
+import { Component, inject, OnInit } from '@angular/core';
+import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import {
-  profileActions,
-  ProfileService,
-  selectPagination,
-  selectProfileMe,
-} from '@tt/profile';
-import { SubscriberCardComponent } from '@tt/subscribers';
-import { firstValueFrom } from 'rxjs';
-import { ImgUrlPipe } from '@tt/common-ui';
-import { SubscriberService } from '@tt/subscribers';
+import { profileActions, selectProfileMe } from '@tt/profile';
+import { SubscriberCardComponent, SubscriberService } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -29,7 +21,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   subcriberService = inject(SubscriberService);
   store = inject(Store);
   subscribers$ = this.subcriberService.getSubscribersShortList();

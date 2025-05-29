@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   ElementRef,
   HostListener,
   inject,
@@ -10,8 +11,7 @@ import {
 
 import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
-import { Debounce, normalizationText } from '@tt/shared';
-import { assertNonNullish } from '@tt/shared';
+import { assertNonNullish, Debounce, normalizationText } from '@tt/shared';
 import { Store } from '@ngrx/store';
 import { postsActions, selectPosts } from '../../data/store';
 import { selectProfileMe } from '@tt/profile';
@@ -28,6 +28,15 @@ export class PostFeedComponent implements OnInit {
   public r2 = inject(Renderer2);
   public readonly store = inject(Store);
   feed = this.store.selectSignal(selectPosts);
+
+  feedSort = computed(() => {
+    return this.feed()
+      .slice()
+      .sort((a, b) => {
+        return a.createdAt > b.createdAt ? -1 : 1;
+      });
+  });
+
   profile = this.store.selectSignal(selectProfileMe);
   public parentData = signal('');
 

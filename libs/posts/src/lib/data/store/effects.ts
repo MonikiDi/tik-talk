@@ -26,7 +26,7 @@ export class PostEffects {
       switchMap((data) => {
         return this.postService
           .createPost(data)
-          .pipe(map(() => postsActions.loadPosts()));
+          .pipe(map((post) => postsActions.createdPost(post)));
       })
     );
   });
@@ -36,7 +36,7 @@ export class PostEffects {
       switchMap((data) => {
         return this.postService
           .deletePost(data.postId)
-          .pipe(map((post) => postsActions.deletedPost(post)));
+          .pipe(map(() => postsActions.deletedPost({ postId: data.postId })));
       })
     );
   });
