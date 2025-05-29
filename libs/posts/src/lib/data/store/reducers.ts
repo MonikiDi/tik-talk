@@ -19,6 +19,14 @@ export const postsFeature = createFeature({
         ...state,
         posts: payload.posts,
       };
+    }),
+    on(postsActions.deletedPost, (state, payload) => {
+      return {
+        ...state,
+        posts: state.posts.filter((element) => {
+          return element.id !== payload.id;
+        }),
+      };
     })
   ),
 });

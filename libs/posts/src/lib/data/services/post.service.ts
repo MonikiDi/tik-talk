@@ -37,11 +37,7 @@ export class PostService {
 
   // Удалить пост
   deletePost(postId: number) {
-    return this.http.delete<Post>(`${this.baseApiUrl}post/${postId}`).pipe(
-      tap(() => {
-        return this.fetchPosts();
-      })
-    );
+    return this.http.delete<Post>(`${this.baseApiUrl}post/${postId}`);
   }
 
   // Создать комментарий

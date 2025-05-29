@@ -10,11 +10,11 @@ import {
 
 import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
-import { GlobalStoreService, normalizationText } from '@tt/shared';
-import { Debounce } from '@tt/shared';
+import { Debounce, normalizationText } from '@tt/shared';
 import { assertNonNullish } from '@tt/shared';
 import { Store } from '@ngrx/store';
 import { postsActions, selectPosts } from '../../data/store';
+import { selectProfileMe } from '@tt/profile';
 
 @Component({
   selector: 'app-post-feed',
@@ -26,10 +26,9 @@ import { postsActions, selectPosts } from '../../data/store';
 export class PostFeedComponent implements OnInit {
   public hostElement = inject(ElementRef);
   public r2 = inject(Renderer2);
-  #globalStoreService = inject(GlobalStoreService);
   public readonly store = inject(Store);
   feed = this.store.selectSignal(selectPosts);
-  profile = this.#globalStoreService.me;
+  profile = this.store.selectSignal(selectProfileMe);
   public parentData = signal('');
 
   ngOnInit() {

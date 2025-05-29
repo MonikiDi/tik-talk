@@ -1,6 +1,7 @@
 import { Profile, QueryParamsProfile } from '@tt/interfaces/profile';
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { profileActions } from './actions';
+import { Pagination } from '@tt/shared';
 
 export interface ProfileState {
   profileMe: Profile | undefined;
@@ -17,13 +18,19 @@ export interface ProfileState {
   isLoading: boolean;
 }
 
+const DEFAULT_PAGINATION: Pagination = {
+  total: 0,
+  currentPage: 0,
+  perPage: 0,
+  totalPages: 0,
+};
 export const initialState: ProfileState = {
   profileMe: undefined,
   userId: '',
   user: undefined,
   profiles: [],
   profileFilters: {},
-  pagination: { currentPage: 1, perPage: 5, totalPages: 0, total: 0 },
+  pagination: DEFAULT_PAGINATION,
   isLoading: false,
 };
 
@@ -35,6 +42,18 @@ export const profileFeature = createFeature({
       return {
         ...state,
         profileMe: payload.profileMe,
+      };
+    }),
+    on(profileActions.loadedPatchMe, (state, payload) => {
+      return {
+        ...state,
+        profileMe: payload,
+      };
+    }),
+    on(profileActions.loadedPatchAvatarMe, (state, payload) => {
+      return {
+        ...state,
+        profileMe: payload,
       };
     }),
     on(profileActions.loadUserId, (state, payload) => {

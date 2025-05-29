@@ -12,9 +12,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { ProfileService } from '@tt/profile';
+import { ProfileService, selectProfileMe } from '@tt/profile';
 import { AvatarCircleComponent } from '@tt/common-ui';
 import { SvgIconComponent } from '@tt/common-ui';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-message-input',
@@ -24,10 +25,11 @@ import { SvgIconComponent } from '@tt/common-ui';
   styleUrl: './message-input.component.scss',
 })
 export class MessageInputComponent {
+  private readonly store = inject(Store);
   r2 = inject(Renderer2);
   private readonly textAreaTarget =
     viewChild.required<ElementRef<void>>('textAreaTarget');
-  me = inject(ProfileService).me;
+  me = this.store.selectSignal(selectProfileMe);
   postText = signal('');
 
   @Input() public set data(value: string) {

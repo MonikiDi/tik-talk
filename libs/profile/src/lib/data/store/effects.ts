@@ -1,11 +1,11 @@
-import { inject, Injectable } from '@angular/core';
+import { effect, inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   profileActions,
   selectFilteredProfiles,
   selectPaginationProfiles,
 } from './';
-import { catchError, EMPTY, exhaustMap, map, switchMap } from 'rxjs';
+import { catchError, EMPTY, exhaustMap, map, switchMap, tap } from 'rxjs';
 import { ProfileService } from '../services/profile.service';
 import { Store } from '@ngrx/store';
 import { concatLatestFrom } from '@ngrx/operators';
@@ -23,6 +23,27 @@ export class ProfileEffects {
         return this.profileService
           .getMe()
           .pipe(map((data) => profileActions.loadedGetMe({ profileMe: data })));
+      })
+    );
+  });
+  loadPatchMe = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(profileActions.loadPatchMe),
+      switchMap((updateMe) => {
+        return this.profileService
+          .patchProfile(updateMe)
+          .pipe(map((data) => profileActions.loadedPatchMe(data)));
+      })
+    );
+  });
+
+  loadPatchAvatarMe = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(profileActions.loadPatchAvatarMe),
+      switchMap((updateAvatar) => {
+        return this.profileService
+          .uploadAvatar(updateAvatar.file)
+          .pipe(map((data) => profileActions.loadedPatchAvatarMe(data)));
       })
     );
   });

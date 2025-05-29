@@ -1,18 +1,24 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Chat, LastMessageRes, Message } from '@tt/interfaces/chats/chats.interface';
-import { ProfileService } from '@tt/profile';
+import {
+  Chat,
+  LastMessageRes,
+  Message,
+} from '@tt/interfaces/chats/chats.interface';
+import { selectProfileMe } from '@tt/profile';
 import { map } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatsService {
   private readonly http = inject(HttpClient);
+  private readonly store = inject(Store);
   private readonly baseApiUrl = 'https://icherniakov.ru/yt-course/';
   private readonly chatsUrl = `${this.baseApiUrl}chat/`;
   private readonly messagesUrl = `${this.baseApiUrl}message/`;
-  me = inject(ProfileService).me;
+  me = this.store.selectSignal(selectProfileMe);
 
   activeChatMessages = signal<Message[]>([]);
 

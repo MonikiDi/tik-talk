@@ -14,8 +14,9 @@ import {
 } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {AvatarCircleComponent, SvgIconComponent} from '@tt/common-ui';
-import {GlobalStoreService} from '@tt/shared';
+import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
+import { Store } from '@ngrx/store';
+import { selectProfileMe } from '@tt/profile';
 
 @Component({
   selector: 'app-post-input',
@@ -25,14 +26,14 @@ import {GlobalStoreService} from '@tt/shared';
   styleUrl: './post-input.component.scss',
 })
 export class PostInputComponent {
+  store = inject(Store);
   r2 = inject(Renderer2);
   private readonly textAreaTarget =
     viewChild.required<ElementRef<void>>('textAreaTarget');
-  profile = inject(GlobalStoreService).me;
+  profile = this.store.selectSignal(selectProfileMe);
   border = input<'solid' | 'dashed'>('solid');
   placeholder = input<string>('');
   postText = signal('');
-
 
   @Input() public set data(value: string) {
     this.postText.set(value);

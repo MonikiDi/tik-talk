@@ -2,14 +2,12 @@ import { Component, effect, inject, ViewChild } from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AvatarUploadComponent } from '../../ui/avatar-upload/avatar-upload.component';
 import { TasksComponent } from '@tt/common-ui';
 import { AboutMeComponent } from '@tt/common-ui';
-import { ProfileService } from '../../data/services/profile.service';
 import { Store } from '@ngrx/store';
-import { selectProfileMe } from '../../data';
+import { profileActions, selectProfileMe } from '../../data';
 
 @Component({
   selector: 'app-settings-page',
@@ -28,9 +26,8 @@ import { selectProfileMe } from '../../data';
 })
 export class SettingsPageComponent {
   fb = inject(FormBuilder);
-  profileService = inject(ProfileService);
   store = inject(Store);
-  profile$ = this.store.select(selectProfileMe)
+  profile$ = this.store.select(selectProfileMe);
 
   @ViewChild(AvatarUploadComponent) avatarUploader!: AvatarUploadComponent;
 
@@ -45,11 +42,11 @@ export class SettingsPageComponent {
 
   constructor() {
     effect(() => {
-      // @ts-ignore
       this.form.patchValue({
-        ...this.profileService.me(),
-        // @ts-ignore
-        stack: this.mergeStack(this.profileService.me()?.stack),
+        ...this.store.selectSignal(selectProfileMe)(),
+        stack: this.mergeStack(
+          this.store.selectSignal(selectProfileMe)()?.stack
+        ),
       });
     });
   }
@@ -61,15 +58,18 @@ export class SettingsPageComponent {
     if (this.form.invalid) return;
 
     if (this.avatarUploader.avatar) {
-      firstValueFrom(
-        this.profileService.uploadAvatar(this.avatarUploader.avatar)
+      this.store.dispatch(
+        profileActions.loadPatchAvatarMe({ file: this.avatarUploader.avatar })
       );
     }
 
-    firstValueFrom(
-    // @ts-ignore
-      this.profileService.patchProfile({
-        ...this.form.value,
+    this.store.dispatch(
+      profileActions.loadPatchMe({
+        firstName: this.form.value.firstName || undefined,
+        lastName: this.form.value.lastName || undefined,
+        username: this.form.value.username || undefined,
+        description: this.form.value.description || undefined,
+        city: this.form.value.city || undefined,
         stack: this.splitStack(this.form.value.stack),
       })
     );

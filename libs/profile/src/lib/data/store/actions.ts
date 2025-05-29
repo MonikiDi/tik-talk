@@ -7,6 +7,10 @@ export const profileActions = createActionGroup({
   events: {
     'Load get me': emptyProps(),
     'Loaded get me': props<{ profileMe: Profile }>(),
+    'Load patch me': props<Partial<Profile>>(),
+    'Load patch avatar me': props<{ file: File }>(),
+    'Loaded patch avatar me': props<Profile>(),
+    'Loaded patch me': props<Profile>(),
     'Load user id': props<{ userId: string }>(),
     'Loaded user': props<{ user: Profile }>(),
     'filter events': props<Partial<QueryParamsProfile>>(),

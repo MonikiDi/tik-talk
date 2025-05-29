@@ -1,4 +1,3 @@
-import { GlobalStoreService } from './services/global-store.service';
 import {
   FilterMessages,
   GroupsMessages,
@@ -18,7 +17,4 @@ export type {
   TimeWorld,
   GroupsMessages,
   FilterMessages,
-}
-export {
-  GlobalStoreService
-}
+};
