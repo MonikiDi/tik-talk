@@ -76,7 +76,7 @@ export class ChatWorkspaceMessagesWrapperComponent implements OnInit {
     const { top } = this.hostElement.nativeElement.getBoundingClientRect();
     const height = window.innerHeight - top - 48;
     this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`);
-    console.log(height);
+    // console.log(height);
   }
 
   async onSendMessage(messageText: string) {
@@ -87,12 +87,15 @@ export class ChatWorkspaceMessagesWrapperComponent implements OnInit {
       this.parentData.set('');
       return;
     }
-    await firstValueFrom(
-      this.chatsService.sendMessage(this.chat().id, messageText)
-    );
+
+    this.chatsService.wsAdapter.sendMessage(result, this.chat().id);
+    // await firstValueFrom(
+    //   this.chatsService.sendMessage(this.chat().id, messageText)
+    // );
     await firstValueFrom(this.chatsService.getChatById(this.chat().id));
     this.parentData.set('');
   }
+
   // Функция для автоматического скролла вниз
   scrollToBottom() {
     const chatContainer = document.getElementById('message-wrapper');

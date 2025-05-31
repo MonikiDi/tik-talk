@@ -8,19 +8,37 @@ import {
 import { selectProfileMe } from '@tt/profile';
 import { map } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { ChatWsService } from '@tt/interfaces/chats/chat-ws-service.interface';
+import { ChatWsNativeService } from './chat-ws-native.service';
+import { AuthService } from '@tt/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatsService {
   private readonly http = inject(HttpClient);
+  #authService = inject(AuthService);
   private readonly store = inject(Store);
   private readonly baseApiUrl = 'https://icherniakov.ru/yt-course/';
   private readonly chatsUrl = `${this.baseApiUrl}chat/`;
   private readonly messagesUrl = `${this.baseApiUrl}message/`;
   me = this.store.selectSignal(selectProfileMe);
-
   activeChatMessages = signal<Message[]>([]);
+
+  wsAdapter: ChatWsService = new ChatWsNativeService();
+
+  connectWs() {
+    this.wsAdapter.connect({
+      url: `${this.baseApiUrl}chat/ws`,
+      token: this.#authService.token ?? '',
+      handleMessage: this.handleWSMessage,
+    });
+  }
+
+  //TODO Замыкания
+  handleWSMessage(message: unknown) {
+    console.log(message);
+  }
 
   createChat(userId: number) {
     return this.http.post<Chat>(`${this.chatsUrl}${userId}`, {});
