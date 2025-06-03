@@ -1,6 +1,12 @@
 :host {
   border-right: 1px solid var(--light-solid);
+  overflow-y: scroll;
 }
+
+:host::-webkit-scrollbar {
+  width: 0;
+}
+
 .chats-filter {
   padding: 16px 20px;
   border-bottom: 1px solid var(--light-solid);
