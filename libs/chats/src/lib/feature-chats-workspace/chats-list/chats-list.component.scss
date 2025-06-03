@@ -10,4 +10,8 @@
 .chats-filter {
   padding: 16px 20px;
   border-bottom: 1px solid var(--light-solid);
+  position: sticky;
+  width: 100%;
+  top: 0;
+  background-color: var(--dark-solid);
 }
