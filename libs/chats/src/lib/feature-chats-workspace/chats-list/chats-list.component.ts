@@ -52,11 +52,16 @@ export class ChatsListComponent {
 
   public filterChats = computed(() => {
     const inputValue = this.filterChatsControlValue();
-    return this.chats().filter((chat) => {
-      return `${chat.userFrom.firstName} ${chat.userFrom.lastName}`
-        .toLowerCase()
-        .includes(inputValue!.toLowerCase() ?? '');
-    });
+    return this.chats()
+      .filter((chat) => {
+        return `${chat.userFrom.firstName} ${chat.userFrom.lastName}`
+          .toLowerCase()
+          .includes(inputValue!.toLowerCase() ?? '');
+      })
+      .slice()
+      .sort((a, b) => {
+        return a.createdAt > b.createdAt ? -1 : 1;
+      });
   });
 
   // Скролл чатов
