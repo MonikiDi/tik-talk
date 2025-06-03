@@ -11,6 +11,11 @@ import { Store } from '@ngrx/store';
 import { ChatWsService } from '@tt/interfaces/chats/chat-ws-service.interface';
 import { ChatWsNativeService } from './chat-ws-native.service';
 import { AuthService } from '@tt/auth';
+import { ChatWSMessage } from '@tt/interfaces/chats/chat-ws-message.interface';
+import {
+  isNewMessage,
+  isUnreadMessage,
+} from '@tt/interfaces/chats/type-guards';
 
 @Injectable({
   providedIn: 'root',
@@ -36,9 +41,28 @@ export class ChatsService {
   }
 
   //TODO Замыкания
-  handleWSMessage(message: unknown) {
-    console.log(message);
-  }
+  handleWSMessage = (message: ChatWSMessage) => {
+    if (!('action' in message)) return;
+
+    if (isUnreadMessage(message)) {
+      // TODO
+    }
+
+    if (isNewMessage(message)) {
+      this.activeChatMessages.set([
+        ...this.activeChatMessages(),
+        {
+          id: message.data.id,
+          userFromId: message.data.author,
+          personalChatId: message.data.chat_id,
+          text: message.data.message,
+          createdAt: message.data.created_at,
+          isRead: false,
+          isMine: false,
+        },
+      ]);
+    }
+  };
 
   createChat(userId: number) {
     return this.http.post<Chat>(`${this.chatsUrl}${userId}`, {});

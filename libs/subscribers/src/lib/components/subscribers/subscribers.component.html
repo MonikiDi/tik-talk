@@ -8,7 +8,11 @@
     <img
       class="subscriber-avatar-img"
       alt=""
-      [src]="subscriber.avatarUrl | imgUrl"
+      [src]="
+        (subscriber.avatarUrl | imgUrl) !== null
+          ? (subscriber.avatarUrl | imgUrl)
+          : '/assets/imgs/avatar-placeholder.png'
+      "
     />
   </a>
   }

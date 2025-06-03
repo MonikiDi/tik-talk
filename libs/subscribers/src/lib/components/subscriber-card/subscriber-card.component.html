@@ -1,6 +1,10 @@
 <img
   class="subscriber-avatar"
-  [src]="profile.avatarUrl | imgUrl"
+  [src]="
+    (profile.avatarUrl | imgUrl) !== null
+      ? (profile.avatarUrl | imgUrl)
+      : '/assets/imgs/avatar-placeholder.png'
+  "
   [alt]="profile.lastName"
 />
 
