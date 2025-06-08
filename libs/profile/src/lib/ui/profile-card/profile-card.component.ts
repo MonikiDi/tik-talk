@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { ImgUrlPipe } from '@tt/common-ui';
 import { Profile } from '@tt/interfaces/profile';
-import {SubscriberService} from '@tt/subscribers';
+import { SubscriberService } from '@tt/data-access';
 
 @Component({
   selector: 'app-profile-card',

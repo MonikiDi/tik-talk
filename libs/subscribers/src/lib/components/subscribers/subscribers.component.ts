@@ -3,7 +3,7 @@ import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Profile } from '@tt/interfaces/profile';
 import { ImgUrlPipe } from '@tt/common-ui';
-import { SubscriberService } from '../../data/services/subscriber.service';
+import { SubscriberService } from '@tt/data-access';
 
 const SUBSCRIBER_COUNTER = 6;
 

@@ -8,7 +8,6 @@ import {
 import { map } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ChatWsService } from '@tt/interfaces/chats/chat-ws-service.interface';
-import { AuthService } from '@tt/auth';
 import { ChatWSMessageReceive } from '@tt/interfaces/chats/chat-ws-message.interface';
 import {
   isErrorMessage,
@@ -17,6 +16,7 @@ import {
 } from '@tt/interfaces/chats/type-guards';
 import { ChatWsRxjsService } from './chat-ws-rxjs.service';
 import { selectProfileMe } from '../../profile';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root',

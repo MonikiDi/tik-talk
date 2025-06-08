@@ -2,10 +2,10 @@ import { Routes } from '@angular/router';
 import { LoginPageComponent } from '@tt/auth';
 import { ProfileMePageComponent, SearchPageComponent } from '@tt/profile';
 import { ProfilePageComponent } from '@tt/profile';
-import { canActivateAuth } from '@tt/auth';
 import { SettingsPageComponent } from '@tt/profile';
 import { chatsRoutes } from '@tt/chats';
 import { LayoutComponent } from '@tt/layout';
+import { canActivateAuth } from '@tt/data-access';
 
 export const routes: Routes = [
   {

@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, tap, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import {TokenResponse} from "../interfaces/auth.interface";
+import { TokenResponse } from '@tt/interfaces/auth';
 
 @Injectable({
   providedIn: 'root',

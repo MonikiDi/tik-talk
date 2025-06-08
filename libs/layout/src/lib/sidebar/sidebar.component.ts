@@ -2,9 +2,9 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { SubscriberCardComponent, SubscriberService } from '@tt/subscribers';
+import { SubscriberCardComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
-import { profileActions, selectProfileMe } from '@tt/data-access';
+import { profileActions, selectProfileMe, SubscriberService } from '@tt/data-access';
 
 @Component({
   selector: 'app-sidebar',
