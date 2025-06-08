@@ -1,8 +1,15 @@
 import {
+  ChatWSErrorMessage,
   ChatWSMessage,
   ChatWSNewMessage,
   ChatWSUnreadMessage,
 } from './chat-ws-message.interface';
+
+export function isErrorMessage(
+  message: ChatWSMessage
+): message is ChatWSErrorMessage {
+  return 'status' in message && message.status === 'error';
+}
 
 export function isUnreadMessage(
   message: ChatWSMessage

@@ -14,6 +14,6 @@ export class ChatsPageComponent implements OnInit {
   #chatService = inject(ChatsService);
 
   ngOnInit() {
-    this.#chatService.connectWs();
+    this.#chatService.connectWs().subscribe();
   }
 }

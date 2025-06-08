@@ -15,7 +15,7 @@ import { switchMap, timer } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Debounce } from '@tt/shared';
 
-const TIMEOUT = 10000;
+const TIMEOUT = 1000;
 
 @Component({
   selector: 'app-chats-list',

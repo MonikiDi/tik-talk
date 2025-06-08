@@ -6,16 +6,20 @@ import {
   Message,
 } from '@tt/interfaces/chats/chats.interface';
 import { selectProfileMe } from '@tt/profile';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ChatWsService } from '@tt/interfaces/chats/chat-ws-service.interface';
-import { ChatWsNativeService } from './chat-ws-native.service';
 import { AuthService } from '@tt/auth';
-import { ChatWSMessage } from '@tt/interfaces/chats/chat-ws-message.interface';
 import {
+  ChatWSMessage,
+  ChatWSMessageReceive,
+} from '@tt/interfaces/chats/chat-ws-message.interface';
+import {
+  isErrorMessage,
   isNewMessage,
   isUnreadMessage,
 } from '@tt/interfaces/chats/type-guards';
+import { ChatWsRxjsService } from './chat-ws-rxjs.service';
 
 @Injectable({
   providedIn: 'root',
@@ -30,19 +34,24 @@ export class ChatsService {
   me = this.store.selectSignal(selectProfileMe);
   activeChatMessages = signal<Message[]>([]);
 
-  wsAdapter: ChatWsService = new ChatWsNativeService();
+  wsAdapter: ChatWsService = new ChatWsRxjsService();
 
   connectWs() {
-    this.wsAdapter.connect({
+    return this.wsAdapter.connect({
       url: `${this.baseApiUrl}chat/ws`,
       token: this.#authService.token ?? '',
-      handleMessage: this.handleWSMessage,
+      handleMessage: (message) => {
+        console.log(message);
+        this.handleWSMessage(message);
+      },
     });
   }
 
   //TODO Замыкания
-  handleWSMessage = (message: ChatWSMessage) => {
-    if (!('action' in message)) return;
+  handleWSMessage(message: ChatWSMessageReceive) {
+    if (isErrorMessage(message)) {
+      return;
+    }
 
     if (isUnreadMessage(message)) {
       // TODO
@@ -62,7 +71,7 @@ export class ChatsService {
         },
       ]);
     }
-  };
+  }
 
   createChat(userId: number) {
     return this.http.post<Chat>(`${this.chatsUrl}${userId}`, {});

@@ -1,7 +1,9 @@
 import {
+  AfterViewInit,
   Component,
   computed,
   DestroyRef,
+  effect,
   ElementRef,
   HostListener,
   inject,
@@ -12,18 +14,20 @@ import {
 } from '@angular/core';
 import { ChatWorkspaceMessagesComponent } from './chat-workspace-messages/chat-workspace-messages.component';
 import { MessageInputComponent } from '../../../ui/message-input/message-input.component';
-import { normalizationText } from '@tt/shared';
-import { assertNonNullish } from '@tt/shared';
+import {
+  assertNonNullish,
+  chatByDay,
+  DateUtcPipe,
+  Debounce,
+  normalizationText,
+} from '@tt/shared';
 import { ChatsService } from '../../../data/services/chats.service';
 import { Chat } from '@tt/interfaces/chats/chats.interface';
 import { firstValueFrom, switchMap, timer } from 'rxjs';
-import { Debounce } from '@tt/shared';
-import { chatByDay } from '@tt/shared';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DateUtcPipe } from '@tt/shared';
 import { DatePipe } from '@angular/common';
 
-const TIMEOUT = 10000;
+const TIMEOUT = 5000;
 
 @Component({
   selector: 'app-chat-workspace-messages-wrapper',
@@ -37,18 +41,36 @@ const TIMEOUT = 10000;
   templateUrl: './chat-workspace-messages-wrapper.component.html',
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
 })
-export class ChatWorkspaceMessagesWrapperComponent implements OnInit {
-  public parentData = signal('');
-  chatsService = inject(ChatsService);
-  chat = input.required<Chat>();
+export class ChatWorkspaceMessagesWrapperComponent
+  implements OnInit, AfterViewInit
+{
   destroyRef = inject(DestroyRef);
+  chatsService = inject(ChatsService);
+  r2 = inject(Renderer2);
+  hostElement = inject(ElementRef);
+  parentData = signal('');
+  chat = input.required<Chat>();
   messages = this.chatsService.activeChatMessages;
-  public r2 = inject(Renderer2);
-  public hostElement = inject(ElementRef);
+
+  constructor() {
+    effect(() => {
+      this.messages();
+      this.scrollToBottom();
+    });
+  }
 
   filterDayMessages = computed(() => {
     return chatByDay(this.messages());
   });
+
+  // Функция для автоматического скролла вниз
+  scrollToBottom() {
+    if (this.hostElement) {
+      this.hostElement.nativeElement.scrollTo({
+        top: this.hostElement.nativeElement.scrollHeight,
+      });
+    }
+  }
 
   ngOnInit() {
     timer(0, TIMEOUT)
@@ -59,7 +81,6 @@ export class ChatWorkspaceMessagesWrapperComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
-    document.addEventListener('DOMContentLoaded', this.scrollToBottom);
   }
 
   ngAfterViewInit() {
@@ -94,12 +115,5 @@ export class ChatWorkspaceMessagesWrapperComponent implements OnInit {
     // );
     await firstValueFrom(this.chatsService.getChatById(this.chat().id));
     this.parentData.set('');
-  }
-
-  // Функция для автоматического скролла вниз
-  scrollToBottom() {
-    const chatContainer = document.getElementById('message-wrapper');
-    // @ts-ignore
-    chatContainer.scrollTop = chatContainer.scrollHeight;
   }
 }

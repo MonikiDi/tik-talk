@@ -24,13 +24,16 @@ export interface ChatWSErrorMessage extends ChatWSMessageBase {
   message: string;
 }
 
-export interface ChatWSSendMessage extends ChatWSMessageBase {
+export interface ChatWSSendMessage {
   text: string;
   chat_id: number;
 }
 
-export type ChatWSMessage =
+export type ChatWSMessageReceive =
   | ChatWSUnreadMessage
   | ChatWSNewMessage
-  | ChatWSErrorMessage
-  | ChatWSSendMessage;
+  | ChatWSErrorMessage;
+
+export type ChatWSMessageSend = ChatWSSendMessage;
+
+export type ChatWSMessage = ChatWSMessageReceive | ChatWSMessageSend;
