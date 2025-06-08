@@ -4,7 +4,7 @@ import {
   profileActions,
   selectFilteredProfiles,
   selectPaginationProfiles,
-} from './';
+} from './index';
 import { catchError, EMPTY, exhaustMap, map, switchMap, tap } from 'rxjs';
 import { ProfileService } from '../services/profile.service';
 import { Store } from '@ngrx/store';

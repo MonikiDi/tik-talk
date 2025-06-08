@@ -11,8 +11,10 @@ import { authTokenInterceptor } from '@tt/auth';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { postProviders } from '@tt/posts';
-import { profileProviders } from '@tt/profile';
+import {
+  postProviders,
+  profileProviders,
+} from '../../../../libs/data-access/src';
 
 const effectProviders = [postProviders, profileProviders];
 

@@ -21,11 +21,11 @@ import {
   Debounce,
   normalizationText,
 } from '@tt/shared';
-import { ChatsService } from '../../../data/services/chats.service';
 import { Chat } from '@tt/interfaces/chats/chats.interface';
 import { firstValueFrom, switchMap, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
+import { ChatsService } from '@tt/data-access';
 
 const TIMEOUT = 5000;
 

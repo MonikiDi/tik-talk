@@ -13,12 +13,13 @@ import { debounceTime } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import {
+  profileActions,
   selectFilteredProfiles,
   selectLoadingProfiles,
   selectPagination,
-  selectProfiles,
-} from '../../data/store/selectors';
-import { profileActions } from '../../data/store/actions';
+  selectProfiles
+} from '@tt/data-access';
+
 
 @Component({
   selector: 'app-search-page',

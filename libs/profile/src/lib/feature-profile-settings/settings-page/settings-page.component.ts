@@ -7,7 +7,8 @@ import { AvatarUploadComponent } from '../../ui/avatar-upload/avatar-upload.comp
 import { TasksComponent } from '@tt/common-ui';
 import { AboutMeComponent } from '@tt/common-ui';
 import { Store } from '@ngrx/store';
-import { profileActions, selectProfileMe } from '../../data';
+import { profileActions, selectProfileMe } from '@tt/data-access';
+
 
 @Component({
   selector: 'app-settings-page',

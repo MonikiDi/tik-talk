@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SvgIconComponent } from '@tt/common-ui';
 import { Store } from '@ngrx/store';
-import { selectFilteredProfiles } from '../../data';
+import { selectFilteredProfiles } from '@tt/data-access';
 
 @Component({
   selector: 'app-profile-filters',

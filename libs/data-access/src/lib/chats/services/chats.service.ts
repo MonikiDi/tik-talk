@@ -5,21 +5,18 @@ import {
   LastMessageRes,
   Message,
 } from '@tt/interfaces/chats/chats.interface';
-import { selectProfileMe } from '@tt/profile';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ChatWsService } from '@tt/interfaces/chats/chat-ws-service.interface';
 import { AuthService } from '@tt/auth';
-import {
-  ChatWSMessage,
-  ChatWSMessageReceive,
-} from '@tt/interfaces/chats/chat-ws-message.interface';
+import { ChatWSMessageReceive } from '@tt/interfaces/chats/chat-ws-message.interface';
 import {
   isErrorMessage,
   isNewMessage,
   isUnreadMessage,
 } from '@tt/interfaces/chats/type-guards';
 import { ChatWsRxjsService } from './chat-ws-rxjs.service';
+import { selectProfileMe } from '../../profile';
 
 @Injectable({
   providedIn: 'root',

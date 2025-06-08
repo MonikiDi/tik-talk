@@ -6,8 +6,8 @@ import { TasksComponent } from '@tt/common-ui';
 import { AboutMeComponent } from '@tt/common-ui';
 import { SubscribersComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
-import { selectProfileMe } from '../../data';
 import { PostFeedComponent } from '@tt/posts';
+import { selectProfileMe } from '@tt/data-access';
 
 @Component({
   selector: 'app-profile-me-page',

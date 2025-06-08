@@ -12,10 +12,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { ProfileService, selectProfileMe } from '@tt/profile';
 import { AvatarCircleComponent } from '@tt/common-ui';
 import { SvgIconComponent } from '@tt/common-ui';
 import { Store } from '@ngrx/store';
+import { selectProfileMe } from '@tt/data-access';
 
 @Component({
   selector: 'app-message-input',

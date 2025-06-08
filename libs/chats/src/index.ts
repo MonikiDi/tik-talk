@@ -1,3 +1,3 @@
-export * from './lib/data'
-export * from './lib/feature-chats-workspace'
-export * from './lib/ui'
+export * from '../../data-access/src/lib/chats';
+export * from './lib/feature-chats-workspace';
+export * from './lib/ui';

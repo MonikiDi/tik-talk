@@ -13,8 +13,8 @@ import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
 import { assertNonNullish, Debounce, normalizationText } from '@tt/shared';
 import { Store } from '@ngrx/store';
-import { postsActions, selectPosts } from '../../data/store';
-import { selectProfileMe } from '@tt/profile';
+import { postsActions, selectPosts, selectProfileMe } from '@tt/data-access';
+
 
 @Component({
   selector: 'app-post-feed',

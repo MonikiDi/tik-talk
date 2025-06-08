@@ -16,7 +16,7 @@ import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
 import { Store } from '@ngrx/store';
-import { selectProfileMe } from '@tt/profile';
+import { selectProfileMe } from '@tt/data-access';
 
 @Component({
   selector: 'app-post-input',

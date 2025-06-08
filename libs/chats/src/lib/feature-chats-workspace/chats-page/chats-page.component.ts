@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ChatsListComponent } from '../chats-list/chats-list.component';
-import { ChatsService } from '../../data/services/chats.service';
+import { ChatsService } from '@tt/data-access';
 
 @Component({
   selector: 'app-chats-page',

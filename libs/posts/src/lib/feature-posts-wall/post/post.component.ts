@@ -6,10 +6,8 @@ import { normalizationText } from '@tt/shared';
 import { CommentComponent, PostInputComponent } from '../../ui';
 import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
 import { Post, PostComment } from '@tt/interfaces/post';
-import { PostService } from '../../data/services/post.service';
 import { Store } from '@ngrx/store';
-import { postsActions } from '../../data/store';
-import { selectProfileMe } from '@tt/profile';
+import { postsActions, PostService, selectProfileMe } from '@tt/data-access';
 
 @Component({
   selector: 'app-post',

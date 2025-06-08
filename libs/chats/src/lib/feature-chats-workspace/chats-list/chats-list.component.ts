@@ -9,11 +9,11 @@ import {
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SvgIconComponent } from '@tt/common-ui';
 import { ChatsBtnComponent } from '../chats-btn/chats-btn.component';
-import { ChatsService } from '../../data/services/chats.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { switchMap, timer } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Debounce } from '@tt/shared';
+import { ChatsService } from '@tt/data-access';
 
 const TIMEOUT = 1000;
 

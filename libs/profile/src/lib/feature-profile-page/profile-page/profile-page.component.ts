@@ -10,8 +10,9 @@ import {
 } from '@tt/common-ui';
 import { SubscribersComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
-import { profileActions, selectUser } from '../../data';
 import { PostFeedComponent } from '@tt/posts';
+import { profileActions, selectUser } from '@tt/data-access';
+
 
 @Component({
   selector: 'app-profile-page',
