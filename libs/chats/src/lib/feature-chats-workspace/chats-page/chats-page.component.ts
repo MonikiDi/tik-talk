@@ -1,7 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ChatsListComponent } from '../chats-list/chats-list.component';
 import { ChatsService } from '@tt/data-access';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-chats-page',
@@ -12,8 +20,17 @@ import { ChatsService } from '@tt/data-access';
 })
 export class ChatsPageComponent implements OnInit {
   #chatService = inject(ChatsService);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit() {
-    this.#chatService.connectWs().subscribe();
+    // this.#chatService.connectWs();
+    this.#chatService
+      .connectWs()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(console.log);
+    //
+    // setTimeout(() => {
+    //   this.#chatService.refreshTestConnectWs();
+    // }, 5000);
   }
 }

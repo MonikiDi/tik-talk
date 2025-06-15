@@ -1,14 +1,28 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   Chat,
   LastMessageRes,
   Message,
 } from '@tt/interfaces/chats/chats.interface';
-import { map } from 'rxjs';
+import {
+  lastValueFrom,
+  map,
+  NEVER,
+  Observable,
+  of,
+  startWith,
+  Subject,
+  Subscription,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ChatWsService } from '@tt/interfaces/chats/chat-ws-service.interface';
-import { ChatWSMessageReceive } from '@tt/interfaces/chats/chat-ws-message.interface';
+import {
+  ChatWSMessage,
+  ChatWSMessageReceive,
+} from '@tt/interfaces/chats/chat-ws-message.interface';
 import {
   isErrorMessage,
   isNewMessage,
@@ -17,6 +31,7 @@ import {
 import { ChatWsRxjsService } from './chat-ws-rxjs.service';
 import { selectProfileMe } from '../../profile';
 import { AuthService } from '../../auth/services/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -31,23 +46,70 @@ export class ChatsService {
   me = this.store.selectSignal(selectProfileMe);
   activeChatMessages = signal<Message[]>([]);
 
+  private readonly destroyRef = inject(DestroyRef);
+
   wsAdapter: ChatWsService = new ChatWsRxjsService();
+  // private connect: Subscription | null = null;
+
+  private refresh$ = new Subject<void>();
 
   connectWs() {
-    return this.wsAdapter.connect({
-      url: `${this.baseApiUrl}chat/ws`,
-      token: this.#authService.token ?? '',
-      handleMessage: (message) => {
-        console.log(message);
-        this.handleWSMessage(message);
-      },
-    });
+    return this.refresh$.pipe(
+      startWith(true),
+      switchMap((data) => {
+        return data
+          ? of({
+              access_token: this.#authService.token || '',
+            })
+          : this.#authService.refreshAuthToken();
+      }),
+      switchMap(({ access_token }) => {
+        this.wsAdapter.disconnect();
+        return this.wsAdapter.connect({
+          url: `${this.baseApiUrl}chat/ws`,
+          token: access_token,
+          handleMessage: (message) => {
+            this.handleWSMessage(message);
+          },
+        });
+      })
+    );
   }
+
+  public refreshConnectWs() {
+    this.refresh$.next();
+  }
+
+  // connectWs() {
+  //   this.connect?.unsubscribe();
+  //   this.wsAdapter.disconnect();
+  //   this.connect = this.wsAdapter
+  //     .connect({
+  //       url: `${this.baseApiUrl}chat/ws`,
+  //       token: this.#authService.token ?? '',
+  //       handleMessage: (message) => {
+  //         this.handleWSMessage(message);
+  //       },
+  //     })
+  //     .pipe(takeUntilDestroyed(this.destroyRef))
+  //     .subscribe();
+  // }
+  //
+  // public refreshConnectWs() {
+  //   lastValueFrom(this.#authService.refreshAuthToken()).then(() => {
+  //     return this.connectWs();
+  //   });
+  // }
+  //
+  // public disconnect() {
+  //   this.connect?.unsubscribe();
+  //   this.wsAdapter.disconnect();
+  // }
 
   //TODO Замыкания
   handleWSMessage(message: ChatWSMessageReceive) {
     if (isErrorMessage(message)) {
-      return;
+      this.refreshConnectWs();
     }
 
     if (isUnreadMessage(message)) {
