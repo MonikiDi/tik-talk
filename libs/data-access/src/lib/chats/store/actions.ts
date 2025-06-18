@@ -1,6 +1,10 @@
-import { createActionGroup } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { LastMessageRes } from '@tt/interfaces/chats';
 
 export const chatsActions = createActionGroup({
   source: 'chats',
-  events: {},
+  events: {
+    'load chats': emptyProps(),
+    'loaded chats': props<{ chats: LastMessageRes[] }>(),
+  },
 });

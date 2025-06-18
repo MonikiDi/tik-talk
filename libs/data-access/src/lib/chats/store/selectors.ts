@@ -1,9 +1,9 @@
 import { createSelector } from '@ngrx/store';
-import { chatsFeature } from './reducers';
+import { chatsFeature } from './store';
 
-export const selectChatState = createSelector(
-  chatsFeature.selectChatsFeatureState,
+export const selectChatLastMessages = createSelector(
+  chatsFeature.selectLastMessageChatMap,
   (state) => {
-    return state;
+    return Object.values(state);
   }
 );

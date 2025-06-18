@@ -1,10 +1,23 @@
-import { createFeature, createReducer } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
+import { chatsActions } from './actions';
+import { ChatState, LastMessageChatMap } from './store';
 
-export interface ChatState {}
+const initialState: ChatState = {
+  activeChatId: null,
+  chatMap: {},
+  lastMessageChatMap: {},
+  unread: 0,
+};
 
-const initialState: ChatState = {};
-
-export const chatsFeature = createFeature({
-  name: 'chatsFeature',
-  reducer: createReducer(initialState),
-});
+export const reducer = createReducer(
+  initialState,
+  on(chatsActions.loadedChats, (state, payload) => {
+    return {
+      ...state,
+      lastMessageChatMap: payload.chats.reduce(
+        (acc, item) => ({ ...acc, [item.id]: item }),
+        {} as LastMessageChatMap
+      ),
+    };
+  })
+);
