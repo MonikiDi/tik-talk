@@ -24,7 +24,8 @@ const DEFAULT_PAGINATION: Pagination = {
   perPage: 0,
   totalPages: 0,
 };
-export const initialState: ProfileState = {
+
+const initialState: ProfileState = {
   profileMe: undefined,
   userId: '',
   user: undefined,
