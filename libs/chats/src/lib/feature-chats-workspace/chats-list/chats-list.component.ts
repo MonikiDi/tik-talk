@@ -4,18 +4,17 @@ import {
   ElementRef,
   HostListener,
   inject,
+  OnInit,
   Renderer2,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SvgIconComponent } from '@tt/common-ui';
 import { ChatsBtnComponent } from '../chats-btn/chats-btn.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { switchMap, timer } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Debounce } from '@tt/shared';
-import { ChatsService } from '@tt/data-access';
-
-const TIMEOUT = 1000;
+import { Store } from '@ngrx/store';
+import { chatsActions, selectLastMessageChatMap } from '@tt/data-access';
 
 @Component({
   selector: 'app-chats-list',
@@ -30,20 +29,14 @@ const TIMEOUT = 1000;
   templateUrl: './chats-list.component.html',
   styleUrl: './chats-list.component.scss',
 })
-export class ChatsListComponent {
+export class ChatsListComponent implements OnInit {
   public hostElement = inject(ElementRef);
   public r2 = inject(Renderer2);
-  private readonly chatsService = inject(ChatsService);
+  public store = inject(Store);
+
   filterChatsControl = new FormControl('');
 
-  public chats = toSignal(
-    timer(0, TIMEOUT).pipe(
-      switchMap(() => {
-        return this.chatsService.getMyChat();
-      })
-    ),
-    { initialValue: [] }
-  );
+  public chats = this.store.selectSignal(selectLastMessageChatMap);
 
   private readonly filterChatsControlValue = toSignal(
     this.filterChatsControl.valueChanges,
@@ -63,6 +56,10 @@ export class ChatsListComponent {
         return a.createdAt > b.createdAt ? -1 : 1;
       });
   });
+
+  ngOnInit() {
+    this.store.dispatch(chatsActions.loadLastMessageChatMap());
+  }
 
   // Скролл чатов
   ngAfterViewInit() {
