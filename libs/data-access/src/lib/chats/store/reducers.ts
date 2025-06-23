@@ -11,7 +11,16 @@ const initialState: ChatState = {
 
 export const reducer = createReducer(
   initialState,
-  on(chatsActions.loadedChats, (state, payload) => {
+  on(chatsActions.loadedGetChatById, (state, payload) => {
+    return {
+      ...state,
+      chatMap: {
+        ...state.chatMap,
+        [payload.chats.id]: payload.chats,
+      },
+    };
+  }),
+  on(chatsActions.loadedLastMessageChatMap, (state, payload) => {
     return {
       ...state,
       lastMessageChatMap: payload.chats.reduce(
