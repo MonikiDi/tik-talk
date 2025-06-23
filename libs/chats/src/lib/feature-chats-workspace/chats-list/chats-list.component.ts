@@ -53,7 +53,7 @@ export class ChatsListComponent implements OnInit {
       })
       .slice()
       .sort((a, b) => {
-        return a.createdAt > b.createdAt ? -1 : 1;
+        return new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1;
       });
   });
 
