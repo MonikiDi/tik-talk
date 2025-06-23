@@ -10,12 +10,29 @@ export class ChatEffects {
 
   getMyChat$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(chatsActions.loadChats),
+      ofType(chatsActions.loadGetChatById),
+      switchMap((data) => {
+        return this.chatsService
+          .getChatById(data.chatId)
+          .pipe(
+            map((response) =>
+              chatsActions.loadedGetChatById({ chats: response })
+            )
+          );
+      })
+    );
+  });
+
+  getlastMesageChat$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(chatsActions.loadLastMessageChatMap),
       switchMap(() => {
         return this.chatsService
           .getMyChat()
           .pipe(
-            map((response) => chatsActions.loadedChats({ chats: response }))
+            map((response) =>
+              chatsActions.loadedLastMessageChatMap({ chats: response })
+            )
           );
       })
     );
