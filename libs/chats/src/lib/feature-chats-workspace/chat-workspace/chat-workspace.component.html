@@ -1,7 +1,5 @@
-@if (activeChats(); as chat) { @if (chat.companion) {
-<app-chat-workspace-header
-  [profile]="chat.companion"
-></app-chat-workspace-header>
+@if (activeChat(); as chat) { @if (companion(); as companion) {
+<app-chat-workspace-header [profile]="companion"></app-chat-workspace-header>
 }
 <app-chat-workspace-messages-wrapper
   [chat]="chat"

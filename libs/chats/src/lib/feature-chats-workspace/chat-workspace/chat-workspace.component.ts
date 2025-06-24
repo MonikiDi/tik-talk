@@ -1,9 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { ChatWorkspaceHeaderComponent } from './chat-workspace-header/chat-workspace-header.component';
 import { ChatWorkspaceMessagesWrapperComponent } from './chat-workspace-messages-wrapper/chat-workspace-messages-wrapper.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, of, switchMap } from 'rxjs';
-import { chatsActions, ChatsService, selectActiveChat } from '@tt/data-access';
+import {
+  chatsActions,
+  ChatsService,
+  selectActiveChat,
+  selectProfileMe,
+} from '@tt/data-access';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -22,7 +27,15 @@ export class ChatWorkspaceComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
 
-  public readonly activeChats = this.store.selectSignal(selectActiveChat);
+  public readonly activeChat = this.store.selectSignal(selectActiveChat);
+  public readonly me = this.store.selectSignal(selectProfileMe);
+  public readonly companion = computed(() => {
+    const activeChat = this.activeChat();
+    if (!activeChat) return undefined;
+    return activeChat.userFirst.id === this.me()?.id
+      ? activeChat.userSecond
+      : activeChat.userFirst;
+  });
 
   private readonly chatId$ = this.route.params.pipe(map(({ id }) => id));
 
