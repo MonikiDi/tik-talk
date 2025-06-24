@@ -28,5 +28,11 @@ export const reducer = createReducer(
         {} as LastMessageChatMap
       ),
     };
+  }),
+  on(chatsActions.addActiveChatId, (state, payload) => {
+    return {
+      ...state,
+      activeChatId: payload.chatId,
+    };
   })
 );
