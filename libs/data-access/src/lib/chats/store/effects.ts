@@ -8,7 +8,7 @@ export class ChatEffects {
   actions$ = inject(Actions);
   private chatsService = inject(ChatsService);
 
-  getMyChat$ = createEffect(() => {
+  getMyChatById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(chatsActions.loadGetChatById),
       switchMap((data) => {

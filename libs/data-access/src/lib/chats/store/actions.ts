@@ -8,5 +8,6 @@ export const chatsActions = createActionGroup({
     'loaded getChatById': props<{ chats: Chat }>(),
     'load lastMessageChatMap': emptyProps(),
     'loaded lastMessageChatMap': props<{ chats: LastMessageRes[] }>(),
+    'add activeChatId': props<{ chatId: string }>(),
   },
 });
