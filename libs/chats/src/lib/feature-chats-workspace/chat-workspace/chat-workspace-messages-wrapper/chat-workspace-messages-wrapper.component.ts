@@ -37,12 +37,12 @@ import { ChatsService } from '@tt/data-access';
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
 })
 export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
+  hostElement = inject(ElementRef);
   chatsService = inject(ChatsService);
   r2 = inject(Renderer2);
-  hostElement = inject(ElementRef);
+  messages = this.chatsService.activeChatMessages;
   parentData = signal('');
   chat = input.required<Chat>();
-  messages = this.chatsService.activeChatMessages;
 
   constructor() {
     effect(() => {
@@ -55,7 +55,6 @@ export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
     return chatByDay(this.messages());
   });
 
-  // Функция для автоматического скролла вниз
   scrollToBottom() {
     if (this.hostElement) {
       this.hostElement.nativeElement.scrollTo({
@@ -78,23 +77,16 @@ export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
     const { top } = this.hostElement.nativeElement.getBoundingClientRect();
     const height = window.innerHeight - top - 48;
     this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`);
-    // console.log(height);
   }
 
   async onSendMessage(messageText: string) {
     const result = normalizationText(messageText);
     assertNonNullish(result, '');
-
     if (this.parentData() === '' || result === '') {
       this.parentData.set('');
       return;
     }
-
     this.chatsService.wsAdapter.sendMessage(result, this.chat().id);
-    // await firstValueFrom(
-    //   this.chatsService.sendMessage(this.chat().id, messageText)
-    // );
-    // await firstValueFrom(this.chatsService.getChatById(this.chat().id));
     this.parentData.set('');
   }
 }

@@ -16,14 +16,9 @@ export class ChatsPageComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit() {
-    // this.#chatService.connectWs();
     this.chatService
       .connectWs()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(console.log);
-    //
-    // setTimeout(() => {
-    //   this.#chatService.refreshTestConnectWs();
-    // }, 5000);
   }
 }
