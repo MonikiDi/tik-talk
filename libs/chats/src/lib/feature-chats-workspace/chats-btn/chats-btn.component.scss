@@ -54,6 +54,8 @@
   }
 
   &__message {
+    overflow-wrap: break-word;
+    word-break: break-all;
     color: var(--light-solid);
     text-align: left;
   }
