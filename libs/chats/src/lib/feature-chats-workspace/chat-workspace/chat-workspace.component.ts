@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ChatWorkspaceHeaderComponent } from './chat-workspace-header/chat-workspace-header.component';
 import { ChatWorkspaceMessagesWrapperComponent } from './chat-workspace-messages-wrapper/chat-workspace-messages-wrapper.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, of, switchMap } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
-import { ChatsService } from '@tt/data-access';
+import { filter, map, of, switchMap } from 'rxjs';
+import { chatsActions, ChatsService, selectActiveChat } from '@tt/data-access';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-chat-workspace',
@@ -12,32 +12,46 @@ import { ChatsService } from '@tt/data-access';
   imports: [
     ChatWorkspaceHeaderComponent,
     ChatWorkspaceMessagesWrapperComponent,
-    AsyncPipe,
   ],
   templateUrl: './chat-workspace.component.html',
   styleUrl: './chat-workspace.component.scss',
 })
-export class ChatWorkspaceComponent {
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
+export class ChatWorkspaceComponent implements OnInit {
   private readonly chatsService = inject(ChatsService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
 
-  activeChats$ = this.route.params.pipe(
-    switchMap(({ id }) => {
-      if (id === 'new') {
-        return this.route.queryParams.pipe(
-          filter(({ userId }) => userId),
-          switchMap(({ userId }) => {
-            return this.chatsService.createChat(userId).pipe(
-              switchMap((chat) => {
-                this.router.navigate(['chats', chat.id]);
-                return of(null);
+  public readonly activeChats = this.store.selectSignal(selectActiveChat);
+
+  private readonly chatId$ = this.route.params.pipe(map(({ id }) => id));
+
+  ngOnInit() {
+    this.chatId$
+      .pipe(
+        switchMap((id) => {
+          if (id === 'new') {
+            return this.route.queryParams.pipe(
+              filter(({ userId }) => userId),
+              switchMap(({ userId }) => {
+                return this.chatsService.createChat(userId).pipe(
+                  switchMap((chat) => {
+                    return of({ id: chat.id, isRedirect: true });
+                  })
+                );
               })
             );
-          })
-        );
-      }
-      return this.chatsService.getChatById(id);
-    })
-  );
+          }
+          return of({ id, isRedirect: false });
+        })
+      )
+      .subscribe(({ id, isRedirect }) => {
+        if (isRedirect) {
+          this.router.navigate(['chats', id]);
+          return;
+        }
+        this.store.dispatch(chatsActions.addActiveChatId({ chatId: id }));
+        this.store.dispatch(chatsActions.loadGetChatById({ chatId: id }));
+      });
+  }
 }
