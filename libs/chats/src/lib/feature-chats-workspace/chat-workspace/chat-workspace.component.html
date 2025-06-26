@@ -1,8 +1,10 @@
 @if (activeChat(); as chat) { @if (companion(); as companion) {
 <app-chat-workspace-header [profile]="companion"></app-chat-workspace-header>
-}
+} @if (me(); as me) {
 <app-chat-workspace-messages-wrapper
   [chat]="chat"
+  [profileMe]="me"
 ></app-chat-workspace-messages-wrapper>
+}
 <div class="card__overlay"></div>
 }

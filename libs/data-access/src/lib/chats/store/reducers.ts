@@ -34,5 +34,20 @@ export const reducer = createReducer(
       ...state,
       activeChatId: payload.chatId,
     };
+  }),
+  on(chatsActions.recordsAMessage, (state, payload) => {
+    return {
+      ...state,
+      chatMap: {
+        ...state.chatMap,
+        [payload.chatId]: {
+          ...state.chatMap[payload.chatId],
+          messages: [
+            ...state.chatMap[payload.chatId].messages,
+            payload.message,
+          ],
+        },
+      },
+    };
   })
 );

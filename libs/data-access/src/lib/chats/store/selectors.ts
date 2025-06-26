@@ -14,3 +14,15 @@ export const selectLastMessageChatMap = createSelector(
     return Object.values(state);
   }
 );
+export const selectActiveChatId = createSelector(
+  chatsFeature.selectActiveChatId,
+  (activeChatId) => {
+    return activeChatId;
+  }
+);
+
+export const getChatBuId = (chatId: string) => {
+  return createSelector(chatsFeature.selectChatMap, (chatMap) => {
+    return chatMap[chatId];
+  });
+};

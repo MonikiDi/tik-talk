@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Chat, LastMessageRes } from '@tt/interfaces/chats/chats.interface';
-import { map, of, startWith, Subject, switchMap } from 'rxjs';
+import { of, startWith, Subject, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ChatWsService } from '@tt/interfaces/chats/chat-ws-service.interface';
 import { ChatWSMessageReceive } from '@tt/interfaces/chats/chat-ws-message.interface';
@@ -11,9 +11,8 @@ import {
   isUnreadMessage,
 } from '@tt/interfaces/chats/type-guards';
 import { ChatWsRxjsService } from './chat-ws-rxjs.service';
-import { selectProfileMe } from '../../profile';
 import { AuthService } from '../../auth/services/auth.service';
-import { selectActiveChatId } from '../store/selectors';
+import { getChatBuId, selectActiveChatId } from '../store/selectors';
 import { chatsActions } from '../store/actions';
 
 @Injectable({
@@ -25,8 +24,6 @@ export class ChatsService {
   private readonly store = inject(Store);
   private readonly baseApiUrl = 'https://icherniakov.ru/yt-course/';
   private readonly chatsUrl = `${this.baseApiUrl}chat/`;
-  me = this.store.selectSignal(selectProfileMe);
-  // activeChatMessages = signal<Message[]>([]);
 
   wsAdapter: ChatWsService = new ChatWsRxjsService();
   private refresh$ = new Subject<void>();
@@ -68,23 +65,25 @@ export class ChatsService {
     }
 
     if (isNewMessage(message)) {
-      const activeChatId = this.store.selectSignal(selectActiveChatId);
-      if (activeChatId()) {
-        this.store.dispatch(chatsActions.recordsAMessage({ data: message }));
-      }
+      const chat = this.store.selectSignal(
+        getChatBuId(message.data.chat_id.toString())
+      );
 
-      // this.activeChatMessages.set([
-      //   ...this.activeChatMessages(),
-      //   {
-      //     id: message.data.id,
-      //     userFromId: message.data.author,
-      //     personalChatId: message.data.chat_id,
-      //     text: message.data.message,
-      //     createdAt: message.data.created_at,
-      //     isRead: false,
-      //     isMine: false,
-      //   },
-      // ]);
+      if (chat()) {
+        this.store.dispatch(
+          chatsActions.recordsAMessage({
+            chatId: message.data.chat_id.toString(),
+            message: {
+              id: message.data.id,
+              userFromId: message.data.author,
+              personalChatId: message.data.chat_id,
+              text: message.data.message,
+              createdAt: message.data.created_at,
+              isRead: false,
+            },
+          })
+        );
+      } //TODO реализовать сценарий добавлений сообщений когда не загружен чат ()
     }
   }
 
@@ -97,24 +96,6 @@ export class ChatsService {
   }
 
   getChatById(chatId: number) {
-    return this.http.get<Chat>(`${this.chatsUrl}${chatId}`).pipe(
-      map((chat: Chat) => {
-        const patchMessages = chat.messages.map((message) => {
-          return {
-            ...message,
-            user:
-              chat.userFirst.id === message.userFromId
-                ? chat.userFirst
-                : chat.userSecond,
-            isMine: message.userFromId === this.me()!.id,
-          };
-        });
-        // this.activeChatMessages.set(patchMessages);
-        return {
-          ...chat,
-          messages: patchMessages,
-        };
-      })
-    );
+    return this.http.get<Chat>(`${this.chatsUrl}${chatId}`);
   }
 }

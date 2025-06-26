@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Chat, LastMessageRes } from '@tt/interfaces/chats';
+import { Chat, LastMessageRes, Message } from '@tt/interfaces/chats';
 
 export const chatsActions = createActionGroup({
   source: 'chats',
@@ -8,6 +8,7 @@ export const chatsActions = createActionGroup({
     'loaded getChatById': props<{ chats: Chat }>(),
     'load lastMessageChatMap': emptyProps(),
     'loaded lastMessageChatMap': props<{ chats: LastMessageRes[] }>(),
-    'add activeChatId': props<{ chatId: string }>(),
+    'add activeChatId': props<{ chatId: string }>(), // TODO перемеиновать set
+    'records a message': props<{ chatId: string; message: Message }>(), // TODO перемеиновать add
   },
 });

@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { ChatWorkspaceHeaderComponent } from './chat-workspace-header/chat-workspace-header.component';
 import { ChatWorkspaceMessagesWrapperComponent } from './chat-workspace-messages-wrapper/chat-workspace-messages-wrapper.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +10,7 @@ import {
   selectProfileMe,
 } from '@tt/data-access';
 import { Store } from '@ngrx/store';
+import { Profile } from '@tt/interfaces/profile';
 
 @Component({
   selector: 'app-chat-workspace',
@@ -27,8 +28,10 @@ export class ChatWorkspaceComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
 
+  public readonly me: Signal<Profile | undefined> =
+    this.store.selectSignal(selectProfileMe);
   public readonly activeChat = this.store.selectSignal(selectActiveChat);
-  public readonly me = this.store.selectSignal(selectProfileMe);
+
   public readonly companion = computed(() => {
     const activeChat = this.activeChat();
     if (!activeChat) return undefined;

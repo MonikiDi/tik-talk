@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   computed,
   ElementRef,
@@ -29,7 +30,7 @@ import { chatsActions, selectLastMessageChatMap } from '@tt/data-access';
   templateUrl: './chats-list.component.html',
   styleUrl: './chats-list.component.scss',
 })
-export class ChatsListComponent implements OnInit {
+export class ChatsListComponent implements OnInit, AfterViewInit {
   public hostElement = inject(ElementRef);
   public r2 = inject(Renderer2);
   public store = inject(Store);
@@ -61,7 +62,6 @@ export class ChatsListComponent implements OnInit {
     this.store.dispatch(chatsActions.loadLastMessageChatMap());
   }
 
-  // Скролл чатов
   ngAfterViewInit() {
     this.resizeFeed();
   }
@@ -77,6 +77,5 @@ export class ChatsListComponent implements OnInit {
     const { top } = this.hostElement.nativeElement.getBoundingClientRect();
     const height = window.innerHeight - top - 48;
     this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`);
-    // console.log(height);
   }
 }

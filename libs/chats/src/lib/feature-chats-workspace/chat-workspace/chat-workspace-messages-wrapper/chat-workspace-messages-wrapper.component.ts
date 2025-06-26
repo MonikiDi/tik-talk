@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   computed,
-  DestroyRef,
   effect,
   ElementRef,
   HostListener,
@@ -23,6 +22,7 @@ import {
 import { Chat } from '@tt/interfaces/chats/chats.interface';
 import { DatePipe } from '@angular/common';
 import { ChatsService } from '@tt/data-access';
+import { Profile } from '@tt/interfaces/profile';
 
 @Component({
   selector: 'app-chat-workspace-messages-wrapper',
@@ -37,23 +37,21 @@ import { ChatsService } from '@tt/data-access';
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
 })
 export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
-  hostElement = inject(ElementRef);
-  chatsService = inject(ChatsService);
-  r2 = inject(Renderer2);
-  messages = this.chatsService.activeChatMessages;
-  parentData = signal('');
-  chat = input.required<Chat>();
+  private readonly hostElement = inject(ElementRef);
+  private readonly chatsService = inject(ChatsService);
+  private readonly r2 = inject(Renderer2);
+  public readonly chat = input.required<Chat>();
+  public readonly profileMe = input.required<Profile>();
+  public readonly filterDayMessages = computed(() => {
+    return chatByDay(this.chat().messages);
+  });
+  public readonly parentData = signal('');
 
   constructor() {
     effect(() => {
-      this.messages();
       this.scrollToBottom();
     });
   }
-
-  filterDayMessages = computed(() => {
-    return chatByDay(this.messages());
-  });
 
   scrollToBottom() {
     if (this.hostElement) {

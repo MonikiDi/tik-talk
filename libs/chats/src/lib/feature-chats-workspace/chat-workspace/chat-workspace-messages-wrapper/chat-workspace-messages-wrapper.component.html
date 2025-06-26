@@ -9,6 +9,12 @@
   @for (message of filterMessage.groupMessages; track message.id) {
   <app-chat-workspace-messages
     [message]="message"
+    [user]="
+      message.userFromId === chat().userFirst.id
+        ? chat().userFirst
+        : chat().userSecond
+    "
+    [isMyMessage]="message.userFromId === profileMe().id"
   ></app-chat-workspace-messages>
   } }
 </div>

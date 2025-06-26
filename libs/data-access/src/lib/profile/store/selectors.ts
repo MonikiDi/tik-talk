@@ -3,7 +3,9 @@ import { profileFeature, ProfileState } from './reducers';
 
 export const selectProfileMe = createSelector(
   profileFeature.selectProfileMe,
-  (profileMe) => profileMe
+  (profileMe) => {
+    return profileMe ? profileMe : undefined;
+  }
 );
 export const selectUser = createSelector(
   profileFeature.selectUser,
