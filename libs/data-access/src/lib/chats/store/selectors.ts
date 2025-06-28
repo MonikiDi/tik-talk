@@ -34,3 +34,9 @@ export const getLastMessageId = (chatId: string) => {
     }
   );
 };
+export const selectUnread = createSelector(
+  chatsFeature.selectUnread,
+  (unread) => {
+    return unread;
+  }
+);

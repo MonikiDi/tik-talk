@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { chatsActions } from './actions';
 import { ChatState, LastMessageChatMap } from './store';
 import { messages } from 'nx/src/utils/ab-testing';
+import { state } from '@angular/animations';
 
 const initialState: ChatState = {
   activeChatId: null,
@@ -70,6 +71,12 @@ export const reducer = createReducer(
         ...state.lastMessageChatMap,
         [payload.chatId]: payload.message,
       },
+    };
+  }),
+  on(chatsActions.setUnread, (state, payload) => {
+    return {
+      ...state,
+      unread: payload.unread,
     };
   })
 );

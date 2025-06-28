@@ -65,8 +65,9 @@ export class ChatsService {
     }
 
     if (isUnreadMessage(message)) {
-      // TODO не прочитанные сообщение count
-      console.log(message, 'todo');
+      this.store.dispatch(
+        chatsActions.setUnread({ unread: message.data.count })
+      );
     }
 
     if (isNewMessage(message)) {

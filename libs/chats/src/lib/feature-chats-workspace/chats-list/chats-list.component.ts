@@ -61,7 +61,6 @@ export class ChatsListComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.store.dispatch(chatsActions.loadLastMessageChatMap());
   }
-
   ngAfterViewInit() {
     this.resizeFeed();
   }

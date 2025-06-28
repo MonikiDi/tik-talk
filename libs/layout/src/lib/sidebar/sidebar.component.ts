@@ -1,10 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SubscriberCardComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
-import { profileActions, selectProfileMe, SubscriberService } from '@tt/data-access';
+import {
+  profileActions,
+  selectProfileMe,
+  selectUnread,
+  SubscriberService,
+} from '@tt/data-access';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,17 +27,15 @@ import { profileActions, selectProfileMe, SubscriberService } from '@tt/data-acc
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent implements OnInit {
-  subcriberService = inject(SubscriberService);
-  store = inject(Store);
-  subscribers$ = this.subcriberService.getSubscribersShortList();
+  private readonly subcriberService = inject(SubscriberService);
+  private readonly store = inject(Store);
+  public readonly subscribers$ =
+    this.subcriberService.getSubscribersShortList();
 
-  ngOnInit() {
-    this.store.dispatch(profileActions.loadGetMe());
-  }
+  public readonly me = this.store.selectSignal(selectProfileMe);
+  public readonly unread = this.store.selectSignal(selectUnread);
 
-  me = this.store.selectSignal(selectProfileMe);
-
-  menuItems = [
+  public readonly menuItems = [
     {
       label: 'Моя страница',
       icon: 'home',
@@ -49,4 +52,8 @@ export class SidebarComponent implements OnInit {
       link: 'search',
     },
   ];
+
+  ngOnInit() {
+    this.store.dispatch(profileActions.loadGetMe());
+  }
 }

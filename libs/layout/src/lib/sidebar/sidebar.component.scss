@@ -15,7 +15,7 @@
 .sidebar-menu__btn {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
   width: 100%;
   padding: 8px 16px;
   border: none;
@@ -48,7 +48,23 @@
   width: 16px;
   height: 16px;
 }
-
+.sidebar-menu__label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sidebar-menu__unread-messages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 18px;
+  background: var(--primary-primary);
+  font-weight: 700;
+  font-size: 12px;
+  text-align: center;
+  color: var(--dark-solid);
+}
 .to-subscribers {
   display: flex;
   gap: 10px;

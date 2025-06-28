@@ -17,5 +17,6 @@ export const chatsActions = createActionGroup({
     }>(),
     'add lastMessageChat': props<{ chatId: string; message: LastMessageRes }>(),
     'get Profile Id': props<{ profileId: string; message: ChatWSNewMessage }>(),
+    'set unread': props<{ unread: number }>(),
   },
 });

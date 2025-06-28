@@ -8,8 +8,13 @@
         [routerLink]="[menuItem.link]"
         routerLinkActive="active"
       >
-        <svg icon="{{ menuItem.icon }}"></svg>
-        <span>{{ menuItem.label }}</span>
+        <div class="sidebar-menu__label">
+          <svg icon="{{ menuItem.icon }}"></svg>
+          <span>{{ menuItem.label }}</span>
+        </div>
+        @if (menuItem.label === 'Чаты' && unread() > 0) {
+        <span class="sidebar-menu__unread-messages"> {{ unread() }}</span>
+        }
       </a>
     </li>
   </ul>
@@ -17,7 +22,7 @@
 
 <p class="medium-text mb20">Подписчики</p>
 
-@for(profile of subscribers$ | async; track profile.id) {
+@for (profile of subscribers$ | async; track profile.id) {
 <app-subscriber-card [profile]="profile"></app-subscriber-card>
 }
 
@@ -29,7 +34,7 @@
 </div>
 
 <footer class="sidebar__footer">
-  @if (me(); as me) { @if(me.avatarUrl) {
+  @if (me(); as me) { @if (me.avatarUrl) {
   <img [src]="me.avatarUrl | imgUrl" alt="" />
   } @else {
   <img src="/assets/imgs/avatar-placeholder.png" alt="" />
