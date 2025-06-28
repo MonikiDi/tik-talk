@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { chatsActions } from './actions';
 import { ChatState, LastMessageChatMap } from './store';
+import { messages } from 'nx/src/utils/ab-testing';
 
 const initialState: ChatState = {
   activeChatId: null,
@@ -29,13 +30,13 @@ export const reducer = createReducer(
       ),
     };
   }),
-  on(chatsActions.addActiveChatId, (state, payload) => {
+  on(chatsActions.setActiveChatId, (state, payload) => {
     return {
       ...state,
       activeChatId: payload.chatId,
     };
   }),
-  on(chatsActions.recordsAMessage, (state, payload) => {
+  on(chatsActions.addMessageChat, (state, payload) => {
     return {
       ...state,
       chatMap: {
@@ -47,6 +48,27 @@ export const reducer = createReducer(
             payload.message,
           ],
         },
+      },
+    };
+  }),
+  on(chatsActions.upsertLastMessageChat, (state, payload) => {
+    return {
+      ...state,
+      lastMessageChatMap: {
+        ...state.lastMessageChatMap,
+        [payload.chatId]: {
+          ...state.lastMessageChatMap[payload.chatId],
+          ...payload.message,
+        },
+      },
+    };
+  }),
+  on(chatsActions.addLastMessageChat, (state, payload) => {
+    return {
+      ...state,
+      lastMessageChatMap: {
+        ...state.lastMessageChatMap,
+        [payload.chatId]: payload.message,
       },
     };
   })

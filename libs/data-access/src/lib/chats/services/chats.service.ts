@@ -12,7 +12,11 @@ import {
 } from '@tt/interfaces/chats/type-guards';
 import { ChatWsRxjsService } from './chat-ws-rxjs.service';
 import { AuthService } from '../../auth/services/auth.service';
-import { getChatBuId, selectActiveChatId } from '../store/selectors';
+import {
+  getChatBuId,
+  getLastMessageId,
+  selectActiveChatId,
+} from '../store/selectors';
 import { chatsActions } from '../store/actions';
 
 @Injectable({
@@ -61,17 +65,21 @@ export class ChatsService {
     }
 
     if (isUnreadMessage(message)) {
-      // TODO
+      // TODO не прочитанные сообщение count
     }
 
     if (isNewMessage(message)) {
       const chat = this.store.selectSignal(
         getChatBuId(message.data.chat_id.toString())
       );
+      const lastMessageId = this.store.selectSignal(
+        getLastMessageId(message.data.chat_id.toString())
+      );
+      const actveChatId = this.store.selectSignal(selectActiveChatId);
 
       if (chat()) {
         this.store.dispatch(
-          chatsActions.recordsAMessage({
+          chatsActions.addMessageChat({
             chatId: message.data.chat_id.toString(),
             message: {
               id: message.data.id,
@@ -83,7 +91,31 @@ export class ChatsService {
             },
           })
         );
-      } //TODO реализовать сценарий добавлений сообщений когда не загружен чат ()
+      }
+      if (lastMessageId()) {
+        this.store.dispatch(
+          chatsActions.upsertLastMessageChat({
+            chatId: message.data.chat_id.toString(),
+            message: {
+              id: message.data.chat_id,
+              userFrom: lastMessageId().userFrom,
+              message: message.data.message,
+              createdAt: message.data.created_at,
+              unreadMessages:
+                actveChatId() === message.data.chat_id.toString()
+                  ? lastMessageId().unreadMessages
+                  : lastMessageId().unreadMessages + 1,
+            },
+          })
+        );
+      } else {
+        this.store.dispatch(
+          chatsActions.getProfileId({
+            profileId: message.data.author.toString(),
+            message: message,
+          })
+        );
+      }
     }
   }
 

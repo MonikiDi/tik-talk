@@ -26,3 +26,11 @@ export const getChatBuId = (chatId: string) => {
     return chatMap[chatId];
   });
 };
+export const getLastMessageId = (chatId: string) => {
+  return createSelector(
+    chatsFeature.selectLastMessageChatMap,
+    (lastMessageChatMap) => {
+      return lastMessageChatMap[chatId];
+    }
+  );
+};

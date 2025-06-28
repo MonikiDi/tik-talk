@@ -66,7 +66,15 @@ export class ChatWorkspaceComponent implements OnInit {
           this.router.navigate(['chats', id]);
           return;
         }
-        this.store.dispatch(chatsActions.addActiveChatId({ chatId: id }));
+        this.store.dispatch(chatsActions.setActiveChatId({ chatId: id }));
+        this.store.dispatch(
+          chatsActions.upsertLastMessageChat({
+            chatId: id,
+            message: {
+              unreadMessages: 0,
+            },
+          })
+        );
         this.store.dispatch(chatsActions.loadGetChatById({ chatId: id }));
       });
   }
