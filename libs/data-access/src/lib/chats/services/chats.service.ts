@@ -66,6 +66,7 @@ export class ChatsService {
 
     if (isUnreadMessage(message)) {
       // TODO не прочитанные сообщение count
+      console.log(message, 'todo');
     }
 
     if (isNewMessage(message)) {
@@ -75,7 +76,7 @@ export class ChatsService {
       const lastMessageId = this.store.selectSignal(
         getLastMessageId(message.data.chat_id.toString())
       );
-      const actveChatId = this.store.selectSignal(selectActiveChatId);
+      const activeChatId = this.store.selectSignal(selectActiveChatId);
 
       if (chat()) {
         this.store.dispatch(
@@ -102,7 +103,7 @@ export class ChatsService {
               message: message.data.message,
               createdAt: message.data.created_at,
               unreadMessages:
-                actveChatId() === message.data.chat_id.toString()
+                activeChatId() === message.data.chat_id.toString()
                   ? lastMessageId().unreadMessages
                   : lastMessageId().unreadMessages + 1,
             },
