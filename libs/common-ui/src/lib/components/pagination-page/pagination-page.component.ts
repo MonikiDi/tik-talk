@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -15,6 +16,7 @@ import { SvgIconComponent } from '../svg-icon/svg-icon.component';
   imports: [NgForOf, NgIf, SvgIconComponent],
   templateUrl: './pagination-page.component.html',
   styleUrl: './pagination-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationPageComponent implements OnChanges {
   @Input() current = 0;

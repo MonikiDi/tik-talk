@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -29,6 +30,7 @@ import { chatsActions, selectLastMessageChatMap } from '@tt/data-access';
   ],
   templateUrl: './chats-list.component.html',
   styleUrl: './chats-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatsListComponent implements OnInit, AfterViewInit {
   public hostElement = inject(ElementRef);

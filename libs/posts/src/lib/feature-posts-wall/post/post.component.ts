@@ -1,4 +1,11 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { DataCreateAtPipe } from '@tt/shared';
 import { assertNonNullish } from '@tt/shared';
@@ -21,6 +28,7 @@ import { postsActions, PostService, selectProfileMe } from '@tt/data-access';
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent implements OnInit {
   store = inject(Store);

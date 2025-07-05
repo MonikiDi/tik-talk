@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { SvgIconComponent } from '@tt/common-ui';
@@ -23,6 +23,7 @@ import { selectProfileMe } from '@tt/data-access';
   ],
   templateUrl: './profile-me-page.component.html',
   styleUrl: './profile-me-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileMePageComponent {
   store = inject(Store);

@@ -1,4 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+} from '@angular/core';
 import { ImgUrlPipe } from '@tt/common-ui';
 import { Profile } from '@tt/interfaces/profile';
 import { SubscriberService } from '@tt/data-access';
@@ -9,6 +14,7 @@ import { SubscriberService } from '@tt/data-access';
   imports: [ImgUrlPipe],
   templateUrl: './profile-card.component.html',
   styleUrl: './profile-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileCardComponent {
   subscriberService = inject(SubscriberService);

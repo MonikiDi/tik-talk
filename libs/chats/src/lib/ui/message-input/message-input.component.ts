@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   effect,
   ElementRef,
@@ -23,6 +24,7 @@ import { selectProfileMe } from '@tt/data-access';
   imports: [AvatarCircleComponent, FormsModule, NgIf, SvgIconComponent],
   templateUrl: './message-input.component.html',
   styleUrl: './message-input.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessageInputComponent {
   private readonly store = inject(Store);

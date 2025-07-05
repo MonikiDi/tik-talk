@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { ChatWorkspaceHeaderComponent } from './chat-workspace-header/chat-workspace-header.component';
 import { ChatWorkspaceMessagesWrapperComponent } from './chat-workspace-messages-wrapper/chat-workspace-messages-wrapper.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +28,7 @@ import { Profile } from '@tt/interfaces/profile';
   ],
   templateUrl: './chat-workspace.component.html',
   styleUrl: './chat-workspace.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatWorkspaceComponent implements OnInit {
   private readonly chatsService = inject(ChatsService);

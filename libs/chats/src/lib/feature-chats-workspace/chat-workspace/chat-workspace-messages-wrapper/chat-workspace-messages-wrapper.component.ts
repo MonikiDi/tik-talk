@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -35,6 +36,7 @@ import { Profile } from '@tt/interfaces/profile';
   ],
   templateUrl: './chat-workspace-messages-wrapper.component.html',
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
   private readonly hostElement = inject(ElementRef);

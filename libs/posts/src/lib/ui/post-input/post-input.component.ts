@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   effect,
   ElementRef,
@@ -24,6 +25,7 @@ import { selectProfileMe } from '@tt/data-access';
   imports: [AvatarCircleComponent, NgIf, SvgIconComponent, FormsModule],
   templateUrl: './post-input.component.html',
   styleUrl: './post-input.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostInputComponent {
   store = inject(Store);

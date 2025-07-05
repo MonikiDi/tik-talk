@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -15,13 +16,13 @@ import { assertNonNullish, Debounce, normalizationText } from '@tt/shared';
 import { Store } from '@ngrx/store';
 import { postsActions, selectPosts, selectProfileMe } from '@tt/data-access';
 
-
 @Component({
   selector: 'app-post-feed',
   standalone: true,
   imports: [PostInputComponent, PostComponent],
   templateUrl: './post-feed.component.html',
   styleUrl: './post-feed.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostFeedComponent implements OnInit {
   public hostElement = inject(ElementRef);

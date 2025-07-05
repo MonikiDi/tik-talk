@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import {Profile} from '@tt/interfaces/profile';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Profile } from '@tt/interfaces/profile';
 
 @Component({
   selector: 'app-tasks',
@@ -7,6 +7,7 @@ import {Profile} from '@tt/interfaces/profile';
   imports: [],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TasksComponent {
   profile = input.required<Profile>();

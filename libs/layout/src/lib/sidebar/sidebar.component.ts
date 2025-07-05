@@ -1,4 +1,10 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -25,6 +31,7 @@ import {
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit {
   private readonly subcriberService = inject(SubscriberService);

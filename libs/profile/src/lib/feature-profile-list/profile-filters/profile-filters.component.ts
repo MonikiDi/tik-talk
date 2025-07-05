@@ -1,4 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SvgIconComponent } from '@tt/common-ui';
 import { Store } from '@ngrx/store';
@@ -10,6 +15,7 @@ import { selectFilteredProfiles } from '@tt/data-access';
   imports: [ReactiveFormsModule, SvgIconComponent],
   templateUrl: './profile-filters.component.html',
   styleUrl: './profile-filters.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileFiltersComponent implements OnInit {
   store = inject(Store);

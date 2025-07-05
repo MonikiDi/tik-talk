@@ -1,4 +1,9 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Profile } from '@tt/interfaces/profile';
@@ -13,6 +18,7 @@ const SUBSCRIBER_COUNTER = 6;
   imports: [AsyncPipe, ImgUrlPipe, RouterLink],
   templateUrl: './subscribers.component.html',
   styleUrl: './subscribers.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubscribersComponent {
   subcriberService = inject(SubscriberService);

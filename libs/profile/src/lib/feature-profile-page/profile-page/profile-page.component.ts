@@ -1,4 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
@@ -12,7 +17,6 @@ import { SubscribersComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
 import { PostFeedComponent } from '@tt/posts';
 import { profileActions, selectUser } from '@tt/data-access';
-
 
 @Component({
   selector: 'app-profile-page',
@@ -29,6 +33,7 @@ import { profileActions, selectUser } from '@tt/data-access';
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePageComponent implements OnInit {
   private readonly router = inject(Router);

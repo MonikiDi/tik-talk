@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -17,9 +18,8 @@ import {
   selectFilteredProfiles,
   selectLoadingProfiles,
   selectPagination,
-  selectProfiles
+  selectProfiles,
 } from '@tt/data-access';
-
 
 @Component({
   selector: 'app-search-page',
@@ -31,6 +31,7 @@ import {
   ],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchPageComponent implements OnInit {
   private readonly store = inject(Store);

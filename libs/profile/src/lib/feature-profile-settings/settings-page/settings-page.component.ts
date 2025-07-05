@@ -1,4 +1,10 @@
-import { Component, effect, inject, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  ViewChild,
+} from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -8,7 +14,6 @@ import { TasksComponent } from '@tt/common-ui';
 import { AboutMeComponent } from '@tt/common-ui';
 import { Store } from '@ngrx/store';
 import { profileActions, selectProfileMe } from '@tt/data-access';
-
 
 @Component({
   selector: 'app-settings-page',
@@ -24,6 +29,7 @@ import { profileActions, selectProfileMe } from '@tt/data-access';
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsPageComponent {
   fb = inject(FormBuilder);
