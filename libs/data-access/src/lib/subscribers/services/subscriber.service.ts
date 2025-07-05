@@ -9,7 +9,7 @@ import { map } from 'rxjs';
 })
 export class SubscriberService {
   http = inject(HttpClient);
-  baseApiUrl = 'https://icherniakov.ru/yt-course/';
+  baseApiUrl = '/yt-course/';
 
   getSubscribersShortList(subsAmount = 3) {
     return this.http

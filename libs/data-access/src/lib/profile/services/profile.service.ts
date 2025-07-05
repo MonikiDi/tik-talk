@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 })
 export class ProfileService {
   http = inject(HttpClient);
-  baseApiUrl = 'https://icherniakov.ru/yt-course/';
+  baseApiUrl = '/yt-course/';
   store = inject(Store);
 
   getMe() {

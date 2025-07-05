@@ -13,7 +13,7 @@ import { map } from 'rxjs';
 })
 export class PostService {
   private readonly http = inject(HttpClient);
-  private readonly baseApiUrl = 'https://icherniakov.ru/yt-course/';
+  private readonly baseApiUrl = '/yt-course/';
 
   // Создать пост
   createPost(payload: PostCreateDto) {
