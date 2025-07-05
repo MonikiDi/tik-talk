@@ -7,11 +7,12 @@ import {
 } from '@angular/core';
 import { ChatsService } from '@tt/data-access';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'root-ws',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './root-ws.component.html',
   styleUrl: './root-ws.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

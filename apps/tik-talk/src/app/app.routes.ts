@@ -6,23 +6,30 @@ import { SettingsPageComponent } from '@tt/profile';
 import { chatsRoutes } from '@tt/chats';
 import { LayoutComponent } from '@tt/layout';
 import { canActivateAuth } from '@tt/data-access';
+import { RootWsComponent } from '../../../../libs/layout/src/lib/root-ws/root-ws.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', redirectTo: 'profile/me', pathMatch: 'full' },
-      { path: 'profile/me', component: ProfileMePageComponent },
-      { path: 'profile/:id', component: ProfilePageComponent },
-      { path: 'settings', component: SettingsPageComponent },
       {
-        path: 'search',
-        component: SearchPageComponent,
-      },
-      {
-        path: 'chats',
-        loadChildren: () => chatsRoutes,
+        path: '',
+        component: RootWsComponent,
+        children: [
+          { path: '', redirectTo: 'profile/me', pathMatch: 'full' },
+          { path: 'profile/me', component: ProfileMePageComponent },
+          { path: 'profile/:id', component: ProfilePageComponent },
+          { path: 'settings', component: SettingsPageComponent },
+          {
+            path: 'search',
+            component: SearchPageComponent,
+          },
+          {
+            path: 'chats',
+            loadChildren: () => chatsRoutes,
+          },
+        ],
       },
     ],
     canActivate: [canActivateAuth],
