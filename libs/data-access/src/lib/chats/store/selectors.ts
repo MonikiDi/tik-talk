@@ -40,3 +40,11 @@ export const selectUnread = createSelector(
     return unread;
   }
 );
+export const hasLastMessageById = (chatId: string) => {
+  return createSelector(
+    chatsFeature.selectLastMessageChatMap,
+    (lastMessageChatMap) => {
+      return Boolean(lastMessageChatMap[chatId]);
+    }
+  );
+};
