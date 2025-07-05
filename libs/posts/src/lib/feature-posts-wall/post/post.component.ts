@@ -34,6 +34,7 @@ export class PostComponent implements OnInit {
   store = inject(Store);
   private postService = inject(PostService);
   post = input<Post>();
+  hasMe = input<boolean>();
   comments = signal<PostComment[]>([]);
   profile = this.store.selectSignal(selectProfileMe);
   public parentData = signal('');

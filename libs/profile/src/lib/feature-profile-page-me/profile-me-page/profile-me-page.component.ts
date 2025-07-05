@@ -8,6 +8,7 @@ import { SubscribersComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
 import { PostFeedComponent } from '@tt/posts';
 import { selectProfileMe } from '@tt/data-access';
+import { SubscriptionsComponent } from '@tt/subscriptions';
 
 @Component({
   selector: 'app-profile-me-page',
@@ -20,6 +21,7 @@ import { selectProfileMe } from '@tt/data-access';
     TasksComponent,
     AboutMeComponent,
     PostFeedComponent,
+    SubscriptionsComponent,
   ],
   templateUrl: './profile-me-page.component.html',
   styleUrl: './profile-me-page.component.scss',

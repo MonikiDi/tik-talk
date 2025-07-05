@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -14,7 +15,13 @@ import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
 import { assertNonNullish, Debounce, normalizationText } from '@tt/shared';
 import { Store } from '@ngrx/store';
-import { postsActions, selectPosts, selectProfileMe } from '@tt/data-access';
+import {
+  postsActions,
+  selectPosts,
+  selectPostsUserId,
+  selectProfileMe,
+} from '@tt/data-access';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-feed',
@@ -24,21 +31,32 @@ import { postsActions, selectPosts, selectProfileMe } from '@tt/data-access';
   styleUrl: './post-feed.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostFeedComponent implements OnInit {
+export class PostFeedComponent implements OnInit, AfterViewInit {
   public hostElement = inject(ElementRef);
+  private readonly activatedRoute = inject(ActivatedRoute);
   public r2 = inject(Renderer2);
   public readonly store = inject(Store);
-  feed = this.store.selectSignal(selectPosts);
+  posts = this.store.selectSignal(selectPosts);
+  postsUserId = this.store.selectSignal(selectPostsUserId);
+  profile = this.store.selectSignal(selectProfileMe);
+  public hasMe = this.activatedRoute.snapshot.params['id'] === undefined;
 
   feedSort = computed(() => {
-    return this.feed()
-      .slice()
-      .sort((a, b) => {
-        return a.createdAt > b.createdAt ? -1 : 1;
-      });
+    if (!this.hasMe) {
+      return this.postsUserId()
+        .slice()
+        .sort((a, b) => {
+          return a.createdAt > b.createdAt ? -1 : 1;
+        });
+    } else {
+      return this.posts()
+        .slice()
+        .sort((a, b) => {
+          return a.createdAt > b.createdAt ? -1 : 1;
+        });
+    }
   });
 
-  profile = this.store.selectSignal(selectProfileMe);
   public parentData = signal('');
 
   ngOnInit() {

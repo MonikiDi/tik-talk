@@ -24,4 +24,8 @@ export class ProfileCardComponent {
   onSubscriber(profileId: number) {
     this.subscriberService.onSubscriber(profileId).subscribe();
   }
+
+  onUnsubscribe(profileId: number) {
+    this.subscriberService.onUnsubscribe(profileId).subscribe();
+  }
 }

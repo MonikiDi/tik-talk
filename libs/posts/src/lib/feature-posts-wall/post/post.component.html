@@ -21,9 +21,11 @@
         </div>
       </div>
       <div class="post__col">
+        @if(hasMe()){
         <button (click)="onDeletePost(post.id)" class="post__btn">
           <svg class="post__btn-icon svg16" icon="post-btn"></svg>
         </button>
+        }
       </div>
     </div>
     <div class="post__footer">

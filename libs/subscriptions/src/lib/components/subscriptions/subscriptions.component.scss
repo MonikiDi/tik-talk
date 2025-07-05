@@ -1,13 +1,13 @@
-.subscriber {
+.subscriptions {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.subscriber__number {
+.subscriptions__number {
   display: flex;
-  text-align: center;
   padding: 2px 5px;
+  text-align: center;
   line-height: 18px;
   font-weight: 700;
   font-size: 12px;
@@ -15,14 +15,15 @@
   background: var(--green-primary);
 }
 
-.subscribers-wrapper {
+.subscriptions-wrapper {
   display: flex;
   gap: 6px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.subscriber-avatar-btn,
-.subscriber-avatar-img {
+.subscriptions-avatar-btn,
+.subscriptions-avatar-img {
   width: 36px;
   height: 36px;
   border-radius: 100%;
@@ -39,7 +40,7 @@
   }
 }
 
-.to-subscriber-search {
+.to-subscriptions-search {
   position: relative;
   width: 16px;
   height: 16px;

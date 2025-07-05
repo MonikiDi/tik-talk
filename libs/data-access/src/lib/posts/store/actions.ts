@@ -10,5 +10,7 @@ export const postsActions = createActionGroup({
     'created post': props<Post>(),
     'delete post': props<{ postId: number }>(),
     'deleted post': props<{ postId: number }>(),
+    'load posts user id': props<{ userId: number }>(),
+    'loaded posts user id': props<{ posts: Post[] }>(),
   },
 });

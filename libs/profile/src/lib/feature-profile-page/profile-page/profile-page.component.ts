@@ -16,7 +16,8 @@ import {
 import { SubscribersComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
 import { PostFeedComponent } from '@tt/posts';
-import { profileActions, selectUser } from '@tt/data-access';
+import { postsActions, profileActions, selectUser } from '@tt/data-access';
+import { SubscriptionsComponent } from '@tt/subscriptions';
 
 @Component({
   selector: 'app-profile-page',
@@ -30,6 +31,7 @@ import { profileActions, selectUser } from '@tt/data-access';
     TasksComponent,
     SvgIconComponent,
     RouterLink,
+    SubscriptionsComponent,
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
@@ -51,6 +53,9 @@ export class ProfilePageComponent implements OnInit {
       .subscribe((userId) => {
         if (userId) {
           this.store.dispatch(profileActions.loadUserId({ userId: userId }));
+          this.store.dispatch(
+            postsActions.loadPostsUserId({ userId: 490985590 })
+          );
         } else {
           throw new Error('not fount user id');
         }

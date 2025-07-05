@@ -34,6 +34,13 @@
     >
       Подписаться
     </button>
+    <button
+      [disabled]="disabled"
+      class="btn"
+      (click)="onUnsubscribe(profile.id)"
+    >
+      Отписаться
+    </button>
   </div>
 </div>
 }

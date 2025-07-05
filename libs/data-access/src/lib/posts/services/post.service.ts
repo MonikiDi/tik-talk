@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {
   CommentCreateDto,
   Post,
@@ -38,6 +38,12 @@ export class PostService {
   // Поставить лайк
   addLike(postId: number) {
     return this.http.post<Post>(`${this.baseApiUrl}post/like/${postId}`, {});
+  }
+  // Получить посты UserId
+  getPostsUserId(queryParam: number) {
+    let params = new HttpParams();
+    params = params.append('user_id', queryParam);
+    return this.http.get<Post[]>(`${this.baseApiUrl}post/`, { params: params });
   }
 
   //  Искуственное получение постов

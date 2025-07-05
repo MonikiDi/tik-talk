@@ -1,0 +1,23 @@
+<div class="subscriptions mb16">
+  <h3 class="h6">Подписки</h3>
+  <span class="subscriptions__number">{{ subscriptionsNumber$ | async }}</span>
+</div>
+<div class="subscriptions-wrapper">
+  @for (subscriptions of subscriptions$ | async; track subscriptions.id) {
+  <a
+    class="subscriptions-avatar-btn"
+    [routerLink]="['/profile', subscriptions.id]"
+  >
+    <img
+      class="subscriptions-avatar-img"
+      alt=""
+      [src]="
+        (subscriptions.avatarUrl | imgUrl) !== null
+          ? (subscriptions.avatarUrl | imgUrl)
+          : '/assets/imgs/avatar-placeholder.png'
+      "
+    />
+  </a>
+  }
+  <a class="to-subscriptions-search" [routerLink]="['/search']"> </a>
+</div>

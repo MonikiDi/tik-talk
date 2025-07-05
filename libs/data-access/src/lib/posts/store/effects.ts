@@ -40,4 +40,18 @@ export class PostEffects {
       })
     );
   });
+  getPostsUserId$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postsActions.loadPostsUserId),
+      switchMap((data) => {
+        return this.postService
+          .getPostsUserId(data.userId)
+          .pipe(
+            map((response) =>
+              postsActions.loadedPostsUserId({ posts: response })
+            )
+          );
+      })
+    );
+  });
 }

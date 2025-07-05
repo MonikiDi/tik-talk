@@ -23,4 +23,11 @@ export class SubscriberService {
       {}
     );
   }
+
+  onUnsubscribe(accountId: number) {
+    return this.http.delete(
+      `${this.baseApiUrl}account/subscribe/${accountId}`,
+      {}
+    );
+  }
 }

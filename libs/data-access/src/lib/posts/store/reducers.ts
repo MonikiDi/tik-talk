@@ -4,10 +4,12 @@ import { postsActions } from './actions';
 
 export interface PostState {
   posts: Post[];
+  postsUserId: Post[];
 }
 
 const initialState: PostState = {
   posts: [],
+  postsUserId: [],
 };
 
 export const postsFeature = createFeature({
@@ -32,6 +34,12 @@ export const postsFeature = createFeature({
       return {
         ...state,
         posts: [...state.posts, payload],
+      };
+    }),
+    on(postsActions.loadedPostsUserId, (state, payload) => {
+      return {
+        ...state,
+        postsUserId: payload.posts,
       };
     })
   ),
