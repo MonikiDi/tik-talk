@@ -13,6 +13,7 @@ import { filter, map, of, switchMap } from 'rxjs';
 import {
   chatsActions,
   ChatsService,
+  hasLastMessageById,
   selectActiveChat,
   selectProfileMe,
 } from '@tt/data-access';
@@ -75,14 +76,16 @@ export class ChatWorkspaceComponent implements OnInit {
           return;
         }
         this.store.dispatch(chatsActions.setActiveChatId({ chatId: id }));
-        this.store.dispatch(
-          chatsActions.upsertLastMessageChat({
-            chatId: id,
-            message: {
-              unreadMessages: 0,
-            },
-          })
-        );
+        if (this.store.selectSignal(hasLastMessageById(id))()) {
+          this.store.dispatch(
+            chatsActions.upsertLastMessageChat({
+              chatId: id,
+              message: {
+                unreadMessages: 0,
+              },
+            })
+          );
+        }
         this.store.dispatch(chatsActions.loadGetChatById({ chatId: id }));
       });
   }
