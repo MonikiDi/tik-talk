@@ -59,6 +59,7 @@ export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
     if (this.hostElement) {
       this.hostElement.nativeElement.scrollTo({
         top: this.hostElement.nativeElement.scrollHeight,
+        behavior: 'smooth',
       });
     }
   }
@@ -88,5 +89,6 @@ export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
     }
     this.chatsService.wsAdapter.sendMessage(result, this.chat().id);
     this.parentData.set('');
+    this.scrollToBottom();
   }
 }

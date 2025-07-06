@@ -74,6 +74,7 @@
     gap: 20px;
   }
 
+  &__comment-amount,
   &__likes {
     background: none;
     border: none;
@@ -82,13 +83,13 @@
     padding: 8px 0;
     align-items: center;
     gap: 6px;
-    cursor: pointer;
-    color: var(--light-solid);
+    color: var(--primary-primary);
 
     transition: outline 0.3s ease-in-out, transform 0.3s ease-in-out,
       color 0.3s ease-in-out;
 
     &:hover {
+      cursor: pointer;
       outline: none;
       color: var(--red-primary);
     }
@@ -103,6 +104,7 @@
     }
   }
 
+  &__comment-amount--text,
   &__like-text {
     font-weight: 700;
     font-size: 12px;
@@ -117,31 +119,19 @@
   white-space: pre-line;
 }
 
-.comment-amount {
-  display: flex;
-  padding: 8px 0;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-
-  &__text {
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 133%;
-    color: var(--primary-primary);
-  }
-
-  &__icon {
-    color: var(--primary-primary);
-  }
+.comment__icon {
+  color: var(--light-transparent);
 }
 
 .comments {
-  padding: 8px 0;
-  max-height: 136px;
-  overflow: scroll;
-  display: grid;
-  grid-gap: 8px;
+  display: none;
+
+  &__active {
+    display: block;
+    padding: 8px 0;
+    max-height: 1000px;
+    overflow: scroll;
+  }
 }
 
 .comments::-webkit-scrollbar {

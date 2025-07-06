@@ -37,8 +37,19 @@ export class PostService {
 
   // Поставить лайк
   addLike(postId: number) {
-    return this.http.post<Post>(`${this.baseApiUrl}post/like/${postId}`, {});
+    return this.http.post<{ message: string }>(
+      `${this.baseApiUrl}post/like/${postId}`,
+      {}
+    );
   }
+
+  // Удалить лайк
+  deleteLike(postId: number) {
+    return this.http.delete<{ message: string }>(
+      `${this.baseApiUrl}post/like/${postId}`
+    );
+  }
+
   // Получить посты UserId
   getPostsUserId(queryParam: number) {
     let params = new HttpParams();

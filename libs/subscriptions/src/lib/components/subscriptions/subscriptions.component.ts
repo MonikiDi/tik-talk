@@ -8,9 +8,9 @@ import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Profile } from '@tt/interfaces/profile';
 import { ImgUrlPipe } from '@tt/common-ui';
-import { SubscriptionsService } from '../../../../../data-access/src/lib/subscriptions';
+import { SubscriptionsService } from '@tt/data-access';
 
-const SUBSCRIBER_COUNTER = 6;
+const SUBSCRIBER_COUNTER = 10;
 
 @Component({
   selector: 'app-subscriptions',

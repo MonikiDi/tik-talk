@@ -9,6 +9,21 @@
   border: 1px solid var(--light-solid);
   border-radius: 2px;
   background: var(--dark-solid);
+  cursor: pointer;
+
+  transition: outline 0.3s ease-in-out, color 0.3s ease-in-out,
+    background 0.3s ease-in-out;
+
+  &.active,
+  &:hover,
+  &:focus-visible {
+    background: var(--dark-active);
+    color: var(--primary-primary);
+  }
+
+  &:focus-visible {
+    outline: 1px solid var(--primary-primary);
+  }
 }
 .avatar-name {
   display: grid;
@@ -36,9 +51,13 @@
 }
 
 .btn {
+  background: var(--light-transparent);
   &[disabled] {
     outline: none;
     cursor: default;
     background: #878c93;
   }
+}
+.subscriber {
+  background: var(--primary-primary);
 }

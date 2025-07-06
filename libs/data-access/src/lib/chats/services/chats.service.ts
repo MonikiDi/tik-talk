@@ -26,7 +26,7 @@ export class ChatsService {
   private readonly http = inject(HttpClient);
   #authService = inject(AuthService);
   private readonly store = inject(Store);
-  private readonly baseApiUrl = '/yt-course/';
+  private readonly baseApiUrl = 'https://icherniakov.ru/yt-course/';
   private readonly chatsUrl = `${this.baseApiUrl}chat/`;
 
   wsAdapter: ChatWsService = new ChatWsRxjsService();

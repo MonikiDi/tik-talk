@@ -53,9 +53,7 @@ export class ProfilePageComponent implements OnInit {
       .subscribe((userId) => {
         if (userId) {
           this.store.dispatch(profileActions.loadUserId({ userId: userId }));
-          this.store.dispatch(
-            postsActions.loadPostsUserId({ userId: 490985590 })
-          );
+          this.store.dispatch(postsActions.loadPostsUserId({ userId: userId }));
         } else {
           throw new Error('not fount user id');
         }

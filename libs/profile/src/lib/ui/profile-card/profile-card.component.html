@@ -1,5 +1,5 @@
 @if (profile) {
-<div class="profile-card">
+<div class="profile-card" [routerLink]="['/profile', profile.id]">
   <div class="avatar-name">
     <img
       class="profile-card__avatar"
@@ -21,25 +21,19 @@
   </div>
 
   <div class="profile-card__tags">
-    @for(skill of profile.stack; track skill) {
+    @for (skill of profile.stack; track skill) {
     <div class="skill-tag">{{ skill }}</div>
     }
   </div>
 
   <div class="profile-card__action-btns">
     <button
+      [ngClass]="{ subscriber: isActive }"
       [disabled]="disabled"
       class="btn"
-      (click)="onSubscriber(profile.id)"
+      (click)="toggleSubscriber($event, profile.id)"
     >
-      Подписаться
-    </button>
-    <button
-      [disabled]="disabled"
-      class="btn"
-      (click)="onUnsubscribe(profile.id)"
-    >
-      Отписаться
+      {{ isActive ? 'Подписаться' : 'Отписаться' }}
     </button>
   </div>
 </div>

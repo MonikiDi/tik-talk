@@ -1,11 +1,15 @@
-<img
-  class="subscriber-avatar"
-  [src]="
-    (profile.avatarUrl | imgUrl) !== null
-      ? (profile.avatarUrl | imgUrl)
-      : '/assets/imgs/avatar-placeholder.png'
-  "
-  [alt]="profile.lastName"
-/>
+<a class="subscriber__btn" [routerLink]="['/profile', profile.id]">
+  <img
+    class="subscriber-avatar"
+    [src]="
+      (profile.avatarUrl | imgUrl) !== null
+        ? (profile.avatarUrl | imgUrl)
+        : '/assets/imgs/avatar-placeholder.png'
+    "
+    [alt]="profile.lastName"
+  />
 
-<strong class="subtitle">{{ profile.firstName }} {{ profile.lastName }}</strong>
+  <strong class="subtitle"
+    >{{ profile.firstName }} {{ profile.lastName }}</strong
+  >
+</a>

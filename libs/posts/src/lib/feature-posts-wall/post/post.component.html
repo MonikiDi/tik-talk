@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="post__col">
-        @if(hasMe()){
+        @if (hasMe()) {
         <button (click)="onDeletePost(post.id)" class="post__btn">
           <svg class="post__btn-icon svg16" icon="post-btn"></svg>
         </button>
@@ -30,22 +30,29 @@
     </div>
     <div class="post__footer">
       <div class="post__counters">
-        <span class="comment-amount">
-          <svg class="comment-amount__icon svg16" icon="comment-amount"></svg>
-          <span class="comment-amount__text">
+        <button
+          class="post__comment-amount btn"
+          (click)="toggleComment()"
+          [ngClass]="{ comment__icon: isActiveComments }"
+        >
+          <svg
+            class="post__comment-amount--icon svg16"
+            icon="comment-amount"
+          ></svg>
+          <span class="post__comment-amount--text">
             {{ comments().length }}
           </span>
-        </span>
+        </button>
       </div>
-      <button class="post__likes btn" (click)="addLikes(post.id)">
+      <button class="post__likes btn" (click)="toggleLikes(post)">
         <svg class="post__like-icon svg16" icon="post-like"></svg>
         <span class="post__like-text">
-          {{ post.likes }}
+          {{ likes() }}
         </span>
       </button>
     </div>
   </div>
-  <div class="comments">
+  <div class="comments" [ngClass]="{ comments__active: isActiveComments }">
     @for (comment of comments(); track comment.id) {
     <app-comment [comment]="comment"></app-comment>
     }

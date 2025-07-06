@@ -1,12 +1,27 @@
-:host {
+.subscriber-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.subscriber__btn {
   display: grid;
   grid-template-columns: 32px 1fr;
   grid-gap: 12px;
   padding: 8px 0;
   align-items: center;
-}
-.subscriber-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  text-decoration: none;
+  color: var(--light-solid);
+  transition: outline 0.3s ease-in-out, color 0.3s ease-in-out,
+    background 0.3s ease-in-out;
+
+  &.active,
+  &:hover,
+  &:focus-visible {
+    background: var(--dark-active);
+    color: var(--primary-primary);
+  }
+
+  &:focus-visible {
+    outline: 1px solid var(--primary-primary);
+  }
 }

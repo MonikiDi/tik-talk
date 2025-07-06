@@ -6,6 +6,7 @@ export const postsActions = createActionGroup({
   events: {
     'load posts': emptyProps(),
     'loaded posts': props<{ posts: Post[] }>(),
+    'update posts': props<{ post: Post }>(),
     'create post': props<PostCreateDto>(),
     'created post': props<Post>(),
     'delete post': props<{ postId: number }>(),

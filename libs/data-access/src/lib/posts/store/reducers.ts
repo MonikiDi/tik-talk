@@ -41,6 +41,14 @@ export const postsFeature = createFeature({
         ...state,
         postsUserId: payload.posts,
       };
+    }),
+    on(postsActions.updatePosts, (state, payload) => {
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          return post.id === payload.post.id ? payload.post : post;
+        }),
+      };
     })
   ),
 });
