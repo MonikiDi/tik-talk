@@ -7,7 +7,7 @@ import {
 import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
 import { DataCreateAtPipe } from '@tt/shared';
 import { PostComment } from '@tt/interfaces/post';
-import { postsActions } from '@tt/data-access';
+import { postsActions, selectProfileMe, selectUser } from '@tt/data-access';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -22,6 +22,7 @@ export class CommentComponent {
   private readonly store = inject(Store);
   public comment = input<PostComment>();
   public hasMe = input<boolean>();
+  public meId = this.store.selectSignal(selectProfileMe);
 
   onDeleteComment(postId: number, commentId: number) {
     this.store.dispatch(postsActions.deleteComment({ postId, commentId }));

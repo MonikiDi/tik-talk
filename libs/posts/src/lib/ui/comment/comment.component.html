@@ -13,7 +13,7 @@
   </div>
   <div class="comment__wrapper-text">
     <p class="comment__text">{{ comment.text }}</p>
-    @if (hasMe()) {
+    @if (comment.author.id === meId()?.id) {
     <button
       (click)="onDeleteComment(comment.postId, comment.id)"
       class="comment__btn"
