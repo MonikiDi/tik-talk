@@ -128,7 +128,7 @@ export class PostComponent {
   }
 
   toggleComment() {
-    if (this.post()!.comments.length > 0) {
+    if (this.post()!.comments.length >= 0) {
       this.isActiveComments = !this.isActiveComments;
     }
   }

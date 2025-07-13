@@ -56,14 +56,14 @@
     @for (comment of comments(); track comment.id) {
     <app-comment [comment]="comment" [hasMe]="hasMe()"></app-comment>
     }
-  </div>
-  <div class="comment">
-    <app-post-input
-      [(data)]="parentData"
-      (onSubmit)="onCreateCommit($event)"
-      [border]="'dashed'"
-      [placeholder]="'Напишите комментарий'"
-    ></app-post-input>
+    <div class="comment">
+      <app-post-input
+        [(data)]="parentData"
+        (onSubmit)="onCreateCommit($event)"
+        [border]="'dashed'"
+        [placeholder]="'Напишите комментарий'"
+      ></app-post-input>
+    </div>
   </div>
 </main>
 }
