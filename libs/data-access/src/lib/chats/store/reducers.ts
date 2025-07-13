@@ -1,8 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { chatsActions } from './actions';
 import { ChatState, LastMessageChatMap } from './store';
-import { messages } from 'nx/src/utils/ab-testing';
-import { state } from '@angular/animations';
 
 const initialState: ChatState = {
   activeChatId: null,

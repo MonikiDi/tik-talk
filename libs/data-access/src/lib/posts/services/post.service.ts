@@ -35,6 +35,11 @@ export class PostService {
     return this.http.post<PostComment>(`${this.baseApiUrl}comment/`, payload);
   }
 
+  // Удалить комментарий
+  deleteComment(postId: number) {
+    return this.http.delete<void>(`${this.baseApiUrl}comment/${postId}`);
+  }
+
   // Поставить лайк
   addLike(postId: number) {
     return this.http.post<{ message: string }>(
@@ -57,7 +62,7 @@ export class PostService {
     return this.http.get<Post[]>(`${this.baseApiUrl}post/`, { params: params });
   }
 
-  //  Искуственное получение постов
+  //  Искуственное получение пост-комментов
   getCommentPostId(postId: number) {
     return this.http
       .get<Post>(`${this.baseApiUrl}post/${postId}`)

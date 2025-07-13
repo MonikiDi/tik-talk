@@ -1,12 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   inject,
   OnInit,
+  Signal,
 } from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import {
   AboutMeComponent,
@@ -16,8 +18,14 @@ import {
 import { SubscribersComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
 import { PostFeedComponent } from '@tt/posts';
-import { postsActions, profileActions, selectUser } from '@tt/data-access';
-import { SubscriptionsComponent } from '@tt/subscriptions';
+import {
+  postsActions,
+  profileActions,
+  selectPostsUserById,
+  selectUser,
+} from '@tt/data-access';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { Profile } from '@tt/interfaces/profile';
 
 @Component({
   selector: 'app-profile-page',
@@ -31,24 +39,35 @@ import { SubscriptionsComponent } from '@tt/subscriptions';
     TasksComponent,
     SvgIconComponent,
     RouterLink,
-    SubscriptionsComponent,
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePageComponent implements OnInit {
-  private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
-  store = inject(Store);
-  public profile$ = this.store.select(selectUser);
+  private destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
+  private readonly store = inject(Store);
+  public profile$: Observable<Profile | undefined> =
+    this.store.select(selectUser);
+  public posts = toSignal(
+    this.activatedRoute.params.pipe(
+      switchMap((params) => {
+        return !params?.['id']
+          ? of(undefined)
+          : this.store.select(selectPostsUserById(params?.['id']));
+      })
+    )
+  );
 
   ngOnInit() {
     this.activatedRoute.params
       .pipe(
         map((params) => {
           return params?.['id'];
-        })
+        }),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((userId) => {
         if (userId) {

@@ -1,16 +1,29 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { AvatarCircleComponent } from '@tt/common-ui';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
+import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
 import { DataCreateAtPipe } from '@tt/shared';
 import { PostComment } from '@tt/interfaces/post';
+import { postsActions } from '@tt/data-access';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [AvatarCircleComponent, DataCreateAtPipe],
+  imports: [AvatarCircleComponent, DataCreateAtPipe, SvgIconComponent],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentComponent {
-  comment = input<PostComment>();
+  private readonly store = inject(Store);
+  public comment = input<PostComment>();
+  public hasMe = input<boolean>();
+
+  onDeleteComment(postId: number, commentId: number) {
+    this.store.dispatch(postsActions.deleteComment({ postId, commentId }));
+  }
 }

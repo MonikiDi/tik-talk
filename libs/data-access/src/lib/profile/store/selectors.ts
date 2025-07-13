@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { profileFeature, ProfileState } from './reducers';
+import { profileFeature } from './reducers';
 
 export const selectProfileMe = createSelector(
   profileFeature.selectProfileMe,

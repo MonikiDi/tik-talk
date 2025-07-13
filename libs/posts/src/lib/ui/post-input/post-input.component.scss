@@ -9,10 +9,10 @@
   border-radius: 2px;
   background: var(--dark-solid);
 
-  z-index: 1000;
   position: sticky;
   top: 0;
   width: 100%;
+  z-index: 1000;
 }
 
 .hidden-textarea {
@@ -42,6 +42,6 @@
 }
 
 :host.comment {
-  z-index: 100;
+  z-index: 0;
   border: 1px dashed var(--light-solid);
 }

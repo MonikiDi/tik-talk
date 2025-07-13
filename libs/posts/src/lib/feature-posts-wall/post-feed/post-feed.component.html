@@ -1,9 +1,9 @@
-@if(hasMe){
+@if (hasMe) {
 <app-post-input
   [(data)]="parentData"
   (onSubmit)="onCreatePost($event)"
   [placeholder]="'Напишите что-нибудь'"
 ></app-post-input>
-} @for (post of feedSort(); track post.id) {
+} @for (post of sortPosts(); track post.id) {
 <app-post [post]="post" [hasMe]="hasMe"></app-post>
 }

@@ -6,7 +6,7 @@ import {
   ElementRef,
   HostListener,
   inject,
-  OnInit,
+  input,
   Renderer2,
   signal,
 } from '@angular/core';
@@ -15,53 +15,38 @@ import { PostInputComponent } from '../../ui/post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
 import { assertNonNullish, Debounce, normalizationText } from '@tt/shared';
 import { Store } from '@ngrx/store';
-import {
-  postsActions,
-  selectPosts,
-  selectPostsUserId,
-  selectProfileMe,
-} from '@tt/data-access';
+import { postsActions, selectProfileMe } from '@tt/data-access';
 import { ActivatedRoute } from '@angular/router';
+import { Post } from '@tt/interfaces/post';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-post-feed',
   standalone: true,
-  imports: [PostInputComponent, PostComponent],
+  imports: [PostInputComponent, PostComponent, AsyncPipe],
   templateUrl: './post-feed.component.html',
   styleUrl: './post-feed.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostFeedComponent implements OnInit, AfterViewInit {
-  public hostElement = inject(ElementRef);
+export class PostFeedComponent implements AfterViewInit {
   private readonly activatedRoute = inject(ActivatedRoute);
+  public hostElement = inject(ElementRef);
+  private readonly store = inject(Store);
   public r2 = inject(Renderer2);
-  public readonly store = inject(Store);
-  posts = this.store.selectSignal(selectPosts);
-  postsUserId = this.store.selectSignal(selectPostsUserId);
-  profile = this.store.selectSignal(selectProfileMe);
-  public hasMe = this.activatedRoute.snapshot.params['id'] === undefined;
 
-  feedSort = computed(() => {
-    if (!this.hasMe) {
-      return this.postsUserId()
-        .slice()
-        .sort((a, b) => {
-          return a.createdAt > b.createdAt ? -1 : 1;
-        });
-    } else {
-      return this.posts()
-        .slice()
-        .sort((a, b) => {
-          return a.createdAt > b.createdAt ? -1 : 1;
-        });
-    }
+  public posts = input.required<Post[]>();
+  public profile = this.store.selectSignal(selectProfileMe);
+  public hasMe = this.activatedRoute.snapshot.params['id'] === undefined;
+  public userId = '';
+
+  public sortPosts = computed(() => {
+    const postsArray = Object.values(this.posts());
+    return postsArray.slice().sort((a, b) => {
+      return a.createdAt > b.createdAt ? -1 : 1;
+    });
   });
 
   public parentData = signal('');
-
-  ngOnInit() {
-    this.store.dispatch(postsActions.loadPosts());
-  }
 
   ngAfterViewInit() {
     this.resizeFeed();

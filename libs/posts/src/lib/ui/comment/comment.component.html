@@ -11,6 +11,16 @@
       comment.createdAt | dataCreateAt
     }}</span>
   </div>
-  <p class="comment__text">{{ comment.text }}</p>
+  <div class="comment__wrapper-text">
+    <p class="comment__text">{{ comment.text }}</p>
+    @if (hasMe()) {
+    <button
+      (click)="onDeleteComment(comment.postId, comment.id)"
+      class="comment__btn"
+    >
+      <svg class="comment__btn-icon svg16" icon="post-btn"></svg>
+    </button>
+    }
+  </div>
 </div>
 }

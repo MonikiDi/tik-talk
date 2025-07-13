@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   inject,
   input,
   OnInit,
@@ -18,6 +19,7 @@ import { Store } from '@ngrx/store';
 import { postsActions, PostService, selectProfileMe } from '@tt/data-access';
 import { NgClass } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-post',
@@ -34,22 +36,21 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostComponent implements OnInit {
-  store = inject(Store);
-  private postService = inject(PostService);
-  post = input.required<Post>();
-  hasMe = input<boolean>();
-  comments = signal<PostComment[]>([]);
-  profile = this.store.selectSignal(selectProfileMe);
+export class PostComponent {
+  private readonly postService = inject(PostService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly store = inject(Store);
+  public post = input.required<Post>();
+  public hasMe = input<boolean>();
+  public profile = this.store.selectSignal(selectProfileMe);
   public parentData = signal('');
   public isActiveComments = false;
-  likes = computed(() => {
+  public likes = computed(() => {
     return this.post().likes;
   });
-
-  ngOnInit() {
-    this.comments.set(this.post()!.comments);
-  }
+  public comments = computed(() => {
+    return this.post().comments;
+  });
 
   onDeletePost(postId: number) {
     this.store.dispatch(postsActions.deletePost({ postId }));
@@ -68,23 +69,33 @@ export class PostComponent implements OnInit {
       return;
     }
 
-    firstValueFrom(
-      this.postService.createComment({
+    this.store.dispatch(
+      postsActions.createComment({
         text: result,
         authorId: profile.id,
         postId: post.id,
         commentId: 0,
       })
-    )
-      .then(() => {
-        return firstValueFrom(
-          this.postService.getCommentPostId(this.post()!.id)
-        );
-      })
-      .then((comments) => {
-        this.comments.set(comments);
-        this.parentData.set('');
-      });
+    );
+    this.parentData.set('');
+
+    // firstValueFrom(
+    //   this.postService.createComment({
+    //     text: result,
+    //     authorId: profile.id,
+    //     postId: post.id,
+    //     commentId: 0,
+    //   })
+    // )
+    //   .then(() => {
+    //     return firstValueFrom(
+    //       this.postService.getCommentPostId(this.post()!.id)
+    //     );
+    //   })
+    //   .then((comments) => {
+    //     this.comments.set(comments);
+    //     this.parentData.set('');
+    //   });
   }
 
   toggleLikes(post: Post) {
@@ -98,7 +109,8 @@ export class PostComponent implements OnInit {
           return throwError(() => {
             return error;
           });
-        })
+        }),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((response) => {
         this.store.dispatch(

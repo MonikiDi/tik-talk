@@ -54,7 +54,7 @@
   </div>
   <div class="comments" [ngClass]="{ comments__active: isActiveComments }">
     @for (comment of comments(); track comment.id) {
-    <app-comment [comment]="comment"></app-comment>
+    <app-comment [comment]="comment" [hasMe]="hasMe()"></app-comment>
     }
   </div>
   <div class="comment">

@@ -8,18 +8,18 @@ export class PostEffects {
   actions$ = inject(Actions);
   private readonly postService = inject(PostService);
 
-  getPosts$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(postsActions.loadPosts),
-      switchMap(() => {
-        return this.postService
-          .fetchPosts()
-          .pipe(
-            map((response) => postsActions.loadedPosts({ posts: response }))
-          );
-      })
-    );
-  });
+  // getPosts$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(postsActions.loadPosts),
+  //     switchMap(() => {
+  //       return this.postService
+  //         .fetchPosts()
+  //         .pipe(
+  //           map((response) => postsActions.loadedPosts({ posts: response }))
+  //         );
+  //     })
+  //   );
+  // });
   addPost$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(postsActions.createPost),
@@ -30,7 +30,7 @@ export class PostEffects {
       })
     );
   });
-  deletePost$ = createEffect(() => {
+  deletePostId$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(postsActions.deletePost),
       switchMap((data) => {
@@ -48,7 +48,34 @@ export class PostEffects {
           .getPostsUserId(data.userId)
           .pipe(
             map((response) =>
-              postsActions.loadedPostsUserId({ posts: response })
+              postsActions.loadedPostsUserId({ userPosts: response })
+            )
+          );
+      })
+    );
+  });
+  addCommentPost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postsActions.createComment),
+      switchMap((data) => {
+        return this.postService
+          .createComment(data)
+          .pipe(map((response) => postsActions.createdComment(response)));
+      })
+    );
+  });
+  deleteCommentId$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postsActions.deleteComment),
+      switchMap((data) => {
+        return this.postService
+          .deleteComment(data.commentId)
+          .pipe(
+            map(() =>
+              postsActions.deletedComment({
+                postId: data.postId,
+                commentId: data.commentId,
+              })
             )
           );
       })
