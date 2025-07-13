@@ -5,6 +5,7 @@ import {
   PostComment,
   PostCreateDto,
 } from '@tt/interfaces/post';
+import { PostEdit } from '@tt/interfaces/post/post.interface';
 
 export const postsActions = createActionGroup({
   source: 'posts',
@@ -22,5 +23,7 @@ export const postsActions = createActionGroup({
     'created comment': props<PostComment>(),
     'delete comment': props<{ postId: number; commentId: number }>(),
     'deleted comment': props<{ postId: number; commentId: number }>(),
+    'edit post': props<{ postId: number; postEdit: PostEdit }>(),
+    'edited post': props<Post>(),
   },
 });

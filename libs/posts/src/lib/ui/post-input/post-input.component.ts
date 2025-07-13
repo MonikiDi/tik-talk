@@ -28,24 +28,20 @@ import { selectProfileMe } from '@tt/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostInputComponent {
-  store = inject(Store);
-  r2 = inject(Renderer2);
+  private readonly store = inject(Store);
+  private readonly r2 = inject(Renderer2);
   private readonly textAreaTarget =
     viewChild.required<ElementRef<void>>('textAreaTarget');
-  profile = this.store.selectSignal(selectProfileMe);
-  border = input<'solid' | 'dashed'>('solid');
-  placeholder = input<string>('');
-  postText = signal('');
+  public profile = this.store.selectSignal(selectProfileMe);
+  public border = input<'solid' | 'dashed'>('solid');
+  public placeholder = input<string>('');
+  public postText = signal('');
 
   @Input() public set data(value: string) {
     this.postText.set(value);
   }
+
   @Output() dataChange = new EventEmitter<string>();
-
-  onDataChange(value: string) {
-    this.dataChange.emit(value);
-  }
-
   @Output() onSubmit = new EventEmitter<string>();
 
   @HostBinding('class.comment')
@@ -67,5 +63,9 @@ export class PostInputComponent {
         );
       }
     });
+  }
+
+  onDataChange(value: string) {
+    this.dataChange.emit(value);
   }
 }

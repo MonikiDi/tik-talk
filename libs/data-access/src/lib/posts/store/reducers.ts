@@ -129,6 +129,20 @@ export const postsFeature = createFeature({
           },
         },
       };
+    }),
+    on(postsActions.editedPost, (state, payload) => {
+      const postId = payload.id;
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [postId]: {
+            ...state.posts[postId],
+            content: payload.content,
+            title: payload.title,
+          },
+        },
+      };
     })
   ),
 });

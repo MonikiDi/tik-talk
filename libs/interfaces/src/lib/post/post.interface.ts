@@ -1,5 +1,10 @@
 import { Profile } from '../profile/profile.interface';
 
+export interface PostEdit {
+  title: string;
+  content: string;
+}
+
 export interface PostCreateDto {
   title: string;
   content: string;

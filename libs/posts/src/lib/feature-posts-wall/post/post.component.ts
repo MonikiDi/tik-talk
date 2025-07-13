@@ -5,21 +5,23 @@ import {
   DestroyRef,
   inject,
   input,
-  OnInit,
   signal,
 } from '@angular/core';
-import { catchError, firstValueFrom, map, throwError } from 'rxjs';
-import { DataCreateAtPipe } from '@tt/shared';
-import { assertNonNullish } from '@tt/shared';
-import { normalizationText } from '@tt/shared';
+import { catchError, throwError } from 'rxjs';
+import {
+  assertNonNullish,
+  DataCreateAtPipe,
+  normalizationText,
+} from '@tt/shared';
 import { CommentComponent, PostInputComponent } from '../../ui';
 import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
-import { Post, PostComment } from '@tt/interfaces/post';
+import { Post } from '@tt/interfaces/post';
 import { Store } from '@ngrx/store';
 import { postsActions, PostService, selectProfileMe } from '@tt/data-access';
 import { NgClass } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EditPostComponent } from '../edit-post/edit-post.component';
 
 @Component({
   selector: 'app-post',
@@ -31,6 +33,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     CommentComponent,
     DataCreateAtPipe,
     NgClass,
+    EditPostComponent,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
@@ -51,6 +54,7 @@ export class PostComponent {
   public comments = computed(() => {
     return this.post().comments;
   });
+  public isVisible = true;
 
   onDeletePost(postId: number) {
     this.store.dispatch(postsActions.deletePost({ postId }));
@@ -131,5 +135,13 @@ export class PostComponent {
     if (this.post()!.comments.length >= 0) {
       this.isActiveComments = !this.isActiveComments;
     }
+  }
+
+  onEditPost() {
+    this.isVisible = !this.isVisible;
+  }
+
+  handleChildEvent(isVisible: boolean) {
+    this.isVisible = isVisible;
   }
 }

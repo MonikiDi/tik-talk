@@ -5,6 +5,7 @@ import {
   Post,
   PostComment,
   PostCreateDto,
+  PostEdit,
 } from '@tt/interfaces/post/post.interface';
 import { map } from 'rxjs';
 
@@ -18,6 +19,11 @@ export class PostService {
   // Создать пост
   createPost(payload: PostCreateDto) {
     return this.http.post<Post>(`${this.baseApiUrl}post/`, payload);
+  }
+
+  // Обновить пост
+  updatePost(postId: number, payload: PostEdit) {
+    return this.http.patch<Post>(`${this.baseApiUrl}post/${postId}`, payload);
   }
 
   // Получить посты
@@ -67,5 +73,10 @@ export class PostService {
     return this.http
       .get<Post>(`${this.baseApiUrl}post/${postId}`)
       .pipe(map((res) => res.comments));
+  }
+
+  // Редактировать пост
+  editPost(editPost: PostEdit) {
+    return this.http.patch<PostEdit>(`${this.baseApiUrl}post/`, editPost);
   }
 }

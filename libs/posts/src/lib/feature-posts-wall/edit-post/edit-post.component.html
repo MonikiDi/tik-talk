@@ -1,0 +1,27 @@
+<form class="edit-post__form" onsubmit="return false;">
+  <div class="edit-post__wrapper-content">
+    <textarea
+      #textAreaTarget
+      class="edit-post__content"
+      type="text"
+      id="content"
+      [(ngModel)]="postEdit.content"
+      name="content"
+      rows="1"
+      required
+    ></textarea>
+  </div>
+  <div class="edit-post__wrapper-btns">
+    <button
+      class="edit-post__btn btn"
+      type="submit"
+      [disabled]="this.postEdit.content === this.post().content ? true : false"
+      (click)="submitEditPost()"
+    >
+      Сохранить
+    </button>
+    <button class="edit-post__btn btn" (click)="cancelEditPost()">
+      Отмена
+    </button>
+  </div>
+</form>

@@ -15,9 +15,18 @@
           </strong>
         </div>
         <div class="post__content">
+          @if (isVisible) {
           <p class="medium-text medium-text__post">
             {{ post.content }}
           </p>
+          } @else {
+          <p class="medium-text medium-text__post">
+            <app-edit-post
+              [post]="post"
+              (isVisible)="handleChildEvent($event)"
+            ></app-edit-post>
+          </p>
+          }
         </div>
       </div>
       <div class="post__col">
@@ -26,6 +35,9 @@
           <svg class="post__btn-icon svg16" icon="post-btn"></svg>
         </button>
         }
+        <button (click)="onEditPost()" class="post__btn">
+          <svg class="post__btn-icon svg16" icon="post-btn"></svg>
+        </button>
       </div>
     </div>
     <div class="post__footer">

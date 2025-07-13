@@ -68,16 +68,24 @@ export class PostEffects {
     return this.actions$.pipe(
       ofType(postsActions.deleteComment),
       switchMap((data) => {
+        return this.postService.deleteComment(data.commentId).pipe(
+          map(() =>
+            postsActions.deletedComment({
+              postId: data.postId,
+              commentId: data.commentId,
+            })
+          )
+        );
+      })
+    );
+  });
+  editPost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postsActions.editPost),
+      switchMap((data) => {
         return this.postService
-          .deleteComment(data.commentId)
-          .pipe(
-            map(() =>
-              postsActions.deletedComment({
-                postId: data.postId,
-                commentId: data.commentId,
-              })
-            )
-          );
+          .updatePost(data.postId, data.postEdit)
+          .pipe(map((post) => postsActions.editedPost(post)));
       })
     );
   });
