@@ -1,20 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  DestroyRef,
-  inject,
-  input,
-  OnInit,
-  signal,
-} from '@angular/core';
-import { catchError, firstValueFrom, map, throwError } from 'rxjs';
-import { DataCreateAtPipe } from '@tt/shared';
-import { assertNonNullish } from '@tt/shared';
-import { normalizationText } from '@tt/shared';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
+import { assertNonNullish, DataCreateAtPipe, normalizationText } from '@tt/shared';
 import { CommentComponent, PostInputComponent } from '../../ui';
 import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
-import { Post, PostComment } from '@tt/interfaces/post';
+import { Post } from '@tt/interfaces/post';
 import { Store } from '@ngrx/store';
 import { postsActions, PostService, selectProfileMe } from '@tt/data-access';
 import { NgClass } from '@angular/common';

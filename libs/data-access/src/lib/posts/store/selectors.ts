@@ -18,13 +18,13 @@ import { postsFeature } from './reducers';
 // };
 
 export const selectUserById = (userId: number) =>
-  createSelector(postsFeature['selectUserIdPostsId'], (state) => {
+  createSelector(postsFeature.selectUserIdPostsId, (state) => {
     return state[userId] || [];
   });
 
 export const selectPostsUserById = (userId: number) => {
   return createSelector(
-    postsFeature['selectPosts'],
+    postsFeature.selectPosts,
     selectUserById(userId),
     (state, postsId) => {
       const posts: Post[] = [];
