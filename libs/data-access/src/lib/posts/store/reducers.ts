@@ -12,7 +12,7 @@ export interface PostsState {
 
 const initialState: PostsState = {
   posts: {},
-  userIdPostsId: {},
+  userIdPostsId: {}
 };
 
 export const postsFeature = createFeature({
@@ -33,16 +33,16 @@ export const postsFeature = createFeature({
         posts: {
           ...Object.fromEntries(
             Object.entries(state.posts).filter(
-              ([key]) => key !== String(payload.postId)
+              ([key, value]) => key !== String(payload.postId)
             )
-          ),
+          )
         },
         userIdPostsId: {
           ...state.userIdPostsId,
           [userId]: state.userIdPostsId[userId].filter((element) => {
             return element !== payload.postId;
-          }),
-        },
+          })
+        }
       };
     }),
     on(postsActions.createdPost, (state, payload) => {
@@ -50,15 +50,15 @@ export const postsFeature = createFeature({
         ...state,
         posts: {
           ...state.posts,
-          [payload.id]: payload,
+          [payload.id]: payload
         },
         userIdPostsId: {
           ...state.userIdPostsId,
           [payload.author.id]: [
             ...state.userIdPostsId[payload.author.id],
-            payload.id,
-          ],
-        },
+            payload.id
+          ]
+        }
       };
     }),
     on(postsActions.loadedPostsUserId, (state, payload) => {
@@ -68,7 +68,7 @@ export const postsFeature = createFeature({
           ...state.posts,
           ...payload.userPosts.reduce((acc, item) => {
             return { ...acc, [item.id]: item };
-          }, {} as PostsMap),
+          }, {} as PostsMap)
         },
         userIdPostsId: {
           ...state.userIdPostsId,
@@ -76,13 +76,13 @@ export const postsFeature = createFeature({
             if (item.author.id in acc) {
               acc[item.author.id].push(item.id);
               return {
-                ...acc,
+                ...acc
               };
             } else {
               return { ...acc, [item.author.id]: [item.id] };
             }
-          }, {} as UserIdPostsIdMap),
-        },
+          }, {} as UserIdPostsIdMap)
+        }
       };
     }),
     on(postsActions.updatePosts, (state, payload) => {
@@ -94,8 +94,8 @@ export const postsFeature = createFeature({
           [postId]:
             state.posts[postId].id === postId
               ? payload.post
-              : state.posts[postId].id,
-        },
+              : state.posts[postId].id
+        }
       };
     }),
     on(postsActions.createdComment, (state, payload) => {
@@ -106,9 +106,9 @@ export const postsFeature = createFeature({
           ...state.posts,
           [postId]: {
             ...state.posts[postId],
-            comments: [...state.posts[postId].comments, payload],
-          },
-        },
+            comments: [...state.posts[postId].comments, payload]
+          }
+        }
       };
     }),
     on(postsActions.deletedComment, (state, payload) => {
@@ -124,11 +124,11 @@ export const postsFeature = createFeature({
             comments: [
               ...state.posts[postId].comments.filter((element) => {
                 return element.id !== commentId;
-              }),
-            ],
-          },
-        },
+              })
+            ]
+          }
+        }
       };
     })
-  ),
+  )
 });
