@@ -1,69 +1,69 @@
 @if (post(); as post) {
-<app-avatar-circle [avatarUrl]="post.author.avatarUrl" class="size32">
-</app-avatar-circle>
+  <app-avatar-circle [avatarUrl]="post.author.avatarUrl" class="size32">
+  </app-avatar-circle>
 
-<main class="main-post">
-  <div class="post">
-    <div class="post__row">
-      <div class="post__col">
-        <div class="post__header">
-          <strong class="post__author">
-            {{ post.author.firstName }} {{ post.author.lastName }}
-            <span class="post__created-at">
+  <main class="main-post">
+    <div class="post">
+      <div class="post__row">
+        <div class="post__col">
+          <div class="post__header">
+            <strong class="post__author">
+              {{ post.author.firstName }} {{ post.author.lastName }}
+              <span class="post__created-at">
               {{ post.createdAt | dataCreateAt }}
             </span>
-          </strong>
+            </strong>
+          </div>
+          <div class="post__content">
+            <p class="medium-text medium-text__post">
+              {{ post.content }}
+            </p>
+          </div>
         </div>
-        <div class="post__content">
-          <p class="medium-text medium-text__post">
-            {{ post.content }}
-          </p>
+        <div class="post__col">
+          @if (hasMe()) {
+            <button (click)="onDeletePost(post.id)" class="post__btn">
+              <svg class="post__btn-icon svg16" icon="post-btn"></svg>
+            </button>
+          }
         </div>
       </div>
-      <div class="post__col">
-        @if (hasMe()) {
-        <button (click)="onDeletePost(post.id)" class="post__btn">
-          <svg class="post__btn-icon svg16" icon="post-btn"></svg>
-        </button>
-        }
-      </div>
-    </div>
-    <div class="post__footer">
-      <div class="post__counters">
-        <button
-          class="post__comment-amount btn"
-          (click)="toggleComment()"
-          [ngClass]="{ comment__icon: isActiveComments }"
-        >
-          <svg
-            class="post__comment-amount--icon svg16"
-            icon="comment-amount"
-          ></svg>
-          <span class="post__comment-amount--text">
+      <div class="post__footer">
+        <div class="post__counters">
+          <button
+            class="post__comment-amount btn"
+            (click)="toggleComment()"
+            [ngClass]="{ comment__icon: isActiveComments }"
+          >
+            <svg
+              class="post__comment-amount--icon svg16"
+              icon="comment-amount"
+            ></svg>
+            <span class="post__comment-amount--text">
             {{ comments().length }}
           </span>
-        </button>
-      </div>
-      <button class="post__likes btn" (click)="toggleLikes(post)">
-        <svg class="post__like-icon svg16" icon="post-like"></svg>
-        <span class="post__like-text">
+          </button>
+        </div>
+        <button class="post__likes btn" (click)="toggleLikes(post)">
+          <svg class="post__like-icon svg16" icon="post-like"></svg>
+          <span class="post__like-text">
           {{ likes() }}
         </span>
-      </button>
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="comments" [ngClass]="{ comments__active: isActiveComments }">
-    @for (comment of comments(); track comment.id) {
-    <app-comment [comment]="comment" [hasMe]="hasMe()"></app-comment>
-    }
-  </div>
-  <div class="comment">
-    <app-post-input
-      [(data)]="parentData"
-      (onSubmit)="onCreateCommit($event)"
-      [border]="'dashed'"
-      [placeholder]="'Напишите комментарий'"
-    ></app-post-input>
-  </div>
-</main>
+    <div class="comments" [ngClass]="{ comments__active: isActiveComments }">
+      @for (comment of comments(); track comment.id) {
+        <app-comment [comment]="comment" [hasMe]="hasMe()"></app-comment>
+      }
+      <div class="comment">
+        <app-post-input
+          [(data)]="parentData"
+          (onSubmit)="onCreateCommit($event)"
+          [border]="'dashed'"
+          [placeholder]="'Напишите комментарий'"
+        ></app-post-input>
+      </div>
+    </div>
+  </main>
 }
