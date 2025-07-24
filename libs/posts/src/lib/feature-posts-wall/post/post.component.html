@@ -15,29 +15,34 @@
           </strong>
         </div>
         <div class="post__content">
-          @if (isVisible) {
-          <p class="medium-text medium-text__post">
-            {{ post.content }}
-          </p>
-          } @else {
+          @if (showEdit) {
           <p class="medium-text medium-text__post">
             <app-edit-post
               [post]="post"
-              (isVisible)="handleChildEvent($event)"
+              (showEdit)="showEditEvent($event)"
             ></app-edit-post>
+          </p>
+          } @else {
+          <p class="medium-text medium-text__post">
+            {{ post.content }}
           </p>
           }
         </div>
       </div>
       <div class="post__col">
         @if (hasMe()) {
-        <button (click)="onDeletePost(post.id)" class="post__btn">
-          <svg class="post__btn-icon svg16" icon="post-btn"></svg>
-        </button>
+        <div class="dropdown">
+          <div class="dropdown__wrapper-btns">
+            <button class="dropdown__btn post__btn">
+              <svg class="post__btn-icon svg16" icon="post-btn"></svg>
+            </button>
+            <div class="dropdown__content post__btn">
+              <button (click)="onEditPost()">Редактировать</button>
+              <button (click)="onDeletePost(post.id)">Удалить</button>
+            </div>
+          </div>
+        </div>
         }
-        <button (click)="onEditPost()" class="post__btn">
-          <svg class="post__btn-icon svg16" icon="post-btn"></svg>
-        </button>
       </div>
     </div>
     <div class="post__footer">

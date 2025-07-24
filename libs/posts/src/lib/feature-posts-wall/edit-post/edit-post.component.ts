@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   effect,
@@ -9,6 +10,7 @@ import {
   OnInit,
   Output,
   Renderer2,
+  ViewChild,
   viewChild,
 } from '@angular/core';
 import { Post, PostEdit } from '@tt/interfaces/post/post.interface';
@@ -24,7 +26,7 @@ import { Store } from '@ngrx/store';
   styleUrl: './edit-post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditPostComponent implements OnInit {
+export class EditPostComponent implements OnInit, AfterViewInit {
   private readonly r2 = inject(Renderer2);
   private readonly store = inject(Store);
   private readonly textAreaTarget =
@@ -34,7 +36,8 @@ export class EditPostComponent implements OnInit {
     title: '',
     content: '',
   };
-  @Output() isVisible = new EventEmitter<boolean>();
+  @Output() showEdit = new EventEmitter<boolean>();
+  @ViewChild('textAreaTarget') editPost: ElementRef | undefined;
 
   constructor() {
     effect(() => {
@@ -46,6 +49,12 @@ export class EditPostComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    if (this.editPost) {
+      this.editPost.nativeElement.focus();
+    }
+  }
+
   ngOnInit() {
     this.postEdit.content = this.post().content;
     this.postEdit.title = this.post().title;
@@ -55,10 +64,10 @@ export class EditPostComponent implements OnInit {
     this.store.dispatch(
       postsActions.editPost({ postId: this.post().id, postEdit: this.postEdit })
     );
-    this.isVisible.emit(true);
+    this.showEdit.emit(false);
   }
 
   cancelEditPost() {
-    this.isVisible.emit(true);
+    this.showEdit.emit(false);
   }
 }

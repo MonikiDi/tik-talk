@@ -3,9 +3,11 @@ import {
   Component,
   computed,
   DestroyRef,
+  ElementRef,
   inject,
   input,
   signal,
+  ViewChild,
 } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import {
@@ -54,7 +56,7 @@ export class PostComponent {
   public comments = computed(() => {
     return this.post().comments;
   });
-  public isVisible = true;
+  public showEdit = false;
 
   onDeletePost(postId: number) {
     this.store.dispatch(postsActions.deletePost({ postId }));
@@ -138,10 +140,10 @@ export class PostComponent {
   }
 
   onEditPost() {
-    this.isVisible = !this.isVisible;
+    this.showEdit = !this.showEdit;
   }
 
-  handleChildEvent(isVisible: boolean) {
-    this.isVisible = isVisible;
+  showEditEvent(showEdit: boolean) {
+    this.showEdit = showEdit;
   }
 }
