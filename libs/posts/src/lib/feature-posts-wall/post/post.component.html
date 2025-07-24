@@ -1,15 +1,15 @@
 @if (post(); as post) {
-<app-avatar-circle [avatarUrl]="post.author.avatarUrl" class="size32">
-</app-avatar-circle>
+  <app-avatar-circle [avatarUrl]="post.author.avatarUrl" class="size32">
+  </app-avatar-circle>
 
-<main class="main-post">
-  <div class="post">
-    <div class="post__row">
-      <div class="post__col">
-        <div class="post__header">
-          <strong class="post__author">
-            {{ post.author.firstName }} {{ post.author.lastName }}
-            <span class="post__created-at">
+  <main class="main-post">
+    <div class="post">
+      <div class="post__row">
+        <div class="post__col">
+          <div class="post__header">
+            <strong class="post__author">
+              {{ post.author.firstName }} {{ post.author.lastName }}
+              <span class="post__created-at">
               {{ post.createdAt | dataCreateAt }}
             </span>
           </strong>
@@ -59,11 +59,11 @@
           <span class="post__comment-amount--text">
             {{ comments().length }}
           </span>
-        </button>
-      </div>
-      <button class="post__likes btn" (click)="toggleLikes(post)">
-        <svg class="post__like-icon svg16" icon="post-like"></svg>
-        <span class="post__like-text">
+          </button>
+        </div>
+        <button class="post__likes btn" (click)="toggleLikes(post)">
+          <svg class="post__like-icon svg16" icon="post-like"></svg>
+          <span class="post__like-text">
           {{ likes() }}
         </span>
       </button>

@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
-import { postsFeature } from './reducers';
 import { Post } from '@tt/interfaces/post';
+import { postsFeature } from './reducers';
 
 // export const selectPosts = createSelector(postsFeature.selectPosts, (state) => {
 //   return state;
@@ -30,7 +30,7 @@ export const selectPostsUserById = (userId: number) => {
       const posts: Post[] = [];
       for (const id in state) {
         if (postsId.includes(Number(id))) {
-          posts.push(state[id]);
+          posts.push(<Post>state[id]);
         }
       }
       return posts;
