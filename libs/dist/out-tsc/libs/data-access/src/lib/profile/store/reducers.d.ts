@@ -17,9 +17,9 @@ export declare const profileFeature: {
     name: "profileFeature";
     reducer: import("@ngrx/store").ActionReducer<ProfileState, import("@ngrx/store").Action<string>>;
     selectProfileFeatureState: import("@ngrx/store").MemoizedSelector<Record<string, any>, ProfileState, (featureState: ProfileState) => ProfileState>;
-    selectProfileMe: import("@ngrx/store").MemoizedSelector<Record<string, any>, Profile | undefined, (featureState: ProfileState) => Profile | undefined>;
     selectUserId: import("@ngrx/store").MemoizedSelector<Record<string, any>, string, (featureState: ProfileState) => string>;
     selectUser: import("@ngrx/store").MemoizedSelector<Record<string, any>, Profile | undefined, (featureState: ProfileState) => Profile | undefined>;
+    selectProfileMe: import("@ngrx/store").MemoizedSelector<Record<string, any>, Profile | undefined, (featureState: ProfileState) => Profile | undefined>;
     selectProfiles: import("@ngrx/store").MemoizedSelector<Record<string, any>, Profile[], (featureState: ProfileState) => Profile[]>;
     selectPagination: import("@ngrx/store").MemoizedSelector<Record<string, any>, {
         currentPage: number;

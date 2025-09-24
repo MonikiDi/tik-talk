@@ -1,7 +1,7 @@
 import { __decorate } from "tslib";
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 var ReceiverType;
 (function (ReceiverType) {
@@ -11,31 +11,31 @@ var ReceiverType;
 let DeliveryPageComponent = class DeliveryPageComponent {
     #fb = inject(FormBuilder);
     ReceiverType = ReceiverType;
-    // form = new FormGroup({
-    //   type: new FormControl<ReceiverType>(ReceiverType.PERSON),
-    //   // name: new FormControl<string>({value: '', disabled: true}, Validators.required),
-    //   name: new FormControl<string>( '', Validators.required),
-    //   inn: new FormControl<string>(''),
-    //   lastName: new FormControl<string>('ЗНАЧЕНИЕ'),
-    //   address: new FormGroup({
-    //     city: new FormControl<string>(''),
-    //     street: new FormControl<string>(''),
-    //     building: new FormControl<number | null>(null),
-    //     apartment: new FormControl<number | null>(null)
-    //   })
-    // });
-    form = this.#fb.group({
-        type: this.#fb.nonNullable.control(ReceiverType.PERSON),
-        name: this.#fb.control('', Validators.required),
-        inn: this.#fb.control(''),
-        lastName: this.#fb.control('ЗНАЧЕНИЕ'),
-        address: this.#fb.group({
-            city: this.#fb.control(''),
-            street: this.#fb.control(''),
-            building: this.#fb.control(null),
-            apartment: this.#fb.control(null)
+    form = new FormGroup({
+        type: new FormControl(ReceiverType.PERSON),
+        // name: new FormControl<string>({value: '', disabled: true}, Validators.required),
+        name: new FormControl('', Validators.required),
+        inn: new FormControl(''),
+        lastName: new FormControl(''),
+        address: new FormGroup({
+            city: new FormControl(''),
+            street: new FormControl(''),
+            building: new FormControl(null),
+            apartment: new FormControl(null)
         })
     });
+    // form = this.#fb.group({
+    //   type: this.#fb.nonNullable.control<ReceiverType>(ReceiverType.PERSON),
+    //   name: this.#fb.control<string>('', Validators.required),
+    //   inn: this.#fb.control<string>(''),
+    //   lastName: this.#fb.control<string>('ЗНАЧЕНИЕ'),
+    //   address: this.#fb.group({
+    //     city: this.#fb.control<string>(''),
+    //     street: this.#fb.control<string>(''),
+    //     building: this.#fb.control<number | null>(null),
+    //     apartment: this.#fb.control<number | null>(null)
+    //   })
+    // });
     constructor() {
         this.form.controls.type.valueChanges.pipe(takeUntilDestroyed()).subscribe(val => {
             // console.log('type event');
@@ -68,6 +68,7 @@ let DeliveryPageComponent = class DeliveryPageComponent {
         // })
         this.form.markAllAsTouched();
         this.form.updateValueAndValidity();
+        console.log(this.form);
         console.log(this.form.getRawValue());
         // console.log(this.form.value);
         this.form.reset();

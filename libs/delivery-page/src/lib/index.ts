@@ -1,3 +1,3 @@
-import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
+import { DeliveryPageComponent } from './components/delivery-page/delivery-page.component';
 
 export { DeliveryPageComponent };
