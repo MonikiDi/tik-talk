@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   profileActions,
   selectFilteredProfiles,
-  selectPaginationProfiles,
+  selectPaginationProfiles
 } from './index';
 import { catchError, EMPTY, exhaustMap, map, switchMap, tap } from 'rxjs';
 import { ProfileService } from '../services/profile.service';
@@ -66,9 +66,15 @@ export class ProfileEffects {
     );
   });
 
-  loadingEndProfiles = createEffect(() => {
+  loadingEndInfiniteProfiles = createEffect(() => {
     return this.actions$.pipe(
-      ofType(profileActions.loadedProfiles),
+      ofType(profileActions.loadedInfiniteProfiles),
+      map(() => profileActions.loadingEndProfiles())
+    );
+  });
+  loadingEndPaginationProfiles = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(profileActions.loadedPaginationProfiles),
       map(() => profileActions.loadingEndProfiles())
     );
   });
@@ -77,13 +83,14 @@ export class ProfileEffects {
     return this.actions$.pipe(
       ofType(profileActions.loadProfiles),
       exhaustMap(({ filters, pagination }) => {
+        let isScroll = pagination.isScroll;
         return this.profileService
           .query(filters, {
             page: pagination.currentPage,
-            perPage: pagination.perPage || 5,
+            perPage: pagination.perPage || 10
           })
           .pipe(
-            map((response) => profileActions.loadedProfiles(response)),
+            map((response) => isScroll ? profileActions.loadedInfiniteProfiles(response): profileActions.loadedPaginationProfiles(response)),
             catchError(() => EMPTY)
           );
       })
@@ -99,8 +106,8 @@ export class ProfileEffects {
           filters,
           pagination: {
             ...pagination,
-            currentPage: 1,
-          },
+            currentPage: 1
+          }
         });
       })
     );

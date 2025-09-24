@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../../delivery-page/src/lib/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,MAAM,yCAAyC,CAAC;AAEhF,OAAO,EAAE,qBAAqB,EAAE,CAAC","sourcesContent":["import { DeliveryPageComponent } from './delivery-page/delivery-page.component';\r\n\r\nexport { DeliveryPageComponent };\r\n"]}

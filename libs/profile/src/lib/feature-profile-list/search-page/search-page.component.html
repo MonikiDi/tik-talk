@@ -1,23 +1,53 @@
 <app-profile-filters></app-profile-filters>
 @if (items().length) {
-<app-pagination-page
-  [current]="currentPage()"
-  [disabled]="isPending()"
-  [total]="totalPages()"
-  (goTo)="onGoTo($event)"
-  (next)="onNext($event)"
-  (previous)="onPrevious($event)"
-></app-pagination-page>
+  <div class="profile-card__btn-control">
+    <button class="profile-card__switch-btn btn" [disabled]="isPending()"
+            (click)="switchShowProfile()">{{ isScroll ? "Переключить на Пагинацию" : "Переключить на Бесконечный Скролл" }}
+    </button>
+    @if (!isScroll) {
+      <app-pagination-page
+        [current]="currentPage()"
+        [disabled]="isPending()"
+        [total]="totalPages()"
+        (goTo)="onGoTo($event)"
+        (next)="onNext($event)"
+        (previous)="onPrevious($event)"
+      ></app-pagination-page>
+      <div class="profile-card__select-wrapper">
+        <p class="profile-card__select-text">На странице</p>
+        <select class="profile-card__select" [(ngModel)]="selectedNumberCards" (change)="onSelectionChange($event)"
+                name="numberCard" [disabled]="isPending()">
+          @for (option of numberCards; track option.label) {
+            <option class="profile-card__option" [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </div>
+    }
+  </div>
 } @else {
-<p class="not-found">@if (!isPending()) { Не найдено }</p>
+  <p class="not-found">@if (!isPending()) {
+    Не найдено
+  }</p>
 }
 
 <div [class.wrapper__opacity]="isPending()">
   <div [class.loading__spinner]="isPending()"></div>
   <div class="profile-card__wrapper">
-    @for (profile of items(); track profile.id) {
-    <app-profile-card [disabled]="isPending()" [profile]="profile">
-    </app-profile-card>
+    @for (profile of items(); track profile.id; let last = $last) {
+      <app-profile-card [disabled]="isPending()" [profile]="profile">
+      </app-profile-card>
+      @if (isScroll) {
+        @if (last) {
+          @defer (on viewport) {
+            <app-infinite-scroll-trigger
+              (loaded)="onGoToPage()"
+            ></app-infinite-scroll-trigger>
+          } @placeholder {
+            <div></div>
+          }
+        }
+      }
     }
   </div>
 </div>
+

@@ -1,20 +1,22 @@
 @if (profile(); as profile) {
 
-<button class="pagination__btn companion-btn">
-  <svg class="pagination__arrow" icon="arrow-pagination"></svg>
-</button>
-<div class="companion-wrapper">
-  <app-avatar-circle
-    class="size32"
-    [avatarUrl]="profile.avatarUrl"
-  ></app-avatar-circle>
+  <button class="pagination__btn companion-btn">
+    <svg class="pagination__arrow" icon="arrow-pagination"></svg>
+  </button>
+  <div class="companion-wrapper" [routerLink]="['/profile', profile.id]">
+    <div class="companion-wrapper__profile">
+    <app-avatar-circle
+      class="size32"
+      [avatarUrl]="profile.avatarUrl"
+    ></app-avatar-circle>
 
-  <span class="subtitle">{{ profile.firstName }} {{ profile.lastName }}</span>
-</div>
-<button class="pagination__btn companion-btn">
-  <svg
-    class="pagination__arrow pagination__arrow--right"
-    icon="arrow-pagination"
-  ></svg>
-</button>
+    <span class="subtitle">{{ profile.firstName }} {{ profile.lastName }}</span>
+    </div>
+  </div>
+  <button class="pagination__btn companion-btn">
+    <svg
+      class="pagination__arrow pagination__arrow--right"
+      icon="arrow-pagination"
+    ></svg>
+  </button>
 }

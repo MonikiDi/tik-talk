@@ -22,6 +22,8 @@
   padding-bottom: 32px;
   background: var(--dark-solid);
   &__text {
+    text-align: center;
+    width: 136px;
     padding: 6px 32px;
     font-weight: 700;
     background: var(--dark-active);

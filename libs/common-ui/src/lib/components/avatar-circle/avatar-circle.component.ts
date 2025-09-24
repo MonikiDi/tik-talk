@@ -10,5 +10,5 @@ import { ImgUrlPipe } from '../../pipes';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AvatarCircleComponent {
-  avatarUrl = input<string | null>();
+  avatarUrl = input<string | null >();
 }

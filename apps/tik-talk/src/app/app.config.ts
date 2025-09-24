@@ -15,6 +15,7 @@ import {
   postProviders,
   profileProviders,
 } from '@tt/data-access';
+import { IMAGE_CONFIG } from '@angular/common';
 
 const effectProviders = [postProviders, profileProviders, chatProviders];
 
@@ -26,6 +27,13 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideEffects(),
     ...effectProviders,
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),{
+      provide: IMAGE_CONFIG,
+      useValue: {
+        disableImageSizeWarning: true,
+        disableImageLazyLoadWarning: true
+      }
+    },
+
   ],
 };

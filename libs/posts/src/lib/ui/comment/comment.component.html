@@ -1,26 +1,25 @@
 @if (comment(); as comment) {
-<app-avatar-circle
-  class="size32"
-  [avatarUrl]="comment.author.avatarUrl"
-></app-avatar-circle>
+  <app-avatar-circle
+    class="size32"
+    [avatarUrl]="comment.author.avatarUrl"
+  ></app-avatar-circle>
 
-<div class="comment">
-  <div class="comment__header">
-    <strong class="comment__author">{{ comment.author.username }}</strong>
-    <span class="comment__created-at">{{
-      comment.createdAt | dataCreateAt
-    }}</span>
+  <div class="comment">
+    <div class="comment__header">
+      <strong class="comment__author">{{ comment.author.username }}</strong>
+      <span class="comment__created-at">{{
+          comment.createdAt | dataCreateAt
+        }}</span>
+    </div>
+    <div class="comment__wrapper-text">
+      <p class="comment__text">{{ comment.text }}</p>
+      @if (comment.author.id === meId()?.id) {
+<!--        @if (!hasMe()) {-->
+          <button class="comment__btn" (click)="onDeleteComment(comment.postId, comment.id)">
+            <svg class="comment__btn-icon svg16" icon="delete-btn"></svg>
+          </button>
+<!--        }-->
+      }
+    </div>
   </div>
-  <div class="comment__wrapper-text">
-    <p class="comment__text">{{ comment.text }}</p>
-    @if (comment.author.id === meId()?.id) {
-    <button
-      (click)="onDeleteComment(comment.postId, comment.id)"
-      class="comment__btn"
-    >
-      <svg class="comment__btn-icon svg16" icon="post-btn"></svg>
-    </button>
-    }
-  </div>
-</div>
 }

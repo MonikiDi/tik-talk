@@ -39,16 +39,6 @@
   flex-direction: column;
   gap: 32px;
 }
-.notification__alert {
-  position: relative;
-  right: -70px;
-  width: 100px;
-  height: 50px;
-  background: #000;
-  margin-top: 5px;
-  transition: left 0.2s linear;
-}
-
 .card {
   &__overlay {
     width: 100%;

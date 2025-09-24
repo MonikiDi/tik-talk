@@ -3,7 +3,7 @@
   {
   <div class="message-data">
     <span class="message-data__text">{{
-      filterMessage.dateMessages | dateUtc | date : 'dd.MM.YYYY'
+      filterMessage.dateMessages | dateUtc  | relativeDate
     }}</span>
   </div>
   @for (message of filterMessage.groupMessages; track message.id) {
@@ -24,3 +24,4 @@
     (onSubmit)="onSendMessage($event)"
   ></app-message-input>
 </div>
+

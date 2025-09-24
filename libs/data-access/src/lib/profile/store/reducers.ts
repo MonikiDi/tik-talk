@@ -22,7 +22,7 @@ const DEFAULT_PAGINATION: Pagination = {
   total: 0,
   currentPage: 0,
   perPage: 0,
-  totalPages: 0,
+  totalPages: 0
 };
 
 const initialState: ProfileState = {
@@ -32,7 +32,7 @@ const initialState: ProfileState = {
   profiles: [],
   profileFilters: {},
   pagination: DEFAULT_PAGINATION,
-  isLoading: false,
+  isLoading: false
 };
 
 export const profileFeature = createFeature({
@@ -42,46 +42,47 @@ export const profileFeature = createFeature({
     on(profileActions.loadedGetMe, (state, payload) => {
       return {
         ...state,
-        profileMe: payload.profileMe,
+        profileMe: payload.profileMe
       };
     }),
     on(profileActions.loadedPatchMe, (state, payload) => {
       return {
         ...state,
-        profileMe: payload,
+        profileMe: payload
       };
     }),
     on(profileActions.loadedPatchAvatarMe, (state, payload) => {
       return {
         ...state,
-        profileMe: payload,
+        profileMe: payload
       };
     }),
     on(profileActions.loadUserId, (state, payload) => {
       return {
         ...state,
-        userId: payload.userId,
+        userId: payload.userId
       };
     }),
     on(profileActions.loadedUser, (state, payload) => {
       return {
         ...state,
-        user: payload.user,
+        user: payload.user
       };
     }),
     on(profileActions.profilesLoaded, (state, payload) => {
       return {
         ...state,
-        profiles: payload.profiles,
+        profiles: payload.profiles
       };
     }),
     on(profileActions.filterEvents, (state, payload) => {
       return {
         ...state,
+        profiles: [],
         profileFilters: {
           ...state.profileFilters,
-          ...payload,
-        },
+          ...payload
+        }
       };
     }),
     on(profileActions.paginationProfiles, (state, payload) => {
@@ -89,39 +90,57 @@ export const profileFeature = createFeature({
         ...state,
         pagination: {
           ...state.pagination,
-          ...payload,
-        },
+          ...payload
+        }
       };
     }),
     on(profileActions.paginationSet, (state, payload) => {
       return {
         ...state,
-        pagination: { ...payload },
+        pagination: { ...payload }
       };
     }),
     on(profileActions.loadingStartProfiles, (state) => {
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       };
     }),
     on(profileActions.loadingEndProfiles, (state) => {
       return {
         ...state,
-        isLoading: false,
+        isLoading: false
       };
     }),
-    on(profileActions.loadedProfiles, (state, payload) => {
+    on(profileActions.loadedInfiniteProfiles, (state, payload) => {
       return {
         ...state,
         pagination: {
           total: payload.total,
           currentPage: payload.page,
           perPage: payload.size,
-          totalPages: payload.pages,
+          totalPages: payload.pages
+        },
+        profiles: state.profiles.concat(payload.items)
+      };
+    }),
+    on(profileActions.loadedPaginationProfiles, (state, payload) => {
+      return {
+        ...state,
+        pagination: {
+          total: payload.total,
+          currentPage: payload.page,
+          perPage: payload.size,
+          totalPages: payload.pages
         },
         profiles: payload.items,
       };
-    })
-  ),
+    }),
+    on(profileActions.deleteStoreProfiles, (state, payload) => {
+      return {
+        ...state,
+        profiles: []
+      };
+    }),
+  )
 });

@@ -1,0 +1,51 @@
+<form (ngSubmit)="onSubmit(form)" #form='ngForm'>
+  <input name="user-name"
+         type="text"
+         class="tt-input"
+         [ngModel]="person.name"
+         (ngModelChange)=" onChange($event)"
+         [ngModelOptions]="{updateOn: 'submit', name: 'blaaaa'}"
+         required
+         #usernameControl='ngModel'
+  >
+  @if (usernameControl.hasError('required')) {
+    <span>Это поле обязательно!</span>
+  }
+  <input name="last-name"
+         type="text"
+         class="tt-input"
+         [(ngModel)]="person.lastName"
+         required
+         #lastnameControl='ngModel'
+  >
+  @if (lastnameControl.hasError('required') && lastnameControl.touched) {
+    <span>Это поле обязательно!</span>
+  }
+  <input name="hobby"
+         type="text"
+         class="tt-input"
+         [(ngModel)]="hobby"
+         required
+  >
+  {{ hobby }}
+  <div ngModelGroup="address">
+    <input name="street"
+           type="text"
+           class="tt-input"
+           [(ngModel)]="person.address.street"
+           [ngModelOptions]="{standalone: true}"
+           noReact
+           #streetControl='ngModel'
+    >
+    @if (streetControl.hasError('noReact')) {
+      <span>
+             {{ streetControl.getError('noReact').message }}
+      </span>
+    }
+  </div>
+  <pre>
+    {{ person | json }}
+  </pre>
+  <button type="submit">submit</button>
+</form>
+

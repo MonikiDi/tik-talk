@@ -10,7 +10,7 @@ import { Profile } from '@tt/interfaces/profile';
 import { ImgUrlPipe } from '@tt/common-ui';
 import { SubscriptionsService } from '@tt/data-access';
 
-const SUBSCRIBER_COUNTER = 10;
+const SUBSCRIBER_COUNTER = 100;
 
 @Component({
   selector: 'app-subscriptions',

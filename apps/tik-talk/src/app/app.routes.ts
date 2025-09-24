@@ -7,6 +7,8 @@ import { chatsRoutes } from '@tt/chats';
 import { LayoutComponent } from '@tt/layout';
 import { canActivateAuth } from '@tt/data-access';
 import { RootWsComponent } from '../../../../libs/layout/src/lib/root-ws/root-ws.component';
+import { TestPageComponent } from '@tt/test-page';
+import { DeliveryPageComponent } from '../../../../libs/delivery-page/src/lib';
 
 export const routes: Routes = [
   {
@@ -28,6 +30,14 @@ export const routes: Routes = [
           {
             path: 'chats',
             loadChildren: () => chatsRoutes,
+          },
+          {
+            path: 'delivery-page',
+            component: DeliveryPageComponent,
+          },
+          {
+            path: 'test-page',
+            component: TestPageComponent,
           },
         ],
       },

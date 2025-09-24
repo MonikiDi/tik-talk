@@ -1,13 +1,63 @@
 :host {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   grid-gap: 20px;
 }
 
-.profile-card__wrapper {
-  display: grid;
-  grid-gap: 8px;
-  width: 100%;
+.profile-card {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    height: calc(100vh - 350px);
+    overflow-y: scroll;
+    scrollbar-width: none;
+
+  }
+
+  &__btn-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  &__switch-btn {
+    width: 400px;
+
+    &[disabled] {
+      outline: none;
+      cursor: default;
+      background: #878c93;
+    }
+  }
+  &__select-wrapper{
+    display: flex;
+    gap: 8px;
+  }
+  &__select {
+    display: block;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: var(--light-solid);
+    padding: 6px 6px;
+    width: 60px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid var(--dark-solid);
+    border-radius: 2px;
+    background-color: var(--dark-solid);
+    cursor: pointer;
+  }
+  &__select-text {
+    font-size: 16px;
+    color: var(--light-solid);
+  }
 }
+
+
 
 .not-found {
   font-weight: 800;
@@ -43,6 +93,7 @@
     -webkit-transform: rotate(360deg);
   }
 }
+
 @-webkit-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);

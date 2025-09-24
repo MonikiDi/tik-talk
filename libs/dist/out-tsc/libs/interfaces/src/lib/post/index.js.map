@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../../../interfaces/src/lib/post/index.ts"],"names":[],"mappings":"","sourcesContent":["import {\r\n  CommentCreateDto,\r\n  Post,\r\n  PostComment,\r\n  PostCreateDto,\r\n} from './post.interface';\r\n\r\nexport type {\r\n  PostCreateDto,\r\n  Post,\r\n  PostComment,\r\n  CommentCreateDto\r\n}\r\n"]}

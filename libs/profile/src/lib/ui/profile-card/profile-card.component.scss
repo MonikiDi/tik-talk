@@ -1,7 +1,9 @@
 :host {
   width: 100%;
 }
+
 .profile-card {
+  min-height: 162px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 32px;
@@ -12,7 +14,7 @@
   cursor: pointer;
 
   transition: outline 0.3s ease-in-out, color 0.3s ease-in-out,
-    background 0.3s ease-in-out;
+  background 0.3s ease-in-out;
 
   &.active,
   &:hover,
@@ -25,6 +27,7 @@
     outline: 1px solid var(--primary-primary);
   }
 }
+
 .avatar-name {
   display: grid;
   grid-template-columns: 70px 1fr;
@@ -43,6 +46,7 @@
   flex-direction: column;
   gap: 8px;
 }
+
 .profile-card__action-btns {
   display: flex;
   justify-content: end;
@@ -52,12 +56,14 @@
 
 .btn {
   background: var(--light-transparent);
+
   &[disabled] {
     outline: none;
     cursor: default;
     background: #878c93;
   }
 }
+
 .subscriber {
   background: var(--primary-primary);
 }

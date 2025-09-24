@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  width: 700px;
+  padding: 24px;
+}
+.form-delivery {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.address {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px;
+  }
+}

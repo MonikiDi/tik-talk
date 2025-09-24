@@ -24,6 +24,7 @@ import { Chat } from '@tt/interfaces/chats/chats.interface';
 import { DatePipe } from '@angular/common';
 import { ChatsService } from '@tt/data-access';
 import { Profile } from '@tt/interfaces/profile';
+import { RelativeDatePipe } from '../../../../../../shared/src/lib/utils/pipes/relative-date.pipe';
 
 @Component({
   selector: 'app-chat-workspace-messages-wrapper',
@@ -33,6 +34,7 @@ import { Profile } from '@tt/interfaces/profile';
     MessageInputComponent,
     DateUtcPipe,
     DatePipe,
+    RelativeDatePipe
   ],
   templateUrl: './chat-workspace-messages-wrapper.component.html',
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
@@ -81,6 +83,9 @@ export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
   }
 
   async onSendMessage(messageText: string) {
+    setTimeout(()=>{
+    this.scrollToBottom();
+    }, 300)
     const result = normalizationText(messageText);
     assertNonNullish(result, '');
     if (this.parentData() === '' || result === '') {
@@ -89,6 +94,5 @@ export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
     }
     this.chatsService.wsAdapter.sendMessage(result, this.chat().id);
     this.parentData.set('');
-    this.scrollToBottom();
   }
 }

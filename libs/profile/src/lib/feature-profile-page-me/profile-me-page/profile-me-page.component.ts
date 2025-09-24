@@ -1,26 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
-  Signal,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, Signal, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
-import {
-  AboutMeComponent,
-  SvgIconComponent,
-  TasksComponent,
-} from '@tt/common-ui';
+import { AboutMeComponent, SvgIconComponent, TasksComponent } from '@tt/common-ui';
 import { SubscribersComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
-import {
-  postsActions,
-  selectPostsUserById,
-  selectProfileMe,
-} from '@tt/data-access';
+import { postsActions, selectPostsUserById, selectProfileMe } from '@tt/data-access';
 import { SubscriptionsComponent } from '@tt/subscriptions';
 import { of, switchMap } from 'rxjs';
 import { Post } from '@tt/interfaces/post';
@@ -39,11 +23,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     TasksComponent,
     AboutMeComponent,
     SubscriptionsComponent,
-    PostFeedComponent,
+    PostFeedComponent
   ],
   templateUrl: './profile-me-page.component.html',
   styleUrl: './profile-me-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileMePageComponent implements OnInit {
   private readonly store = inject(Store);

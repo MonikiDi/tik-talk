@@ -1,31 +1,16 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
-  Signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import {
-  AboutMeComponent,
-  SvgIconComponent,
-  TasksComponent,
-} from '@tt/common-ui';
+import { AboutMeComponent, SvgIconComponent, TasksComponent } from '@tt/common-ui';
 import { SubscribersComponent } from '@tt/subscribers';
 import { Store } from '@ngrx/store';
 import { PostFeedComponent } from '@tt/posts';
-import {
-  postsActions,
-  profileActions,
-  selectPostsUserById,
-  selectUser,
-} from '@tt/data-access';
+import { postsActions, profileActions, selectPostsUserById, selectUser } from '@tt/data-access';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Profile } from '@tt/interfaces/profile';
+import { SubscriptionsComponent } from '@tt/subscriptions';
 
 @Component({
   selector: 'app-profile-page',
@@ -39,10 +24,11 @@ import { Profile } from '@tt/interfaces/profile';
     TasksComponent,
     SvgIconComponent,
     RouterLink,
+    SubscriptionsComponent
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfilePageComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);

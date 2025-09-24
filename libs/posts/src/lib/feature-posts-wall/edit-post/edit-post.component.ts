@@ -11,7 +11,7 @@ import {
   Output,
   Renderer2,
   ViewChild,
-  viewChild,
+  viewChild
 } from '@angular/core';
 import { Post, PostEdit } from '@tt/interfaces/post/post.interface';
 import { FormsModule } from '@angular/forms';
@@ -56,8 +56,8 @@ export class EditPostComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.postEdit.content = this.post().content;
-    this.postEdit.title = this.post().title;
+      this.postEdit.content = this.post().content;
+      this.postEdit.title = this.post().title;
   }
 
   submitEditPost() {

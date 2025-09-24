@@ -1,0 +1,1 @@
+{"version":3,"file":"comment.component.d.ts","sourceRoot":"","sources":["../../../../../../../../posts/src/lib/ui/comment/comment.component.ts"],"names":[],"mappings":"AAQA,OAAO,EAAQ,WAAW,EAAE,MAAM,qBAAqB,CAAC;AAKxD,qBAQa,gBAAgB;IAC3B,OAAO,CAAC,QAAQ,CAAC,KAAK,CAAiB;IAChC,OAAO,+DAAwB;IAC/B,KAAK,2DAAoB;IACzB,IAAI,uFAA4C;IAEvD,eAAe,CAAC,MAAM,EAAE,MAAM,EAAE,SAAS,EAAE,MAAM;CAIlD"}

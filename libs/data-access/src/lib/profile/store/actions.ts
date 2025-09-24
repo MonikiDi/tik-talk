@@ -17,7 +17,9 @@ export const profileActions = createActionGroup({
     'pagination profiles': props<{
       currentPage: number;
       perPage?: number;
+      isScroll?: boolean
     }>(),
+
     'pagination set': props<Pagination>(),
     'profiles loaded': props<{ profiles: Profile[] }>(),
     'Loading start profiles': emptyProps(),
@@ -27,8 +29,11 @@ export const profileActions = createActionGroup({
       pagination: {
         currentPage: number;
         perPage?: number;
+        isScroll?: boolean
       };
     }>(),
-    'Loaded Profiles': props<Pageble<Profile>>(),
-  },
+    'Loaded Infinite Profiles': props<Pageble<Profile>>(),
+    'Loaded Pagination Profiles': props<Pageble<Profile>>(),
+    'Delete Store Profiles': emptyProps(),
+  }
 });

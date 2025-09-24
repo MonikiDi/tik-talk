@@ -1,19 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {
-  KeyTimeWorld,
-  TimeWorld,
-} from '../../data/interfaces/time-word.interface';
+import { KeyTimeWorld, TimeWorld } from '../../data/interfaces/time-word.interface';
+import { DatePipe } from '@angular/common';
 
 @Pipe({
   name: 'dataCreateAt',
-  standalone: true,
+  standalone: true
 })
 export class DataCreateAtPipe implements PipeTransform {
   timeWorld: TimeWorld = {
     s: ['секунда', 'секунды', 'секунд'],
     m: ['минута', 'минуты', 'минут'],
     h: ['час', 'часа', 'часов'],
-    d: ['день', 'дня', 'дней'],
+    d: ['день', 'дня', 'дней']
   };
 
   endingsTimeWords(number: number, type: KeyTimeWorld): string {
@@ -41,11 +39,11 @@ export class DataCreateAtPipe implements PipeTransform {
     const createAtIsoDate = new Date(createAtDate + iso * 60 * -1000);
     const nowDate = new Date();
 
-    let hour: number = createAtIsoDate.getHours();
-    let minutes: number = createAtIsoDate.getMinutes();
-    let dayOfMonth: number = createAtIsoDate.getDate();
-    let month: number = createAtIsoDate.getMonth();
-    let year: number = createAtIsoDate.getFullYear();
+    // let hour: number = createAtIsoDate.getHours();
+    // let minutes: number = createAtIsoDate.getMinutes();
+    // let dayOfMonth: number = createAtIsoDate.getDate();
+    // let month: number = createAtIsoDate.getMonth();
+    // let year: number = createAtIsoDate.getFullYear();
 
     let diffMs: number = nowDate.getTime() - createAtIsoDate.getTime();
     let diffSec: number = Math.round(diffMs / 1000);
@@ -67,7 +65,9 @@ export class DataCreateAtPipe implements PipeTransform {
         'd'
       )} назад`;
     } else {
-      return `${dayOfMonth}.${month}.${year} ${hour}:${minutes}`;
+      const transformAtDate = Date.parse(`${createAtIsoDate}`);
+      const datePipe = new DatePipe('en-US');
+      return datePipe.transform(transformAtDate, 'dd.MM.YYYY hh:mm') || ''
     }
   }
 }
