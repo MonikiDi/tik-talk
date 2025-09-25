@@ -67,7 +67,7 @@ export class SearchPageComponent implements OnInit, AfterViewInit {
   public numberCards = [
     { value: 5, label: '5' },
     { value: 10, label: '10' },
-    { value: 30, label: '30' },
+    { value: 30, label: '30' }
   ];
 
   public selectedNumberCards = 10;
@@ -130,7 +130,7 @@ export class SearchPageComponent implements OnInit, AfterViewInit {
   }
 
   public onGoToPage(): void {
-    if(this.currentPage() >= this.totalPages()) return
+    if (this.currentPage() >= this.totalPages()) return;
     this.onChangeCurrentPage(this.currentPage() + 1);
   }
 

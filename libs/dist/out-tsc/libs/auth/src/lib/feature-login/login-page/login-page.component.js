@@ -1,6 +1,6 @@
 import { __decorate } from "tslib";
-import { ChangeDetectionStrategy, Component, inject, signal, } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@tt/data-access';
 let LoginPageComponent = class LoginPageComponent {
@@ -9,7 +9,7 @@ let LoginPageComponent = class LoginPageComponent {
     isPasswordVisible = signal(false);
     form = new FormGroup({
         username: new FormControl(null, Validators.required),
-        password: new FormControl(null, Validators.required),
+        password: new FormControl(null, Validators.required)
     });
     onSubmit() {
         if (this.form.valid) {
@@ -27,7 +27,7 @@ LoginPageComponent = __decorate([
         imports: [ReactiveFormsModule],
         templateUrl: './login-page.component.html',
         styleUrl: './login-page.component.scss',
-        changeDetection: ChangeDetectionStrategy.OnPush,
+        changeDetection: ChangeDetectionStrategy.OnPush
     })
 ], LoginPageComponent);
 export { LoginPageComponent };

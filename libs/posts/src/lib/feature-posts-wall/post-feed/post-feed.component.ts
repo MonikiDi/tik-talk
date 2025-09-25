@@ -30,8 +30,8 @@ import { AsyncPipe } from '@angular/common';
 })
 export class PostFeedComponent implements AfterViewInit {
   private readonly activatedRoute = inject(ActivatedRoute);
-  public hostElement = inject(ElementRef);
   private readonly store = inject(Store);
+  public hostElement = inject(ElementRef);
   public r2 = inject(Renderer2);
 
   public posts = input.required<Post[]>();

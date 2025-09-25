@@ -2,7 +2,13 @@
   display: block;
   width: 700px;
   padding: 24px;
+  overflow-y: scroll;
 }
+
+:host::-webkit-scrollbar {
+  width: 0;
+}
+
 .form-delivery {
   display: flex;
   flex-direction: column;
@@ -12,6 +18,7 @@
     color: var(--red-primary);
   }
 }
+
 .address {
   display: flex;
   flex-direction: column;
@@ -46,6 +53,7 @@
     grid-column-end: 3;
   }
 }
+
 .feature {
   display: flex;
   flex-direction: column;
@@ -57,6 +65,7 @@
     font-size: 20px;
     line-height: 133%;
   }
+
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -69,4 +78,21 @@
     font-size: 16px;
     line-height: 133%;
   }
+}
+
+.validation {
+  display: none;
+}
+
+.tt-input.ng-invalid.ng-touched {
+  border: 1px solid var(--red-primary);
+}
+
+.tt-input.ng-invalid.ng-touched + .validation {
+  display: block;
+  color: var(--red-primary);
+}
+
+.ng-submitted {
+  border: 10px solid red;
 }

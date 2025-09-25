@@ -1,3 +1,3 @@
-import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
-export { DeliveryPageComponent };
+import { MockService } from './services/mock.service';
+export { MockService };
 //# sourceMappingURL=index.d.ts.map

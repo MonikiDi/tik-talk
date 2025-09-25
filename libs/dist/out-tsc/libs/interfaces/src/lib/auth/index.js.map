@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../../../interfaces/src/lib/auth/index.ts"],"names":[],"mappings":"","sourcesContent":["import { TokenResponse } from './auth.interface';\r\n\r\nexport type {\r\n  TokenResponse\r\n}\r\n"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../../../interfaces/src/lib/auth/index.ts"],"names":[],"mappings":"","sourcesContent":["import { TokenResponse } from './auth.interface';\n\nexport type {\n  TokenResponse\n}\n"]}

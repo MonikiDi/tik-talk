@@ -9,8 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 let PostFeedComponent = class PostFeedComponent {
     activatedRoute = inject(ActivatedRoute);
-    hostElement = inject(ElementRef);
     store = inject(Store);
+    hostElement = inject(ElementRef);
     r2 = inject(Renderer2);
     posts = input.required();
     profile = this.store.selectSignal(selectProfileMe);

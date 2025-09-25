@@ -1,15 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@tt/data-access';
 
@@ -19,7 +9,7 @@ import { AuthService } from '@tt/data-access';
   imports: [ReactiveFormsModule],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent {
   authService = inject(AuthService);
@@ -29,7 +19,7 @@ export class LoginPageComponent {
 
   form = new FormGroup({
     username: new FormControl<string | null>(null, Validators.required),
-    password: new FormControl<string | null>(null, Validators.required),
+    password: new FormControl<string | null>(null, Validators.required)
   });
 
   onSubmit() {

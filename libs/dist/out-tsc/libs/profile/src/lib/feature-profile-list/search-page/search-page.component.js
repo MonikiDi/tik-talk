@@ -30,7 +30,7 @@ let SearchPageComponent = class SearchPageComponent {
     numberCards = [
         { value: 5, label: '5' },
         { value: 10, label: '10' },
-        { value: 30, label: '30' },
+        { value: 30, label: '30' }
     ];
     selectedNumberCards = 10;
     ngOnInit() {
