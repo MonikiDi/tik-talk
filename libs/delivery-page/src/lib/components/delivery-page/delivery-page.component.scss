@@ -96,3 +96,16 @@
 //.ng-submitted {
 //  border: 10px solid red;
 //}
+
+.two-columns {
+  display: grid;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 12px;
+}
+
+.tt-input::-webkit-calendar-picker-indicator {
+  background: var(--primary-hover);
+  cursor: pointer;
+}

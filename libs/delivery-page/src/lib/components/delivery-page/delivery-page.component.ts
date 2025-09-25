@@ -36,6 +36,22 @@ function validateStartWith (forbiddenLetter: string): ValidatorFn {
   }
 }
 
+function validateDateRange({fromControlName, toControlName}: {fromControlName: string, toControlName: string}) {
+  return (control: AbstractControl)=>{
+    const fromControl = control.get(fromControlName);
+    const toControl = control.get(toControlName);
+
+    if(!fromControl || !toControl)  return null;
+
+    const fromDate = new Date(fromControl.value)
+    const toDate = new Date(toControl.value)
+
+    return fromDate && toDate && fromDate > toDate
+      ? {dateRange: {message: 'Дата начала не может быть позднее даты конца'}}
+      : null
+  }
+}
+
 @Component({
   selector: 'tt-delivery-page',
   standalone: true,
@@ -72,7 +88,11 @@ export class DeliveryPageComponent implements AfterViewInit {
     inn: new FormControl<string>(''),
     lastName: new FormControl<string>(''),
     addresses: new FormArray([getAddressForm()]),
-    feature: new FormRecord({})
+    feature: new FormRecord({}),
+    dateRange: new FormGroup({
+      from: new FormControl<string>(''),
+      to: new FormControl<string>(''),
+    }, validateDateRange({fromControlName: 'from', toControlName: 'to'})),
   });
 
   constructor() {

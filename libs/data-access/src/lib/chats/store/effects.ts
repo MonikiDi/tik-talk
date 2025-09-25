@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, tap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { ChatsService } from '../services/chats.service';
 import { chatsActions } from './actions';
 import { ProfileService } from '../../profile/services/profile.service';
@@ -52,8 +52,8 @@ export class ChatEffects {
                 userFrom: response,
                 message: data.message.data.message,
                 createdAt: data.message.data.created_at,
-                unreadMessages: 1,
-              },
+                unreadMessages: 1
+              }
             });
           })
         );
