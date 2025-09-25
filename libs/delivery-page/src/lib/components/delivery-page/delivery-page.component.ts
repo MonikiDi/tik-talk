@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  inject,
-  Renderer2,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AbstractControl,
@@ -13,14 +6,13 @@ import {
   FormControl,
   FormGroup,
   FormRecord,
-  ReactiveFormsModule, ValidationErrors,
+  ReactiveFormsModule,
   ValidatorFn,
   Validators
 } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Address, Feature, MockService } from '../../services/mock.service';
 import { Debounce } from '@tt/shared';
-import { ValidationError } from '@nx/angular/src/generators/ng-add/utilities';
 
 enum ReceiverType {
   PERSON = 'PERSON',
@@ -32,22 +24,24 @@ function getAddressForm(initialValue: Address = {}) {
     city: new FormControl<string>(initialValue.city ?? ''),
     street: new FormControl<string>(initialValue.street ?? ''),
     building: new FormControl<number | null>(initialValue.building ?? null),
-    apartment: new FormControl<number | null>(initialValue.apartment ?? null),
+    apartment: new FormControl<number | null>(initialValue.apartment ?? null)
   });
 }
 
-const validateStartWith: ValidatorFn = (control: AbstractControl):ValidationErrors | null => {
-  return control.value.startsWith('я')
-    ? { startsWith: 'Я - последняя буква в алфавите' }
-    : null;
-};
+function validateStartWith (forbiddenLetter: string): ValidatorFn {
+  return  (control: AbstractControl) => {
+    return control.value.startsWith(forbiddenLetter)
+      ? {starsWith: {message: `${forbiddenLetter} - последняя буква алфавита`}}
+      : null
+  }
+}
 
 @Component({
   selector: 'tt-delivery-page',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './delivery-page.component.html',
-  styleUrl: './delivery-page.component.scss',
+  styleUrl: './delivery-page.component.scss'
 })
 export class DeliveryPageComponent implements AfterViewInit {
   public hostElement = inject(ElementRef);
@@ -74,11 +68,11 @@ export class DeliveryPageComponent implements AfterViewInit {
   public form = new FormGroup({
     type: new FormControl<ReceiverType>(ReceiverType.PERSON),
     // name: new FormControl<string>({value: '', disabled: true}, Validators.required),
-    name: new FormControl<string>('', [Validators.required, validateStartWith]),
+    name: new FormControl<string>('', [Validators.required, validateStartWith('z')]),
     inn: new FormControl<string>(''),
     lastName: new FormControl<string>(''),
     addresses: new FormArray([getAddressForm()]),
-    feature: new FormRecord({}),
+    feature: new FormRecord({})
   });
 
   constructor() {
@@ -119,7 +113,7 @@ export class DeliveryPageComponent implements AfterViewInit {
           this.form.controls.inn.setValidators([
             Validators.required,
             Validators.minLength(10),
-            Validators.maxLength(10),
+            Validators.maxLength(10)
           ]);
         }
       });
@@ -163,7 +157,7 @@ export class DeliveryPageComponent implements AfterViewInit {
 
   deleteAddress(index: number) {
     this.form.controls.addresses.removeAt(index, {
-      emitEvent: false,
+      emitEvent: false
     });
   }
 
