@@ -1,1 +1,0 @@
-{"version":3,"file":"auth.interface.js","sourceRoot":"","sources":["../../../../../../../interfaces/src/lib/auth/auth.interface.ts"],"names":[],"mappings":"","sourcesContent":["export interface TokenResponse {\n  access_token: string;\n  refresh_token: string;\n}\n"]}

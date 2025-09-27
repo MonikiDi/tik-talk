@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../../../interfaces/src/lib/chats/index.ts"],"names":[],"mappings":"","sourcesContent":["import { Chat, LastMessageRes, Message } from './chats.interface';\n\nexport type {\n  Chat,\n  Message,\n  LastMessageRes\n}\n"]}

@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../../../shared/src/lib/directive/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,iBAAiB,CAAC;AAE/C,OAAO,EACL,YAAY,EACb,CAAA","sourcesContent":["import { DndDirective } from './dnd.directive';\n\nexport {\n  DndDirective\n}\n"]}

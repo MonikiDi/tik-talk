@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../../../chats/src/lib/ui/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,MAAM,yCAAyC,CAAC;AAEhF,OAAO,EACL,qBAAqB,EACtB,CAAA","sourcesContent":["import { MessageInputComponent } from './message-input/message-input.component';\n\nexport {\n  MessageInputComponent\n}\n"]}

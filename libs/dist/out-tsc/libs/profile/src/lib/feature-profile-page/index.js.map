@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../../../profile/src/lib/feature-profile-page/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,oBAAoB,EAAE,MAAM,uCAAuC,CAAC;AAE7E,OAAO,EACL,oBAAoB,EACrB,CAAA","sourcesContent":["import { ProfilePageComponent } from './profile-page/profile-page.component';\n\nexport {\n  ProfilePageComponent\n}\n"]}

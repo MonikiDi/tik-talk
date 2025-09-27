@@ -2,10 +2,7 @@
   "defaultBase": "master",
   "namedInputs": {
     "sharedGlobals": [],
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/tsconfig.spec.json",
@@ -21,21 +18,12 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ],
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"],
       "cache": true
     },
     "test": {
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/karma.conf.js"
-      ],
+      "inputs": ["default", "^production", "{workspaceRoot}/karma.conf.js"],
       "cache": true
     },
     "@nx/eslint:lint": {
@@ -49,11 +37,7 @@
     },
     "@nx/jest:jest": {
       "cache": true,
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ],
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
       "options": {
         "passWithNoTests": true
       },
@@ -63,9 +47,12 @@
           "codeCoverage": true
         }
       }
+    },
+    "ng": {
+      "cache": true
     }
   },
-  "nxCloudId": "68d4978b27d8f14217714a69",
+  "nxCloudId": "68d5d2eb21def868284e67ce",
   "generators": {
     "@nx/angular:library": {
       "linter": "eslint",

@@ -1,4 +1,0 @@
-import { CommentComponent } from './comment/comment.component';
-import { PostInputComponent } from './post-input/post-input.component';
-export { PostInputComponent, CommentComponent };
-//# sourceMappingURL=index.d.ts.map

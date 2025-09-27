@@ -1,8 +1,0 @@
-export declare const selectActiveChat: import("@ngrx/store").MemoizedSelector<Record<string, any>, import("@tt/interfaces/chats").Chat | undefined, (s1: string | null, s2: import("./store").ChatMap) => import("@tt/interfaces/chats").Chat | undefined>;
-export declare const selectLastMessageChatMap: import("@ngrx/store").MemoizedSelector<Record<string, any>, import("@tt/interfaces/chats").LastMessageRes[], (s1: import("./store").LastMessageChatMap) => import("@tt/interfaces/chats").LastMessageRes[]>;
-export declare const selectActiveChatId: import("@ngrx/store").MemoizedSelector<Record<string, any>, string | null, (s1: string | null) => string | null>;
-export declare const getChatBuId: (chatId: string) => import("@ngrx/store").MemoizedSelector<Record<string, any>, import("@tt/interfaces/chats").Chat, (s1: import("./store").ChatMap) => import("@tt/interfaces/chats").Chat>;
-export declare const getLastMessageId: (chatId: string) => import("@ngrx/store").MemoizedSelector<Record<string, any>, import("@tt/interfaces/chats").LastMessageRes, (s1: import("./store").LastMessageChatMap) => import("@tt/interfaces/chats").LastMessageRes>;
-export declare const selectUnread: import("@ngrx/store").MemoizedSelector<Record<string, any>, number, (s1: number) => number>;
-export declare const hasLastMessageById: (chatId: string) => import("@ngrx/store").MemoizedSelector<Record<string, any>, boolean, (s1: import("./store").LastMessageChatMap) => boolean>;
-//# sourceMappingURL=selectors.d.ts.map

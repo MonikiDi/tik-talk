@@ -1,4 +1,0 @@
-import { LayoutComponent } from './lib/layout/layout.component';
-import { SidebarComponent } from './lib/sidebar/sidebar.component';
-export { SidebarComponent, LayoutComponent, };
-//# sourceMappingURL=index.d.ts.map

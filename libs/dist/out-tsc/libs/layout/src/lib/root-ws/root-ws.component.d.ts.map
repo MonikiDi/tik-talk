@@ -1,1 +1,0 @@
-{"version":3,"file":"root-ws.component.d.ts","sourceRoot":"","sources":["../../../../../../../layout/src/lib/root-ws/root-ws.component.ts"],"names":[],"mappings":"AAAA,OAAO,EAKL,MAAM,EACP,MAAM,eAAe,CAAC;AAKvB,qBAQa,eAAgB,YAAW,MAAM;IAC5C,OAAO,CAAC,QAAQ,CAAC,WAAW,CAAwB;IACpD,OAAO,CAAC,QAAQ,CAAC,UAAU,CAAsB;IAEjD,QAAQ;CAMT"}

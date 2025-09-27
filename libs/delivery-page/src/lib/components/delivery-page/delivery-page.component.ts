@@ -28,28 +28,28 @@ function getAddressForm(initialValue: Address = {}) {
   });
 }
 
-function validateStartWith (forbiddenLetter: string): ValidatorFn {
-  return  (control: AbstractControl) => {
+function validateStartWith(forbiddenLetter: string): ValidatorFn {
+  return (control: AbstractControl) => {
     return control.value.startsWith(forbiddenLetter)
-      ? {starsWith: {message: `${forbiddenLetter} - последняя буква алфавита`}}
-      : null
-  }
+      ? { starsWith: { message: `${forbiddenLetter} - последняя буква алфавита` } }
+      : null;
+  };
 }
 
-function validateDateRange({fromControlName, toControlName}: {fromControlName: string, toControlName: string}) {
-  return (control: AbstractControl)=>{
+function validateDateRange({ fromControlName, toControlName }: { fromControlName: string, toControlName: string }) {
+  return (control: AbstractControl) => {
     const fromControl = control.get(fromControlName);
     const toControl = control.get(toControlName);
 
-    if(!fromControl || !toControl)  return null;
+    if (!fromControl || !toControl) return null;
 
-    const fromDate = new Date(fromControl.value)
-    const toDate = new Date(toControl.value)
+    const fromDate = new Date(fromControl.value);
+    const toDate = new Date(toControl.value);
 
     return fromDate && toDate && fromDate > toDate
-      ? {dateRange: {message: 'Дата начала не может быть позднее даты конца'}}
-      : null
-  }
+      ? { dateRange: { message: 'Дата начала не может быть позднее даты конца' } }
+      : null;
+  };
 }
 
 @Component({
@@ -91,8 +91,8 @@ export class DeliveryPageComponent implements AfterViewInit {
     feature: new FormRecord({}),
     dateRange: new FormGroup({
       from: new FormControl<string>(''),
-      to: new FormControl<string>(''),
-    }, validateDateRange({fromControlName: 'from', toControlName: 'to'})),
+      to: new FormControl<string>('')
+    }, validateDateRange({ fromControlName: 'from', toControlName: 'to' }))
   });
 
   constructor() {
