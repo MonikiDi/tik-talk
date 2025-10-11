@@ -18,9 +18,13 @@
     @if (form.controls.name.touched && form.controls.name.hasError('required')) {
       <small class="form-delivery__error">Это поле обязательно!</small>
     }
+
+    @if (form.controls.name.touched && form.controls.name.hasError('nameValid')) {
+      <small class="form-delivery__error">{{ form.controls.name.getError('nameValid')?.message }}</small>
+    }
   </div>
-  @if (form.controls.name.touched && form.controls.name.hasError('startsWitch')) {
-    <small class="form-delivery__error">{{ form.controls.name.getError('startsWitch')?.message }}</small>
+  @if (form.controls.name.touched && form.controls.name.hasError('startsWith')) {
+    <small class="form-delivery__error">{{ form.controls.name.getError('startsWith')?.message }}</small>
   }
 
   @if (form.controls.type.value === ReceiverType.LEGAL) {
@@ -44,7 +48,7 @@
   <div class="two-columns" formGroupName="dateRange">
     <label class="tt-control-label mb8">
       От
-      <input type="date" class="tt-input" placeholder="Введите фамилию" formControlName="form">
+      <input type="date" class="tt-input" placeholder="Введите фамилию" formControlName="from">
     </label>
 
     <label class="tt-control-label mb8">

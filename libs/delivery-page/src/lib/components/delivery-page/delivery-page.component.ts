@@ -7,12 +7,14 @@ import {
   FormGroup,
   FormRecord,
   ReactiveFormsModule,
+  ValidationErrors,
   ValidatorFn,
   Validators
 } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Address, Feature, MockService } from '../../services/mock.service';
 import { Debounce } from '@tt/shared';
+import { NameValidatorService } from '@tt/delivery-page';
 
 enum ReceiverType {
   PERSON = 'PERSON',
@@ -29,9 +31,9 @@ function getAddressForm(initialValue: Address = {}) {
 }
 
 function validateStartWith(forbiddenLetter: string): ValidatorFn {
-  return (control: AbstractControl) => {
+  return (control: AbstractControl): ValidationErrors | null => {
     return control.value.startsWith(forbiddenLetter)
-      ? { starsWith: { message: `${forbiddenLetter} - последняя буква алфавита` } }
+      ? { startsWith: { message: `${forbiddenLetter} - последняя буква алфавита` } }
       : null;
   };
 }
@@ -46,9 +48,12 @@ function validateDateRange({ fromControlName, toControlName }: { fromControlName
     const fromDate = new Date(fromControl.value);
     const toDate = new Date(toControl.value);
 
-    return fromDate && toDate && fromDate > toDate
-      ? { dateRange: { message: 'Дата начала не может быть позднее даты конца' } }
-      : null;
+    if (fromDate && toDate && fromDate > toDate) {
+      toControl.setErrors({ dateRange: { message: 'Дата начала не может быть позднее даты конца' } });
+      return { dateRange: { message: 'Дата начала не может быть позднее даты конца' } };
+    }
+
+    return null;
   };
 }
 
@@ -65,6 +70,7 @@ export class DeliveryPageComponent implements AfterViewInit {
   ReceiverType = ReceiverType;
 
   mockService = inject(MockService);
+  nameValidator = inject(NameValidatorService);
   features: Feature[] = [];
 
   // #fb = inject(FormBuilder);
@@ -84,7 +90,15 @@ export class DeliveryPageComponent implements AfterViewInit {
   public form = new FormGroup({
     type: new FormControl<ReceiverType>(ReceiverType.PERSON),
     // name: new FormControl<string>({value: '', disabled: true}, Validators.required),
-    name: new FormControl<string>('', [Validators.required, validateStartWith('z')]),
+    // name: new FormControl<string>('', {
+    //   validators: [Validators.required, validateStartWith('я')],
+    //   updateOn: 'change'
+    // }),
+    name: new FormControl<string>('', {
+      validators: [Validators.required],
+      asyncValidators: [this.nameValidator.validate.bind(this.nameValidator)],
+      updateOn: 'blur'
+    }),
     inn: new FormControl<string>(''),
     lastName: new FormControl<string>(''),
     addresses: new FormArray([getAddressForm()]),

@@ -4,6 +4,7 @@ import { InfiniteScrollTriggerComponent } from './infinite-scroll-trigger/infini
 import { PaginationPageComponent } from './pagination-page/pagination-page.component';
 import { SvgIconComponent } from './svg-icon/svg-icon.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { TtInputComponent } from './tt-input/tt-input.component';
 
 
 export {
@@ -12,5 +13,6 @@ export {
   SvgIconComponent,
   AboutMeComponent,
   TasksComponent,
-  InfiniteScrollTriggerComponent
+  InfiniteScrollTriggerComponent,
+  TtInputComponent
 }

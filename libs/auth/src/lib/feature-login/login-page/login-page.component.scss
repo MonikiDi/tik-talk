@@ -8,6 +8,9 @@
 
 .login-form {
   width: 440px;
+  &__title {
+    margin-bottom: 60px;
+  }
 }
 
 .login-form,

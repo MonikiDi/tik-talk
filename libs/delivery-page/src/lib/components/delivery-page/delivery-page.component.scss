@@ -93,9 +93,9 @@
   color: var(--red-primary);
 }
 
-//.ng-submitted {
-//  border: 10px solid red;
-//}
+.ng-submitted {
+  border: 10px solid forestgreen;
+}
 
 .two-columns {
   display: grid;
@@ -108,4 +108,8 @@
 .tt-input::-webkit-calendar-picker-indicator {
   background: var(--primary-hover);
   cursor: pointer;
+}
+
+.tt-input.ng-pending {
+  border: 2px dashed var(--primary-soft);
 }
