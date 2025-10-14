@@ -10,7 +10,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { AvatarUploadComponent } from '../../ui/avatar-upload/avatar-upload.component';
-import { TasksComponent } from '@tt/common-ui';
+import { StackInputComponent, TasksComponent } from '@tt/common-ui';
 import { AboutMeComponent } from '@tt/common-ui';
 import { Store } from '@ngrx/store';
 import { profileActions, selectProfileMe } from '@tt/data-access';
@@ -26,6 +26,7 @@ import { profileActions, selectProfileMe } from '@tt/data-access';
     AvatarUploadComponent,
     TasksComponent,
     AboutMeComponent,
+    StackInputComponent
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss',
@@ -44,16 +45,16 @@ export class SettingsPageComponent {
     username: [{ value: '', disabled: true }, Validators.required],
     description: [''],
     city: [''],
-    stack: [''],
+    stack: [{value: [''], disabled: false}],
   });
 
   constructor() {
     effect(() => {
       this.form.patchValue({
-        ...this.store.selectSignal(selectProfileMe)(),
-        stack: this.mergeStack(
-          this.store.selectSignal(selectProfileMe)()?.stack
-        ),
+        ...this.store.selectSignal(selectProfileMe)()
+        // stack: this.mergeStack(
+        //   this.store.selectSignal(selectProfileMe)()?.stack
+        // ),
       });
     });
   }
@@ -77,22 +78,23 @@ export class SettingsPageComponent {
         username: this.form.value.username || undefined,
         description: this.form.value.description || undefined,
         city: this.form.value.city || undefined,
-        stack: this.splitStack(this.form.value.stack),
+        stack: this.form.value.stack || undefined,
+        // stack: this.splitStack(this.form.value.stack),
       })
     );
   }
 
-  splitStack(stack: string | null | string[] | undefined): string[] {
-    if (!stack) return [];
-    if (Array.isArray(stack)) return stack;
-
-    return stack.split(',');
-  }
-
-  mergeStack(stack: string | null | string[] | undefined) {
-    if (!stack) return '';
-    if (Array.isArray(stack)) return stack.join(',');
-
-    return stack;
-  }
+  // splitStack(stack: string | null | string[] | undefined): string[] {
+  //   if (!stack) return [];
+  //   if (Array.isArray(stack)) return stack;
+  //
+  //   return stack.split(',');
+  // }
+  //
+  // mergeStack(stack: string | null | string[] | undefined) {
+  //   if (!stack) return '';
+  //   if (Array.isArray(stack)) return stack.join(',');
+  //
+  //   return stack;
+  // }
 }

@@ -5,6 +5,7 @@ import { PaginationPageComponent } from './pagination-page/pagination-page.compo
 import { SvgIconComponent } from './svg-icon/svg-icon.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TtInputComponent } from './tt-input/tt-input.component';
+import { StackInputComponent } from './stack-input/stack-input.component';
 
 
 export {
@@ -14,5 +15,6 @@ export {
   AboutMeComponent,
   TasksComponent,
   InfiniteScrollTriggerComponent,
-  TtInputComponent
+  TtInputComponent,
+  StackInputComponent
 }
