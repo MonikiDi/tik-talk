@@ -4,3 +4,4 @@ export * from './lib/subscribers';
 export * from './lib/subscriptions';
 export * from './lib/chats';
 export * from './lib/posts';
+export * from './lib/data';

@@ -25,10 +25,6 @@
         <input type="text" class="tt-form-input" formControlName="username" />
       </label>
       <label class="tt-form-label">
-        <span class="tt-form-label__text">Город</span>
-        <input class="tt-form-input" formControlName="city" />
-      </label>
-      <label class="tt-form-label">
         <span class="tt-form-label__text">О себе</span>
         <textarea
           class="tt-form-input tt-textarea"
@@ -42,6 +38,10 @@
       <label class="tt-form-label">
         <span class="tt-form-label__text">Навыки (стэк)</span>
         <app-stack-input formControlName="stack"></app-stack-input>
+      </label>
+      <label class="tt-form-label">
+        <span class="tt-form-label__text">Поиск</span>
+        <app-address-input formControlName="city"></app-address-input>
       </label>
     </div>
     <div class="profile-form__wrapper-btn">

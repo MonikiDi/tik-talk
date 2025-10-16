@@ -2,18 +2,21 @@ import {
   ChangeDetectionStrategy,
   Component,
   effect,
+  ElementRef,
+  HostListener,
   inject,
-  ViewChild,
+  Renderer2,
+  ViewChild
 } from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { AvatarUploadComponent } from '../../ui/avatar-upload/avatar-upload.component';
-import { StackInputComponent, TasksComponent } from '@tt/common-ui';
-import { AboutMeComponent } from '@tt/common-ui';
+import { AboutMeComponent, AddressInputComponent, StackInputComponent, TasksComponent } from '@tt/common-ui';
 import { Store } from '@ngrx/store';
 import { profileActions, selectProfileMe } from '@tt/data-access';
+import { Debounce } from '@tt/shared';
 
 @Component({
   selector: 'app-settings-page',
@@ -26,15 +29,19 @@ import { profileActions, selectProfileMe } from '@tt/data-access';
     AvatarUploadComponent,
     TasksComponent,
     AboutMeComponent,
-    StackInputComponent
+    StackInputComponent,
+    AddressInputComponent
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsPageComponent {
+  hostElement = inject(ElementRef);
   fb = inject(FormBuilder);
   store = inject(Store);
+  r2 = inject(Renderer2);
+
   profile$ = this.store.select(selectProfileMe);
 
   @ViewChild(AvatarUploadComponent) avatarUploader!: AvatarUploadComponent;
@@ -45,7 +52,7 @@ export class SettingsPageComponent {
     username: [{ value: '', disabled: true }, Validators.required],
     description: [''],
     city: [''],
-    stack: [{value: [''], disabled: false}],
+    stack: [{ value: [''], disabled: false }]
   });
 
   constructor() {
@@ -78,7 +85,7 @@ export class SettingsPageComponent {
         username: this.form.value.username || undefined,
         description: this.form.value.description || undefined,
         city: this.form.value.city || undefined,
-        stack: this.form.value.stack || undefined,
+        stack: this.form.value.stack || undefined
         // stack: this.splitStack(this.form.value.stack),
       })
     );
@@ -97,4 +104,16 @@ export class SettingsPageComponent {
   //
   //   return stack;
   // }
+
+  @Debounce(20)
+  @HostListener('window: resize')
+  onWindowResize() {
+    this.resizeFeed();
+  }
+
+  public resizeFeed() {
+    const { top } = this.hostElement.nativeElement.getBoundingClientRect();
+    const height = window.innerHeight - top - 48;
+    this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`);
+  }
 }

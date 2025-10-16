@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, forwardRef, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  forwardRef,
+  inject,
+  input,
+  signal
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -19,14 +27,20 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TtInputComponent implements ControlValueAccessor {
+  cdr = inject(ChangeDetectorRef);
+
   type = input<'text' | 'password'>('text');
   placeholder = input<string>();
 
-  disabled = signal<boolean>(false)
+  disabled = signal<boolean>(false);
 
-  onChange: any
-  onTouched: any
   value: string | null = null;
+
+  onChange(value: string | null): void {
+  }
+
+  onTouched() {
+  }
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -37,7 +51,8 @@ export class TtInputComponent implements ControlValueAccessor {
   }
 
   writeValue(val: string | null): void {
-    this.value = val
+    this.value = val;
+    this.cdr.markForCheck();
   }
 
   onModelChange(val: string | null): void {
@@ -47,4 +62,5 @@ export class TtInputComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean) {
     this.disabled.set(isDisabled);
   }
+
 }

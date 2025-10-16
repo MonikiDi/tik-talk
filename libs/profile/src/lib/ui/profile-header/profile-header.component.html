@@ -3,6 +3,6 @@
 <div class="username-and-name">
   <h1 class="h4">{{ profile.firstName }} {{ profile.lastName }}</h1>
   <span class="regular">{{ profile.username }}</span>
-  <span class="regular">{{ profile.city }}</span>
+  <span class="regular">{{ JSON.parse(profile.city).city }}</span>
 </div>
 }

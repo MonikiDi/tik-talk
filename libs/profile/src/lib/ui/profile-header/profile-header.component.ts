@@ -12,4 +12,5 @@ import { Profile } from '@tt/interfaces/profile';
 })
 export class ProfileHeaderComponent {
   profile = input<Profile>();
+  protected readonly JSON = JSON;
 }

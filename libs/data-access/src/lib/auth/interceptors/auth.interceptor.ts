@@ -1,22 +1,14 @@
-import {
-  HttpHandlerFn,
-  HttpInterceptorFn,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
-import {
-  BehaviorSubject,
-  catchError,
-  filter,
-  switchMap,
-  tap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, catchError, filter, switchMap, tap, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 let isRefreshing$ = new BehaviorSubject<boolean>(false);
 
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
+  if(req.url.includes('dadata.ru')){
+    return next(req)
+  }
   const authService = inject(AuthService);
   const token = authService.token;
 
@@ -67,7 +59,7 @@ const refreshProceed = (
 const addToken = (req: HttpRequest<any>, token: string) => {
   return req.clone({
     setHeaders: {
-      Authorization: `Bearer ${token}`,
-    },
+      Authorization: `Bearer ${token}`
+    }
   });
 };
