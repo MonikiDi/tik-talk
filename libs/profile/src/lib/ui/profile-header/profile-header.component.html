@@ -3,6 +3,10 @@
 <div class="username-and-name">
   <h1 class="h4">{{ profile.firstName }} {{ profile.lastName }}</h1>
   <span class="regular">{{ profile.username }}</span>
+  @if (profile.city) { @if (isJsonString(profile.city)) {
+  <span class="regular"> {{ addressMePrint }} </span>
+  } @else {
   <span class="regular">{{ profile.city }}</span>
+  } }
 </div>
 }
